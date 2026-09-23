@@ -1,0 +1,26 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+
+const root = new URL('../', import.meta.url);
+const html = readFileSync(new URL('index.html', root), 'utf8');
+const coreSrc = html.split('<script id="core">')[1].split('</script>')[0];
+const mod = {};
+new Function('module', coreSrc)(mod);
+const Core = mod.exports;
+
+const sampleLog = readFileSync(new URL('Esempio COmbat log/2026-09-23T13.26.58.log', root), 'utf8');
+const lines = sampleLog.split('\n');
+
+const replay = (text) => {
+  const parsed = Core.parseLog(text);
+  return { parsed, ...Core.buildSnapshots(parsed, { debug: true }) };
+};
+
+test('il log di esempio si ricostruisce senza incoerenze', () => {
+  const { parsed, mismatches } = replay(sampleLog);
+  assert.deepEqual(mismatches, []);
+  assert.equal(parsed.turns.length, 17);
+  assert.equal(parsed.moveCount, 641);
+  assert.equal(parsed.steps.reduce((n, s) => n + s.moves.length, 0), 641);
+});
