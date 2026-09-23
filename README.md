@@ -22,6 +22,7 @@ Riproduce il tavolo di OPTCGSim: mano dell'avversario in alto, mano tua in basso
 
 ## File
 - `index.html` — tutto il programma (parser del log, motore di stato, interfaccia).
+- `don.svg` — skin della carta DON!! (disegnata in SVG, nessuna CDN la ospita).
 - `cards_meta.js` — nome / costo / potenza / counter per ogni carta (tooltip al passaggio del mouse). Generato da `cards_meta.json` del vecchio programma; se manca, funziona lo stesso.
 - `Esempio COmbat log/` — un log di prova.
 
