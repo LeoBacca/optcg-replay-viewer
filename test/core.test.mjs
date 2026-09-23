@@ -33,3 +33,14 @@ test('Reveal and Draw in grassetto viene riconosciuto e prende la sua mossa', ()
   assert.equal(first.target.id, 'OP06-038');
   assert.deepEqual(first.moves.map((m) => [m.fz, m.tz, m.id]), [[0, 1, 'OP06-038']]);
 });
+
+test('il log di esempio non lascia righe non riconosciute', () => {
+  const { parsed } = replay(sampleLog);
+  assert.deepEqual(parsed.steps.filter((s) => s.kind === 'unknown').map((s) => s.line), []);
+});
+
+test('il Trash per sostituire un personaggio ha un suo step', () => {
+  const { parsed } = replay(sampleLog);
+  const trash = parsed.steps.filter((s) => s.kind === 'trash').map((s) => [s.line, s.cards[0].id]);
+  assert.deepEqual(trash, [[1724, 'ST32-001'], [1739, 'OP12-034']]);
+});

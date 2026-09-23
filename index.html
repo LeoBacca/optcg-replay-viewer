@@ -512,7 +512,7 @@ const Core = (() => {
       const cards = refs(body);
 
       // drop / assertions
-      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(raw)) || /Downloaded the Combat Log/.test(raw)) continue;
+      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(body)) || /Downloaded the Combat Log/.test(raw)) continue;
       if (actor && /^(Hand|Board|Trash|Life|Hand before Mulligan|Hand after Mulligan): /.test(body)) {
         const kind = body.split(':')[0];
         const val = body.slice(kind.length + 1).trim();
@@ -537,6 +537,7 @@ const Core = (() => {
       }
       else if (/^Draw \d+ Don$/.test(body)) { s = newStep('drawDon', player, text, { delay: 0.6 }); }
       else if (/^Deploy /.test(body)) { s = newStep('deploy', player, text, { cards, delay: 1 }); }
+      else if (/^Trash /.test(body) && cards.length) { s = newStep('trash', player, text, { cards, delay: 0.6 }); }
       else if (/^Mulligan$/.test(body)) { s = newStep('mulligan', player, text, { delay: 0.6 }); }
       else if (/^End Turn$/.test(body)) { turnEnded = true; s = newStep('endTurn', player, text, { delay: 0.8 }); }
       else if (/ attacking /.test(body) && cards.length >= 2) { s = newStep('attack', player, text, { cards, delay: 1 }); }
