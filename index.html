@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPTCG Replay</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1f232c; --line:#2a2f3a; --text:#e6e8ee; --muted:#8b93a5;
+    --accent:#f5b73a; --you:#4aa3ff; --opp:#ff5f6d; --ok:#48d28c; --red:#e5322d;
+    --ch:clamp(54px, calc((100vh - 190px) / 6.05), 240px); --cw:calc(var(--ch) * 0.716);
+    --hch:calc(var(--ch) * 1.15); --hcw:calc(var(--hch) * 0.716);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,Segoe UI,Roboto,sans-serif}
+  button,select{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);color:#1a1200;border-color:var(--accent);font-weight:600;min-width:96px}
+  button.on{border-color:var(--ok);color:var(--ok)}
+  #app{display:grid;grid-template-columns:1fr auto;grid-template-rows:1fr auto;height:100%;min-height:0;
+       background:
+         radial-gradient(ellipse at 30% 20%, #c8823e 0%, transparent 55%),
+         radial-gradient(ellipse at 80% 80%, #8a4a1c 0%, transparent 55%),
+         repeating-linear-gradient(100deg, #a9642a 0 18px, #9a5a26 18px 40px, #b06d30 40px 58px);}
+
+  /* ---------- colonna sinistra: mani + log ---------- */
+  #left{display:flex;flex-direction:column;justify-content:space-between;min-width:0;min-height:0;padding:10px 6px 10px 14px;gap:10px}
+  .hand{display:flex;flex-wrap:wrap;gap:5px;min-width:0;align-content:flex-start;justify-content:center;max-width:calc(var(--hcw) * 6 + 30px);margin:0 auto;width:100%}
+  #you-hand{align-content:flex-end}
+  .hand .card,.hand .back{width:var(--hcw);height:var(--hch)}
+  .hand .card:hover{z-index:5;transform:scale(1.8)}
+  #opp-hand .card:hover{transform-origin:top center}
+  #you-hand .card:hover{transform-origin:bottom center}
+  .hand .hcnt{flex-basis:100%;text-align:center;color:#f7e9d4;font-weight:700;text-shadow:0 1px 3px #000}
+  .handback{grid-column:1/-1;display:flex;align-items:center;gap:6px;color:#f7e9d4;font-weight:600;text-shadow:0 1px 3px #000}
+  .handback .back{width:var(--hcw);height:var(--hch);margin-right:calc(var(--hcw) * -0.6)}
+  .handback .back:last-of-type{margin-right:8px}
+  #mid{position:absolute;right:14px;top:10px;bottom:10px;width:min(360px,40vw);display:none;flex-direction:column;min-height:0;background:#1a120bee;border-radius:8px;z-index:8;box-shadow:0 6px 24px #000a}
+  #mid.show{display:flex}
+  #mid header{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #0004}
+  #mid header h1{font-size:14px;margin:0;color:#f7e9d4}
+  #events{list-style:none;margin:0;padding:6px 0;overflow:auto;flex:1;min-height:0}
+  #events li{padding:3px 10px;cursor:pointer;border-left:3px solid transparent;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+  #events li:hover{background:#0003}
+  #events li.cur{background:#0006;color:#fff;border-left-color:var(--accent)}
+  #events li.turn{color:#fff;font-weight:700;background:#0005;margin-top:4px;position:sticky;top:0;z-index:1}
+  #events li.cur.p1{border-left-color:var(--you)} #events li.cur.p2{border-left-color:var(--opp)}
+  #events li .k{display:inline-block;width:14px;opacity:.7}
+  #debug{font:12px/1.4 ui-monospace,Consolas,monospace;padding:8px 12px;border-top:1px solid #0004;max-height:35%;overflow:auto;display:none;white-space:pre-wrap;color:#e6d8c3}
+  #debug.show{display:block}
+  #logsel{max-width:140px}
+
+  /* ---------- tappetino ---------- */
+  #board{position:relative;min-height:0;padding:8px 14px 8px 4px;display:flex}
+  #mat{display:grid;grid-template-rows:1fr 1fr;gap:6px;min-height:0;width:calc(var(--ch) * 5.6);border-radius:10px;overflow:hidden;box-shadow:0 6px 24px #0008;
+       background:linear-gradient(180deg,#e8c9c6 0%,#d9b3b0 49%,#cfe3d3 51%,#bcd8c4 100%)}
+  .half{display:grid;gap:6px;padding:8px 12px;min-height:0;overflow:hidden;
+        grid-template-columns:calc(var(--ch) * 0.68) 1fr var(--ch) var(--cw) var(--cw);
+        grid-template-rows:minmax(0,1fr) auto auto;
+        grid-template-areas:
+          "life chars chars  chars chars"
+          "life name  leader stage deck"
+          "dond cost  cost   cost  trash";}
+  .half.opp{transform:rotate(180deg)}
+  .half.you{background:radial-gradient(ellipse at 50% 60%, #6f9e7a55, transparent 70%)}
+  .half.opp{background:radial-gradient(ellipse at 50% 60%, #b55b5555, transparent 70%)}
+  .area{position:relative;border-radius:10px;background:#2f6b45cc;border:2px solid #ffffff55;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px;min-height:calc(var(--ch) + 8px)}
+  .half.opp .area{background:#8a3b3ccc}
+  .area::before{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 clamp(14px,2.2vw,30px)/1 Impact,'Arial Black',sans-serif;letter-spacing:.04em;color:#ffffffcc;text-transform:uppercase;text-shadow:0 2px 6px #0008;pointer-events:none}
+  .area.small{min-height:auto;padding:4px}
+  .area.small::before{font-size:clamp(9px,1vw,13px)}
+  .a-chars{grid-area:chars;padding:6px 14px;z-index:3}
+  .a-chars .card{margin:0 4px}
+  .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 4px)}
+  .a-leader{grid-area:leader;background:transparent;border:none;min-height:auto;padding:0;z-index:3}
+  .a-stage{grid-area:stage}
+  .a-deck{grid-area:deck;background:transparent;border:none;padding:0;min-height:auto}
+  .a-trash{grid-area:trash;cursor:pointer;padding:2px}
+  .a-cost{grid-area:cost;justify-content:flex-start;flex-wrap:wrap;padding:4px 10px;gap:4px}
+  .a-dond{grid-area:dond;background:transparent;border:none;padding:0;min-height:auto}
+  .a-life{grid-area:life;background:transparent;border:none;flex-direction:column;justify-content:center;gap:0;padding:0}
+  .a-name{grid-area:name;color:#1d2b22;font-weight:800;font-size:clamp(11px,1.1vw,15px);line-height:1.2;text-align:center;display:flex;flex-direction:column;justify-content:center;text-shadow:0 1px 0 #fff8}
+  .half.opp .a-name{transform:rotate(180deg)}
+  .a-name small{font-weight:600;opacity:.8}
+  .a-name .turn{color:#8a2a1a}
+
+  .card{width:var(--cw);height:var(--ch);border-radius:5px;background:#2b3040;position:relative;flex:none;
+        transition:transform .22s ease, box-shadow .2s;box-shadow:0 2px 6px #0008}
+  .card img{width:100%;height:100%;object-fit:cover;border-radius:5px;display:block}
+  .card.noimg{display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;padding:4px;color:var(--text);background:#3a4058}
+  .card.rested{transform:rotate(90deg)}
+  .card.rested:hover{transform:rotate(90deg)}
+  .card{isolation:isolate}
+  .card .don{display:none}
+  .card .dons{position:absolute;left:0;right:0;top:0;bottom:0;z-index:-1;pointer-events:none}
+  .card.rested .dons{transform:rotate(-90deg);left:calc((var(--cw) - var(--ch)) / 2);right:auto;width:var(--ch);top:calc((var(--ch) - var(--cw)) / 2);bottom:auto;height:var(--cw)}
+  .a-chars .card{z-index:1}
+  .a-chars .card.attacking,.a-chars .card.defending{z-index:2}
+  .card .dcard{position:absolute;left:50%;width:74%;height:62%;bottom:0;margin-left:-37%;border-radius:4px;background:#111;border:2px solid #eee;color:#fff;font:900 10px/1 Impact,"Arial Black",sans-serif;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;box-shadow:0 2px 5px #000a;transition:transform .35s ease;transform:translateY(calc(var(--k) * 14px + 12px))}
+  .card .dcard.in{animation:donin .45s ease}
+  @keyframes donin{from{transform:translateY(0);opacity:0}to{opacity:1}}
+  .card .pw{position:absolute;left:0;right:0;bottom:-2px;text-align:center;font-size:12px;font-weight:700;background:#000c;color:#fff;border-radius:0 0 5px 5px;padding:1px 0;pointer-events:none;display:none;z-index:2}
+  .card .pw.show{display:block}
+  .half.opp .card .pw{transform:rotate(180deg)}
+  .half.opp .card .pw{bottom:auto;top:-2px;border-radius:5px 5px 0 0}
+  .card.attacking{box-shadow:0 0 0 3px var(--red),0 0 18px var(--red)}
+  .card.defending{box-shadow:0 0 0 3px var(--accent),0 0 18px var(--accent)}
+  .card.flash{animation:flash .7s ease}
+  @keyframes flash{0%{filter:brightness(1)}30%{filter:brightness(2.2) saturate(0)}100%{filter:brightness(1)}}
+  .card .tip{display:none}
+  .card:hover .tip{display:block;position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:#000e;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;white-space:nowrap;z-index:20;pointer-events:none;color:#fff}
+  .half.opp .card:hover .tip{transform:translateX(-50%) rotate(180deg);bottom:auto;top:calc(100% + 6px)}
+
+  /* dorsi */
+  .back{width:var(--cw);height:var(--ch);border-radius:6px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;
+        background:radial-gradient(circle at 50% 45%, #2a2f6e 0 22%, #1b1f4e 23% 26%, #23285f 27% 100%);border:2px solid #d8b562;box-shadow:0 2px 6px #0008}
+  .back::after{content:'';position:absolute;width:44%;height:32%;border:2px solid #d8b562;border-radius:50%;opacity:.7}
+  .back .n{font-size:clamp(14px,1.6vw,24px);font-weight:900;color:#fff;text-shadow:0 1px 4px #000;z-index:1;background:#000a;border-radius:6px;padding:0 6px}
+  .half.opp .n{transform:rotate(180deg)}
+  .pile{position:relative}
+  .pile .back{position:absolute;left:0;top:0}
+  .pile{width:calc(var(--cw) + 8px);height:calc(var(--ch) + 8px)}
+  .lifecard{width:calc(var(--ch) * 0.62);height:calc(var(--cw) * 0.62);border-radius:5px;background:radial-gradient(circle at 50% 50%, #2a2f6e 0 22%, #1b1f4e 23% 26%, #23285f 27% 100%);border:2px solid #d8b562;margin-top:calc(var(--cw) * -0.38);box-shadow:0 -2px 6px #0007;flex:none}
+  .lifecard:first-child{margin-top:0}
+  .lifecnt{font-weight:900;color:#fff;background:#000a;border-radius:6px;padding:0 8px;margin-top:8px;font-size:clamp(13px,1.4vw,20px)}
+  .doncard{width:calc(var(--cw) * 0.62);height:calc(var(--ch) * 0.62);border-radius:4px;background:#111;border:2px solid #eee;color:#fff;font:900 clamp(9px,1vw,14px)/1 Impact,'Arial Black',sans-serif;display:flex;align-items:center;justify-content:center;flex:none;transition:transform .25s;box-shadow:0 2px 4px #0008;letter-spacing:.02em}
+  .doncard.r{transform:rotate(90deg);margin:0 calc(var(--ch) * 0.07);opacity:.75}
+  .dond{width:calc(var(--cw) * 0.62);height:calc(var(--ch) * 0.62);border-radius:4px;background:repeating-linear-gradient(135deg,#f4f4f4 0 5px,#ddd 5px 10px);border:2px solid #333;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 #bbb,4px 4px 0 #999}
+  .dond .n{color:#111;background:#fff9;font-size:14px;text-shadow:none}
+  .cnt{position:absolute;right:4px;bottom:2px;font-weight:800;color:#fff;background:#000a;border-radius:5px;padding:0 6px;font-size:12px;z-index:2}
+  .half.opp .cnt{transform:rotate(180deg)}
+
+  #combat{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#000c;border:1px solid #fff4;border-radius:8px;padding:6px 14px;font-weight:700;display:none;gap:14px;align-items:center;z-index:6;white-space:nowrap}
+  #combat.show{display:flex}
+  #combat .a{color:var(--red)} #combat .d{color:var(--accent)} #combat .res{color:var(--ok)}
+  #combat .buff{font-weight:400;color:#ccc;font-size:12px}
+  #arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+  #arrows path{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 2px 3px #0009)}
+  #arrows .head{fill:var(--red);filter:drop-shadow(0 2px 3px #0009)}
+
+  /* barra */
+  #bar{grid-column:1/3;background:#1a120bdd;border-top:1px solid #0006;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  #bar input[type=range]{flex:1 1 140px;min-width:100px}
+  #pos{font-variant-numeric:tabular-nums;color:#d8c8b0;min-width:90px;text-align:center}
+  #step-text{color:#fff;flex:1 1 200px;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .kbd{font-size:11px;color:var(--muted)}
+
+  #drop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#d8c8b0;text-align:center;padding:30px;background:#000a;z-index:10;backdrop-filter:blur(3px)}
+  #drop h2{color:#fff;margin:0}
+  #drop.hidden{display:none}
+  #drop .box{border:2px dashed #fff5;border-radius:14px;padding:30px 50px;max-width:620px;background:#1a120bee}
+  #drop.over .box{border-color:var(--accent);background:#f5b73a22}
+  #drop label{color:var(--accent);cursor:pointer;text-decoration:underline}
+  #progress{color:#fff}
+  #loglist{list-style:none;margin:14px 0;padding:0;max-height:40vh;overflow:auto;text-align:left;min-width:420px}
+  #loglist li{padding:7px 10px;border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;color:#fff}
+  #loglist li:hover{background:#fff2}
+  #loglist li span{color:#d8c8b0;font-size:12px;white-space:nowrap}
+  #loglist li.empty{color:var(--muted);cursor:default}
+  dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;max-width:80vw}
+  dialog::backdrop{background:#0009}
+  dialog .grid{display:flex;flex-wrap:wrap;gap:8px;max-height:70vh;overflow:auto;padding:4px}
+  dialog .grid .card{width:var(--hcw);height:var(--hch)}
+  dialog h3{margin:0 0 10px}
+  
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="left">
+    <div class="hand" id="opp-hand"></div>
+    <div class="hand" id="you-hand"></div>
+  </div>
+  <main id="board">
+    <div id="mid">
+      <header><h1>Log partita</h1><span><button id="btn-debug" title="Verifiche di coerenza">Debug</button> <button id="btn-log-close">✕</button></span></header>
+      <ul id="events"></ul>
+      <pre id="debug"></pre>
+    </div>
+    <div id="drop">
+      <div class="box">
+        <h2>Replay OPTCGSim</h2>
+        <p><button id="btn-folder" class="primary">📁 Scegli la cartella dei log</button> <button id="btn-refolder" hidden>↻ Riapri <span id="folder-name"></span></button></p>
+        <ul id="loglist"></ul>
+        <p class="kbd">oppure trascina qui un file .log, o <label for="file">scegline uno</label></p>
+        <p id="progress"></p>
+      </div>
+      <p class="kbd">Spazio = play/pausa · ← → = mossa indietro/avanti · H = mano avversario · Home/End</p>
+    </div>
+    <input type="file" id="file" accept=".log,.txt" hidden>
+
+    <div id="mat">
+      <div class="half opp" id="opp-half"></div>
+      <div class="half you" id="you-half"></div>
+    </div>
+    <svg id="arrows"></svg>
+    <div id="combat"></div>
+  </main>
+
+  <footer id="bar">
+    <button id="btn-prev" title="Mossa precedente (←)">◀ Prec</button>
+    <button id="btn-play" class="primary" title="Play/Pausa (spazio)">▶ Play</button>
+    <button id="btn-next" title="Mossa successiva (→)">Succ ▶</button>
+    <select id="speed" title="Velocità"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select>
+    <select id="turns" title="Vai al turno"></select>
+    <input type="range" id="scrub" min="0" max="0" value="0">
+    <span id="pos">0 / 0</span>
+    <span id="step-text"></span>
+    <button id="btn-hand" title="Mostra/nascondi mano avversario (H)">👁 Mano avv</button>
+    <button id="btn-log" title="Mostra/nascondi il log (L)">Log</button>
+    <select id="logsel" title="Altri log della cartella" hidden></select>
+    <button id="btn-open" title="Apri un altro log">Apri log</button>
+  </footer>
+</div>
+
+<dialog id="dlg"><h3 id="dlg-title"></h3><div class="grid" id="dlg-grid"></div><p style="text-align:right;margin:10px 0 0"><button id="dlg-close">Chiudi</button></p></dialog>
+
+<script src="cards_meta.js"></script>
+
+<!-- ===================== CORE: parser + engine (testabile anche in node) ===================== -->
+<script id="core">
+const Core = (() => {
+  'use strict';
+  const REF_G = /(.+?) \["([A-Za-z0-9\-_]+)">\2\]/g;          // Name ["ID">ID]
+  const REF_ONE = /([^:\[\]]+?) \["([A-Za-z0-9\-_]+)">\2\]/;
+  const MOVE = /^RZ1\|(\d+)\|([12])\|([^|]+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([01])\|([01])\|([01])/;
+  const CHK  = /^RZ1\|CHK\|(\d+)\|([12])\|(.*)$/;
+  const ACTOR = /^\[([^\]]+)\] ?(.*)$/;
+  const TAGS = /<\/?[a-z][^>]*>/gi;
+  const ZWSP = /[​-‍﻿]/g;
+
+  // "Sorgente: Rest Y" — chi riposa carte PROPRIE (costi) e chi riposa sempre quelle AVVERSARIE.
+  // Regola: leader, auto-riferimento (Yasopp: Rest Yasopp) e OWN → lato proprio; OPP → lato avversario; altrimenti avversario prima.
+  const OWN_REST_SOURCES = new Set(['ST32-001', 'OP01-055']);   // Kin'emon ST, You Can Be My Samurai
+  const OPP_REST_SOURCES = new Set(['OP17-022']);               // Shanks OP17
+
+  function refs(text) {
+    const out = []; let m; REF_G.lastIndex = 0;
+    text = text.replace(TAGS, '');
+    while ((m = REF_G.exec(text))) {
+      // il gruppo 1 cattura anche il testo tra un riferimento e il precedente: tolgo verbi e prefissi
+      let name = m[1].replace(/^[:\s]+/, '').replace(/^\[\d+\]\s*vs\s+/, '')
+        .replace(/^(?:Deploy|Rest|Trash|Destroy|Return|Buff|Discard|Set|Reveal and Draw|Attach \d+ Don to|Drew card from deck:|Leader is|attacking)\s+/i, '');
+      out.push({ name: name.trim(), id: m[2], raw: m[0] });
+    }
+    return out;
+  }
+  function clean(text) {
+    return text.replace(TAGS, '').replace(/ \["([A-Za-z0-9\-_]+)">\1\]/g, '').replace(ZWSP, '').trim();
+  }
+  function stripName(s) { return s.replace(ZWSP, '').trim(); }
+
+  // ---------------- PARSER ----------------
+  function parseLog(text) {
+    const lines = text.split(/\r?\n/);
+    const players = { 1: { name: 'You', leader: null }, 2: { name: 'Opponent', leader: null } };
+    const nameMap = {};
+    const steps = [];
+    let cur = null;
+    let pendingName = null;      // nome privato in attesa di mapping tramite RZ1
+    let activePlayer = 0, turn = 0, turnEnded = true;
+    let inCombat = false;
+    let moveCount = 0;
+    const warnings = [];
+
+    const newStep = (kind, player, text, extra) => {
+      const s = Object.assign({ kind, sub: '', player, text, label: '', cards: [], moves: [], parked: [], assertions: [], turn, active: activePlayer, delay: 1, owned: 0, line: 0 }, extra || {});
+      return s;
+    };
+    const pushStep = (s) => { steps.push(s); cur = s; return s; };
+
+    const owns = (step, mv) => {
+      const { fz, tz, id, f3 } = mv;
+      const c = step.cards[0], t = step.target;
+      switch (step.kind) {
+        case 'deploy': if (fz === 1 && (tz === 2 || tz === 7) && c && id === c.id && !step.owned) { step.owned++; return true; } return false;
+        case 'draw':   if (fz === 0 && tz === 1 && c && id === c.id && !step.owned) { step.owned++; return true; } return false;
+        case 'drawDon': return fz === 4 && tz === 5;
+        case 'turnStart': return step.kind2 === 'drawDon' && fz === 4 && tz === 5;
+        case 'restDon': if (fz === 5 && tz === 5 && f3 === 1 && !step.owned) { step.owned++; return true; } return false;
+        case 'activateDon': if (fz === 5 && tz === 5 && f3 === 0 && !step.owned) { step.owned++; return true; } return false;
+        case 'endTurn': return fz === 9 && tz === 5;
+        case 'attach': return fz === 5 && tz === 9;
+        case 'bottom': return fz === 0 && tz === 0;
+        case 'hit': return fz === 3;
+        case 'destroyed': return fz === 2 && tz === 6;
+        case 'effect': if (t && id === t.id && !step.owned && !(fz === 5 && tz === 5)) { step.owned++; return true; } return false;
+        case 'counter': if (fz === 1 && tz === 6 && t && id === t.id && !step.owned) { step.owned++; return true; } return false;
+        case 'mulligan': return (fz === 1 && tz === 0) || (fz === 0 && tz === 0);
+        case 'reveal': if (fz === 0 && tz === 1 && t && id === t.id && !step.owned) { step.owned++; return true; } return false;
+        default: return false;
+      }
+    };
+
+    const attachMove = (mv) => {
+      if (!cur || cur.kind === 'synthetic' && cur.key !== mv.player + ':' + mv.fz + '>' + mv.tz) {
+        if (cur && cur.kind === 'synthetic' || !cur) {
+          const key = mv.player + ':' + mv.fz + '>' + mv.tz;
+          if (!cur || cur.key !== key) pushStep(newStep('synthetic', mv.player, '', { key, delay: 0.3 }));
+        }
+      }
+      if (cur.kind === 'attack' && inCombat) { cur.parked.push(mv); return; }
+      mv.prot = owns(cur, mv);
+      cur.moves.push(mv);
+    };
+
+    // sposta in avanti (nel nuovo step) le mosse in coda non possedute dal precedente, se il nuovo step le "vuole"
+    const wants = (s, mv) => {
+      const { fz, tz, id, f3 } = mv;
+      const c = s.cards[0], t = s.target;
+      if (mv.player !== s.player && s.player) return false;
+      switch (s.kind) {
+        case 'deploy': return (fz === 5 && tz === 5 && f3 === 1) || (fz === 1 && (tz === 2 || tz === 7) && c && id === c.id) || (fz === 7 && tz === 6);
+        case 'effect': return (fz === 5 && tz === 5 && f3 === 1) || (t && id === t.id && !(fz === 5 && tz === 5));
+        case 'counter': return (fz === 5 && tz === 5 && f3 === 1) || (fz === 1 && tz === 6 && t && id === t.id);
+        case 'reveal': return t && id === t.id && fz === 0 && tz === 1;
+        case 'restDon': return fz === 5 && tz === 5 && f3 === 1;
+        case 'activateDon': return fz === 5 && tz === 5 && f3 === 0;
+        case 'drawDon': return fz === 4 && tz === 5;
+        case 'turnStart': return s.kind2 === 'drawDon' && fz === 4 && tz === 5;
+        case 'attach': return fz === 5 && tz === 9;
+        case 'mulligan': return (fz === 1 && tz === 0) || (fz === 0 && tz === 0);
+        case 'draw': return fz === 0 && tz === 1 && c && id === c.id;
+        default: return false;
+      }
+    };
+    const lookAhead = (s) => {
+      if (!cur) return;
+      const pull = (arr) => {
+        const taken = [];
+        while (arr.length) {
+          const mv = arr[arr.length - 1];
+          if (mv.prot || !wants(s, mv)) break;
+          taken.unshift(arr.pop());
+        }
+        return taken;
+      };
+      let taken = pull(cur.parked.length ? cur.parked : cur.moves);
+      for (const mv of taken) { mv.prot = owns(s, mv); s.moves.push(mv); }
+    };
+
+    for (let li = 0; li < lines.length; li++) {
+      const raw = lines[li];
+      if (!raw.trim()) continue;
+      let m;
+      if ((m = MOVE.exec(raw))) {
+        const mv = { seq: +m[1], player: +m[2], id: m[3], fz: +m[4], fi: +m[5], tz: +m[6], ti: +m[7], f1: +m[8], f2: +m[9], f3: +m[10], chk: null, prot: false, line: li + 1 };
+        moveCount++;
+        if (pendingName && !(pendingName in nameMap)) { nameMap[pendingName] = mv.player; players[mv.player].name = pendingName; }
+        pendingName = null;
+        attachMove(mv);
+        continue;
+      }
+      if ((m = CHK.exec(raw))) {
+        const c = m[3].split('|').map(Number);
+        const chk = { seq: +m[1], player: +m[2], deck: c[0], hand: c[1], chars: c[2], life: c[3], donDeck: c[4], donPool: c[5], trash: c[6], stage: c[7], donAttached: c[9] };
+        const target = cur && (cur.parked.length ? cur.parked[cur.parked.length - 1] : cur.moves[cur.moves.length - 1]);
+        if (target && target.seq === chk.seq) target.chk = chk;
+        continue;
+      }
+
+      // --------- riga testuale ---------
+      let player = 0, body = raw, actor = null;
+      if ((m = ACTOR.exec(raw))) {
+        actor = stripName(m[1]); body = m[2];
+        if (actor === 'You') player = 1; else if (actor === 'Opponent') player = 2;
+        else { player = nameMap[actor] || 0; }
+      }
+      const text = clean(body);
+      const cards = refs(body);
+
+      // drop / assertions
+      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(raw)) || /Downloaded the Combat Log/.test(raw)) continue;
+      if (actor && /^(Hand|Board|Trash|Life|Hand before Mulligan|Hand after Mulligan): /.test(body)) {
+        const kind = body.split(':')[0];
+        const val = body.slice(kind.length + 1).trim();
+        if (cur) cur.assertions.push({ player: player || null, actor, kind, val, line: li + 1 });
+        continue;
+      }
+      if (actor && /^Drew card from deck: /.test(body)) {
+        if (!(actor in nameMap) && player === 0) pendingName = actor;
+        const s = newStep('draw', player, text, { cards, delay: 0.6, line: li + 1, actor });
+        lookAhead(s); pushStep(s); continue;
+      }
+      if (actor && !player) { player = 0; }
+
+      let s = null;
+      if (/^Leader is /.test(body)) { players[player].leader = cards[0]; s = newStep('leader', player, text, { cards, delay: 0.5 }); }
+      else if (/^Chose to go /.test(body)) { s = newStep('info', player, text, { delay: 0.6 }); }
+      else if (/^Draw \d+ Card$/.test(body) || (/^Draw \d+ Don$/.test(body) && activePlayer === 0)) {
+        const isTurn = /Card$/.test(body) ? (turnEnded || player !== activePlayer) : true;
+        if (isTurn) { turn++; activePlayer = player; turnEnded = false; s = newStep('turnStart', player, text, { delay: 0.6, turn, active: player }); }
+        else s = newStep('info', player, text, { delay: 0.5 });
+        if (/Don$/.test(body)) s.kind2 = 'drawDon';
+      }
+      else if (/^Draw \d+ Don$/.test(body)) { s = newStep('drawDon', player, text, { delay: 0.6 }); }
+      else if (/^Deploy /.test(body)) { s = newStep('deploy', player, text, { cards, delay: 1 }); }
+      else if (/^Mulligan$/.test(body)) { s = newStep('mulligan', player, text, { delay: 0.6 }); }
+      else if (/^End Turn$/.test(body)) { turnEnded = true; s = newStep('endTurn', player, text, { delay: 0.8 }); }
+      else if (/ attacking /.test(body) && cards.length >= 2) { s = newStep('attack', player, text, { cards, delay: 1 }); }
+      else if (!actor && /\]\[\d+\] vs /.test(raw)) {
+        const pm = /\[(\d+)\] vs .*\[(\d+)\]\s*$/.exec(raw);
+        s = newStep('vs', 0, text, { cards, delay: 1.3, atk: pm ? +pm[1] : null, def: pm ? +pm[2] : null });
+      }
+      else if (!actor && / hit for \d+ damage/.test(body)) { s = newStep('hit', 0, text, { cards, delay: 1.2, dmg: +(/hit for (\d+)/.exec(body)[1]) }); }
+      else if (!actor && /^Attack Fails/.test(body)) { s = newStep('fail', 0, text, { delay: 1.1 }); }
+      else if (/ Destroyed$/.test(body) && !/: /.test(body)) { s = newStep('destroyed', player, text, { cards, delay: 1.1 }); }
+      else if (/^Discard .* for Counter \d+/.test(body)) { s = newStep('counter', player, text, { cards, target: cards[0], delay: 1 }); }
+      else if (/^Attach \d+ Don to /.test(body)) { s = newStep('attach', player, text, { cards, delay: 1 }); }
+      else if (/^Placing Cards on Bottom of Deck/.test(body)) { s = newStep('bottom', player, text, { delay: 0.6 }); }
+      else if (/^(Concedes!|Quits!)/.test(body) || /^GameOver/.test(raw) || /Has Disconnected/.test(raw)) { s = newStep('phase', player, text, { delay: 1 }); }
+      else if (/^<b><size/.test(body) || /^<b>/.test(body)) { s = newStep('chat', player, text, { delay: 0.8 }); }
+      else if (cards.length && /^.+?: /.test(body) && body.indexOf(cards[0].raw) < body.indexOf(': ')) {
+        // effetto "Sorgente: azione"
+        const src = cards[0]; const rest = body.slice(body.indexOf(': ') + 2);
+        const tcards = cards.slice(1);
+        let sub = 'effect', target = tcards[0] || null, delay = 1;
+        if (/^Rest \d+ Don/.test(rest) || /^Rest Don \[/.test(rest)) { s = newStep('restDon', player, text, { cards, src, delay: 0.7 }); }
+        else if (/^Activate \d+ Don/.test(rest)) { s = newStep('activateDon', player, text, { cards, src, delay: 0.7 }); }
+        else if (/^Reveal and Draw /.test(rest)) { s = newStep('reveal', player, text, { cards, src, target, delay: 1 }); }
+        else if (/^Rest /.test(rest)) { sub = 'rest'; }
+        else if (/^Set .* to Active/.test(rest)) { sub = 'active'; }
+        else if (/^Return .* to Hand/.test(rest)) { sub = 'return'; }
+        else if (/^Trash /.test(rest)) { sub = 'trash'; }
+        else if (/^Destroy /.test(rest)) { sub = 'destroy'; }
+        else if (/^Deploy /.test(rest)) { s = newStep('deploy', player, text, { cards: tcards, src, delay: 1 }); }
+        else if (/^Buff /.test(rest)) { sub = 'buff'; delay = 0.8; }
+        else if (/^Activate Counter/.test(rest)) { sub = 'counterOn'; delay = 0.7; }
+        else if (/^Draw \d+ Card/.test(rest)) { sub = 'drawFx'; delay = 0.5; target = null; }
+        else if (/^Can't play/.test(rest)) { sub = 'note'; delay = 0.5; target = null; }
+        else { sub = 'other'; }
+        if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay });
+      }
+      else { s = newStep('unknown', player, text, { cards, delay: 0.6 }); }
+
+      s.line = li + 1; s.actor = actor;
+      // combattimento: flush del parcheggio sugli step di risoluzione o su step che chiudono la finestra
+      if (inCombat && cur) {
+        const resolves = s.kind === 'hit' || s.kind === 'fail' || s.kind === 'destroyed' || s.kind === 'attack' || s.kind === 'endTurn' || s.kind === 'turnStart' || s.kind === 'phase';
+        if (resolves) {
+          const atk = steps.slice().reverse().find(x => x.kind === 'attack');
+          if (atk && atk.parked.length) { for (const mv of atk.parked) s.moves.push(mv); atk.parked = []; }
+          if (s.kind !== 'attack') inCombat = false;
+        }
+      }
+      if (s.kind === 'attack') inCombat = true;
+      lookAhead(s);
+      pushStep(s);
+    }
+    // flush finale
+    for (const st of steps) if (st.parked.length) { st.moves.push(...st.parked); st.parked = []; }
+
+    // step sintetici: code non possedute di 0>0 (>=3), 1>0, 0>3 alla fine di uno step
+    const out = [];
+    for (const st of steps) {
+      let k = st.moves.length;
+      while (k > 0) {
+        const mv = st.moves[k - 1];
+        const setupish = !mv.prot && ((mv.fz === 0 && mv.tz === 0) || (mv.fz === 1 && mv.tz === 0) || (mv.fz === 0 && mv.tz === 3));
+        if (!setupish) break; k--;
+      }
+      const tail = st.moves.slice(k);
+      const zeroOnly = tail.every(mv => mv.fz === 0 && mv.tz === 0);
+      if (tail.length && (!zeroOnly || tail.length >= 3) && st.kind !== 'synthetic') {
+        st.moves = st.moves.slice(0, k);
+        out.push(st);
+        let grp = null;
+        for (const mv of tail) {
+          const key = mv.player + ':' + mv.fz + '>' + mv.tz;
+          if (!grp || grp.key !== key) { grp = newStep('synthetic', mv.player, '', { key, delay: 0.3, turn: st.turn, active: st.active, line: mv.line }); out.push(grp); }
+          grp.moves.push(mv);
+        }
+        // le asserzioni restano sull'ultimo step emesso
+        if (st.assertions.length) { grp.assertions = st.assertions; st.assertions = []; }
+      } else out.push(st);
+    }
+
+    // etichette + turni
+    const turns = [];
+    const pname = (p) => p === 1 ? 'Tu' : p === 2 ? 'Avv' : '';
+    out.forEach((st, i) => {
+      st.i = i;
+      if (!st.player && st.actor && nameMap[st.actor]) st.player = nameMap[st.actor];
+      if (st.kind === 'turnStart') turns.push({ n: st.turn, player: st.player, first: i });
+      if (st.kind === 'synthetic') {
+        const [, tr] = st.key.split(':');
+        st.text = tr === '0>0' ? 'mescola il deck' : tr === '1>0' ? 'rimette la mano nel deck' : tr === '0>3' ? 'mette le ' + st.moves.length + ' Life' : 'sistema le carte';
+      }
+      if (st.kind === 'draw') { st.text = 'pesca ' + (st.cards[0] ? st.cards[0].name : 'una carta'); }
+      st.label = (st.player ? pname(st.player) + ': ' : '') + st.text;
+    });
+    return { players, steps: out, turns, moveCount, warnings, nameMap };
+  }
+
+  // ---------------- ENGINE ----------------
+  let UID = 0;
+  const mkCard = (id) => ({ uid: ++UID, id, rested: false, don: 0 });
+  const mkPlayer = (name, leaderId) => ({
+    name, leader: { uid: ++UID, id: leaderId, rested: false, don: 0 },
+    deck: 50, donDeck: 10, hand: [], chars: [], stage: [], life: [], trash: [], donPool: [], flash: []
+  });
+  const zoneArr = (P, z) => z === 1 ? P.hand : z === 2 ? P.chars : z === 3 ? P.life : z === 6 ? P.trash : z === 7 ? P.stage : null;
+  const donTarget = (P, idx) => idx >= 9900 ? P.leader : P.chars[Math.floor(idx / 100)] || null;
+
+  function findCard(P, id, opt) {
+    opt = opt || {};
+    const pool = [];
+    if (P.leader.id === id) pool.push(P.leader);
+    for (const c of P.chars) if (c.id === id) pool.push(c);
+    for (const c of P.stage) if (c.id === id) pool.push(c);
+    if (!pool.length) return null;
+    if (opt.prefer === 'active') { const a = pool.find(c => !c.rested); if (a) return a; }
+    if (opt.prefer === 'rested') { const a = pool.find(c => c.rested); if (a) return a; }
+    return pool[0];
+  }
+
+  function applyMove(state, mv, dbg) {
+    const P = state.players[mv.player];
+    const { fz, tz, fi, ti, id, f3 } = mv;
+    try {
+      if (fz === 0 && tz === 0) { /* shuffle / bottom */ }
+      else if (fz === 5 && tz === 5) { const d = P.donPool[fi]; if (d) d.rested = f3 === 1; else dbg && dbg.push('DON pool idx ' + fi + ' mancante (r' + mv.line + ')'); }
+      else if (fz === 5 && tz === 9) { P.donPool.splice(fi, 1); const t = donTarget(P, ti); if (t) t.don++; else dbg && dbg.push('DON attach target ' + ti + ' mancante (r' + mv.line + ')'); }
+      else if (fz === 9 && tz === 5) { const t = donTarget(P, fi); if (t && t.don > 0) t.don--; P.donPool.splice(Math.min(ti, P.donPool.length), 0, { uid: ++UID, rested: f3 === 1 }); }
+      else if (fz === 4 && tz === 5) { P.donDeck--; P.donPool.splice(Math.min(ti, P.donPool.length), 0, { uid: ++UID, rested: f3 === 1 }); }
+      else if (fz === 5 && tz === 4) { P.donPool.splice(fi, 1); P.donDeck++; }
+      else {
+        let card = null;
+        if (fz === 0) { P.deck--; card = mkCard(id); }
+        else { const a = zoneArr(P, fz); if (a) { card = a.splice(fi, 1)[0]; } if (!card) { dbg && dbg.push('carta ' + id + ' non trovata in zona ' + fz + '[' + fi + '] (r' + mv.line + ')'); card = mkCard(id); } if (card.id !== id) card.id = id; if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; } }
+        if (tz === 0) { P.deck++; }
+        else { const a = zoneArr(P, tz); if (a) a.splice(Math.min(ti, a.length), 0, card); else dbg && dbg.push('zona sconosciuta ' + tz + ' (r' + mv.line + ')'); if (tz === 2 || tz === 7) { card.rested = false; card.don = 0; } }
+      }
+    } catch (e) { dbg && dbg.push('errore mossa r' + mv.line + ': ' + e.message); }
+    if (mv.chk) {
+      const c = mv.chk;
+      P.deck = c.deck; P.donDeck = c.donDeck;
+      if (dbg) {
+        const sumDon = P.leader.don + P.chars.reduce((a, x) => a + x.don, 0);
+        const got = { hand: P.hand.length, chars: P.chars.length, life: P.life.length, donPool: P.donPool.length, trash: P.trash.length, stage: P.stage.length, donAttached: sumDon };
+        for (const k in got) if (got[k] !== c[k]) dbg.push('CHK seq ' + c.seq + ' p' + c.player + ' ' + k + ': stato ' + got[k] + ' vs log ' + c[k] + ' (r' + mv.line + ')');
+      }
+    }
+  }
+
+  function refresh(P) { P.leader.rested = false; for (const c of P.chars) c.rested = false; for (const c of P.stage) c.rested = false; for (const d of P.donPool) d.rested = false; }
+
+  function applyText(state, st, dbg) {
+    const P = st.player ? state.players[st.player] : null;
+    const O = st.player ? state.players[st.player === 1 ? 2 : 1] : null;
+    switch (st.kind) {
+      case 'turnStart': state.turn = st.turn; state.active = st.player; refresh(P); state.combat = null; break;
+      case 'attack': {
+        const a = findCard(P, st.cards[0].id, { prefer: 'active' });
+        const d = findCard(O, st.cards[1].id, { prefer: 'rested' });
+        if (a) a.rested = true;
+        state.combat = { attacker: a ? a.uid : null, defender: d ? d.uid : null, aName: st.cards[0].name, dName: st.cards[1].name, atk: null, def: null, buffs: [], result: null };
+        break;
+      }
+      case 'vs': if (state.combat) { state.combat.atk = st.atk; state.combat.def = st.def; } else state.combat = { attacker: null, defender: null, aName: st.cards[0] && st.cards[0].name, dName: st.cards[1] && st.cards[1].name, atk: st.atk, def: st.def, buffs: [], result: null }; break;
+      case 'hit': if (state.combat) { state.combat.result = 'hit ' + st.dmg; const t = state.combat.defender; if (t) state.flash.push(t); } break;
+      case 'fail': if (state.combat) { state.combat.result = 'fail'; } break;
+      case 'destroyed': { const c = findCard(P, st.cards[0].id, { prefer: 'rested' }); if (c) state.flash.push(c.uid); if (state.combat) state.combat.result = 'destroyed'; break; }
+      case 'effect': {
+        const src = st.src, t = st.target;
+        if (!t) break;
+        const srcIsLeader = src && P.leader.id === src.id;
+        const ownFirst = src && !OPP_REST_SOURCES.has(src.id) && (srcIsLeader || src.id === t.id || OWN_REST_SOURCES.has(src.id));
+        if (st.sub === 'rest') {
+          const order = ownFirst ? [P, O] : [O, P];
+          let c = null;
+          for (const side of order) { c = findCard(side, t.id, { prefer: 'active' }); if (c && !c.rested) break; }
+          if (c) c.rested = true;
+        } else if (st.sub === 'active') {
+          let c = findCard(P, t.id, { prefer: 'rested' }) || findCard(O, t.id, { prefer: 'rested' });
+          if (c) c.rested = false;
+        } else if (st.sub === 'buff') {
+          if (state.combat) state.combat.buffs.push(st.text.replace(/^.*?: /, ''));
+        } else if (st.sub === 'destroy') {
+          const c = findCard(O, t.id, { prefer: 'rested' }) || findCard(P, t.id);
+          if (c) state.flash.push(c.uid);
+        }
+        break;
+      }
+      case 'phase': state.result = st.text; break;
+    }
+  }
+
+  function checkAssertions(state, st, dbg) {
+    for (const a of st.assertions) {
+      const p = a.player || (state.players[1].name === a.actor ? 1 : state.players[2].name === a.actor ? 2 : 0);
+      if (!p) continue;
+      const P = state.players[p];
+      const ids = (arr) => arr.map(c => c.id).join(',');
+      let got = null, exp = a.val;
+      if (a.kind === 'Hand' || a.kind === 'Hand after Mulligan') got = '[' + ids(P.hand) + ']';
+      else if (a.kind === 'Board') got = '[' + ids(P.chars) + ']';
+      else if (a.kind === 'Trash') got = '[' + ids(P.trash) + ']';
+      else if (a.kind === 'Life') got = String(P.life.length);
+      if (got !== null && got !== exp) dbg.push('SNAPSHOT r' + a.line + ' p' + p + ' ' + a.kind + ': stato ' + got + ' vs log ' + exp);
+    }
+  }
+
+  function buildSnapshots(parsed, opts) {
+    opts = opts || {};
+    const dbg = opts.debug ? [] : null;
+    const state = {
+      turn: 0, active: 0, result: null, combat: null, flash: [],
+      players: { 1: mkPlayer(parsed.players[1].name, parsed.players[1].leader ? parsed.players[1].leader.id : null), 2: mkPlayer(parsed.players[2].name, parsed.players[2].leader ? parsed.players[2].leader.id : null) }
+    };
+    const snapshots = [];
+    for (const st of parsed.steps) {
+      state.flash = [];
+      if (st.kind === 'leader') state.players[st.player].leader.id = st.cards[0].id;
+      applyText(state, st, dbg);
+      for (const mv of st.moves) applyMove(state, mv, dbg);
+      if (dbg) checkAssertions(state, st, dbg);
+      snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
+      if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) state.combat = null;
+    }
+    return { snapshots, mismatches: dbg || [] };
+  }
+
+  return { parseLog, buildSnapshots, clean, refs };
+})();
+if (typeof module !== 'undefined') module.exports = Core;
+</script>
+
+<!-- ===================== UI: renderer + controller + loader ===================== -->
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  // Sorgenti immagini in ordine di preferenza. NB: en.onepiece-cardgame.com manda Cross-Origin-Resource-Policy: same-site,
+  // quindi il browser rifiuta le sue immagini da altri siti: non è usabile.
+  const IMG_SOURCES = [
+    (id) => 'https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/one-piece/' + id.split('-')[0] + '/' + id + '_EN.webp',
+    (id) => 'https://static.dotgg.gg/onepiece/card/' + id + '.webp',
+  ];
+  const IMG = (id, k) => IMG_SOURCES[k || 0](id);
+  // imposta src con fallback a catena; chiama onFail se tutte le sorgenti falliscono
+  function setImg(img, id, onFail) {
+    let k = 0;
+    img.onerror = () => { k++; if (k < IMG_SOURCES.length) img.src = IMG(id, k); else onFail && onFail(); };
+    img.src = IMG(id, 0);
+  }
+  const META = window.CARDS_META || {};
+  const metaOf = (id) => { const m = META[id]; return m ? { name: m[0], cost: m[1], power: m[2], counter: m[3], life: m[4] } : null; };
+
+  let parsed = null, snaps = [], cur = 0, playing = false, timer = null, speed = 1;
+  let showOppHand = true;
+  try { showOppHand = localStorage.getItem('optcg.showOppHand') !== '0'; } catch (e) { }
+  const nameOf = {};   // id -> name dal log
+
+  // ---------- renderer ----------
+  const nodes = new Map(); // uid -> element
+  function cardEl(card) {
+    let el = nodes.get(card.uid);
+    if (!el) {
+      el = document.createElement('div'); el.className = 'card'; el.dataset.uid = card.uid;
+      const img = document.createElement('img'); img.alt = ''; img.draggable = false; img.loading = 'eager';
+      setImg(img, card.id, () => { el.classList.add('noimg'); img.remove(); el.prepend(document.createTextNode(nameOf[card.id] || card.id)); });
+      const don = document.createElement('span'); don.className = 'don';
+      const dons = document.createElement('span'); dons.className = 'dons'; el.append(dons);
+      const pw = document.createElement('span'); pw.className = 'pw';
+      const tip = document.createElement('span'); tip.className = 'tip';
+      const m = metaOf(card.id);
+      tip.textContent = (m ? m.name : (nameOf[card.id] || card.id)) + (m && m.cost ? ' · costo ' + m.cost : '') + (m && m.power ? ' · ' + m.power : '') + (m && m.counter ? ' · counter ' + m.counter : '') + ' · ' + card.id;
+      el.append(img, don, pw, tip);
+      nodes.set(card.uid, el);
+    }
+    el.classList.toggle('rested', !!card.rested);
+    const dons = el.querySelector('.dons');
+    while (dons.children.length > card.don) dons.lastChild.remove();
+    while (dons.children.length < card.don) { const d = document.createElement('span'); d.className = 'dcard in'; d.style.setProperty('--k', dons.children.length); d.textContent = 'DON!!'; dons.append(d); }
+    return el;
+  }
+  function backEl(n, cls) { const el = document.createElement('div'); el.className = 'back ' + (cls || ''); if (n != null) { const s = document.createElement('span'); s.className = 'n'; s.textContent = n; el.append(s); } return el; }
+  function zone(label, cls) { const z = document.createElement('div'); z.className = 'zone ' + (cls || ''); if (label) { const l = document.createElement('span'); l.className = 'lbl'; l.textContent = label; z.append(l); } return z; }
+  function fill(container, cards) { for (const c of cards) container.append(cardEl(c)); }
+
+  function area(cls, label) { const a = document.createElement('div'); a.className = 'area ' + cls; if (label) a.dataset.label = label; return a; }
+  function pile(n) { const p = document.createElement('div'); p.className = 'pile'; const k = Math.min(4, Math.max(1, Math.ceil(n / 12))); for (let i = 0; i < k; i++) { const b = backEl(i === k - 1 ? n : null, ''); b.style.left = (i * 2) + 'px'; b.style.top = (i * 2) + 'px'; p.append(b); } if (!n) p.style.opacity = .3; return p; }
+
+  function renderSide(P, p, half, hand, S) {
+    const isOpp = p === 2;
+    half.replaceChildren(); hand.replaceChildren();
+    // life: pila di carte di traverso
+    const aLife = area('a-life'); for (let i = 0; i < P.life.length; i++) { const l = document.createElement('div'); l.className = 'lifecard'; aLife.append(l); }
+    const lc = document.createElement('div'); lc.className = 'lifecnt'; lc.textContent = P.life.length; aLife.append(lc);
+    if (isOpp) lc.style.transform = 'rotate(180deg)';
+    // personaggi
+    const aChars = area('a-chars', 'Character area'); fill(aChars, P.chars);
+    // nome / info
+    const aName = document.createElement('div'); aName.className = 'a-name';
+    const nm = document.createElement('div'); nm.textContent = (P.name || (p === 1 ? 'You' : 'Opponent')).replace(/#\d+$/, '');
+    const inf = document.createElement('small'); inf.textContent = 'Deck ' + P.deck + ' · DON ' + P.donPool.filter(d => !d.rested).length + '/' + P.donPool.length + (P.leader.don ? ' · leader +' + P.leader.don : '');
+    aName.append(nm, inf);
+    if (S.active === p) { const t = document.createElement('div'); t.className = 'turn'; t.textContent = '● turno ' + S.turn; aName.append(t); }
+    // leader, stage, deck
+    const aLead = area('a-leader'); aLead.append(cardEl(P.leader));
+    const aStage = area('a-stage', P.stage.length ? '' : 'Stage'); fill(aStage, P.stage);
+    const aDeck = area('a-deck'); aDeck.append(pile(P.deck));
+    // cost area (DON) + DON deck + trash
+    const aCost = area('a-cost', 'Cost area');
+    for (const d of P.donPool) { const dc = document.createElement('div'); dc.className = 'doncard' + (d.rested ? ' r' : ''); dc.textContent = 'DON!!'; aCost.append(dc); }
+    const aDond = area('a-dond'); const dd = document.createElement('div'); dd.className = 'dond'; const dn = document.createElement('span'); dn.className = 'n'; dn.textContent = P.donDeck; dd.append(dn); aDond.append(dd);
+    const aTrash = area('a-trash', P.trash.length ? '' : 'Trash');
+    if (P.trash.length) { aTrash.append(cardEl(P.trash[P.trash.length - 1])); const c = document.createElement('span'); c.className = 'cnt'; c.textContent = P.trash.length; aTrash.append(c); }
+    aTrash.onclick = () => openTrash(P, p);
+    half.append(aLife, aChars, aName, aLead, aStage, aDeck, aDond, aCost, aTrash);
+    // mano (colonna sinistra)
+    if (isOpp && !showOppHand) {
+      for (let i = 0; i < P.hand.length; i++) hand.append(backEl(null, ''));
+      const c = document.createElement('div'); c.className = 'hcnt'; c.textContent = P.hand.length + ' carte in mano'; hand.append(c);
+    } else fill(hand, P.hand);
+  }
+
+  function drawArrow(ae, de) {
+    const svg = $('#arrows'); svg.replaceChildren();
+    if (!ae || !de) return;
+    const b = $('#board').getBoundingClientRect(), r1 = ae.getBoundingClientRect(), r2 = de.getBoundingClientRect();
+    if (!r1.width || !r2.width) return;
+    const x1 = r1.left + r1.width / 2 - b.left, y1 = r1.top + r1.height / 2 - b.top;
+    const x2 = r2.left + r2.width / 2 - b.left, y2 = r2.top + r2.height / 2 - b.top;
+    const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
+    const stop = Math.min(len - 6, Math.max(r2.width, r2.height) / 2 + 2);   // la punta si ferma sul bordo del bersaglio
+    const ex = x1 + ux * (len - stop), ey = y1 + uy * (len - stop);
+    const hl = 26, hw = 16;                                                   // punta
+    const bx = ex - ux * hl, by = ey - uy * hl;
+    const ns = 'http://www.w3.org/2000/svg';
+    const path = document.createElementNS(ns, 'path'); path.setAttribute('d', `M${x1},${y1} L${bx},${by}`);
+    const head = document.createElementNS(ns, 'polygon'); head.setAttribute('class', 'head');
+    head.setAttribute('points', `${ex},${ey} ${bx - uy * hw},${by + ux * hw} ${bx + uy * hw},${by - ux * hw}`);
+    svg.append(path, head);
+  }
+
+  function render(i) {
+    const S = snaps[i]; if (!S) return;
+    const st = parsed.steps[i];
+    renderSide(S.players[2], 2, $('#opp-half'), $('#opp-hand'), S);
+    renderSide(S.players[1], 1, $('#you-half'), $('#you-hand'), S);
+    // combat
+    const cb = $('#combat'); cb.replaceChildren();
+    document.querySelectorAll('.card.attacking,.card.defending').forEach(e => { e.classList.remove('attacking', 'defending'); e.querySelector('.pw').classList.remove('show'); });
+    let ae = null, de = null;
+    if (S.combat) {
+      const C = S.combat;
+      const a = document.createElement('span'); a.className = 'a'; a.textContent = C.aName + (C.atk != null ? ' ' + C.atk : '');
+      const v = document.createElement('span'); v.textContent = 'vs';
+      const d = document.createElement('span'); d.className = 'd'; d.textContent = C.dName + (C.def != null ? ' ' + C.def : '');
+      cb.append(a, v, d);
+      if (C.buffs.length) { const bf = document.createElement('span'); bf.className = 'buff'; bf.textContent = C.buffs.join(' · '); cb.append(bf); }
+      if (C.result) { const r = document.createElement('span'); r.className = 'res'; r.textContent = C.result === 'fail' ? '✗ attacco fallito' : C.result === 'destroyed' ? '💥 distrutto' : '💔 ' + C.result.replace('hit ', '') + ' danno'; cb.append(r); }
+      cb.classList.add('show');
+      ae = C.attacker && nodes.get(C.attacker); de = C.defender && nodes.get(C.defender);
+      if (ae) { ae.classList.add('attacking'); if (C.atk != null) { const p = ae.querySelector('.pw'); p.textContent = C.atk; p.classList.add('show'); } }
+      if (de) { de.classList.add('defending'); if (C.def != null) { const p = de.querySelector('.pw'); p.textContent = C.def; p.classList.add('show'); } }
+    } else cb.classList.remove('show');
+    drawArrow(ae && ae.isConnected ? ae : null, de && de.isConnected ? de : null);
+    // flash
+    for (const uid of S.flash) { const el = nodes.get(uid); if (el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); } }
+    // barra + lista
+    $('#pos').textContent = (i + 1) + ' / ' + snaps.length;
+    $('#scrub').value = i;
+    $('#step-text').textContent = (st.turn ? 'T' + st.turn + ' · ' : '') + st.label;
+    const prev = $('#events li.cur'); if (prev) prev.classList.remove('cur');
+    const li = document.getElementById('ev' + i); if (li) { li.classList.add('cur'); li.scrollIntoView({ block: 'nearest' }); }
+    const ts = $('#turns'); const tIdx = parsed.turns.findIndex((t, k) => i >= t.first && (k === parsed.turns.length - 1 || i < parsed.turns[k + 1].first)); ts.value = tIdx >= 0 ? tIdx : '';
+  }
+  window.addEventListener('resize', () => { if (snaps.length) render(cur); });
+
+  function openTrash(P, p) {
+    const dlg = $('#dlg'); $('#dlg-title').textContent = 'Trash ' + (P.name || '').replace(/#\d+$/, '') + ' (' + P.trash.length + ')';
+    const g = $('#dlg-grid'); g.replaceChildren();
+    for (const c of P.trash) { const el = document.createElement('div'); el.className = 'card'; const img = document.createElement('img'); setImg(img, c.id, () => { el.classList.add('noimg'); img.remove(); el.textContent = nameOf[c.id] || c.id; }); el.append(img); g.append(el); }
+    dlg.showModal();
+  }
+  $('#dlg-close').onclick = () => $('#dlg').close();
+
+  function buildEvents() {
+    const ul = $('#events'); ul.replaceChildren();
+    const frag = document.createDocumentFragment();
+    parsed.steps.forEach((st, i) => {
+      if (st.kind === 'turnStart') { const h = document.createElement('li'); h.className = 'turn'; h.textContent = 'Turno ' + st.turn + ' — ' + (st.player === 1 ? 'Tu' : 'Avversario'); h.onclick = () => goTo(i); frag.append(h); }
+      const li = document.createElement('li'); li.id = 'ev' + i; li.className = 'p' + st.player;
+      const k = document.createElement('span'); k.className = 'k';
+      k.textContent = st.kind === 'attack' ? '⚔' : st.kind === 'vs' ? '⚡' : st.kind === 'hit' ? '💔' : st.kind === 'deploy' ? '＋' : st.kind === 'draw' ? '↑' : st.kind === 'destroyed' ? '✗' : st.kind === 'chat' ? '💬' : st.kind === 'endTurn' ? '⏎' : st.kind === 'fail' ? '⛨' : '·';
+      li.append(k, document.createTextNode(' ' + st.label));
+      li.title = 'riga ' + st.line;
+      li.onclick = () => goTo(i);
+      frag.append(li);
+    });
+    ul.append(frag);
+    const ts = $('#turns'); ts.replaceChildren();
+    parsed.turns.forEach((t, k) => { const o = document.createElement('option'); o.value = k; o.textContent = 'Turno ' + t.n + ' · ' + (t.player === 1 ? 'Tu' : 'Avv'); ts.append(o); });
+    $('#scrub').max = Math.max(0, snaps.length - 1);
+  }
+
+  // ---------- controller ----------
+  function goTo(i) { cur = Math.max(0, Math.min(snaps.length - 1, i)); render(cur); }
+  function next() { if (cur < snaps.length - 1) goTo(cur + 1); else pause(); }
+  function prev() { goTo(cur - 1); }
+  function tick() {
+    if (!playing) return;
+    if (cur >= snaps.length - 1) { pause(); return; }
+    goTo(cur + 1);
+    const st = parsed.steps[cur];
+    timer = setTimeout(tick, 1800 * (st.delay || 1) / speed);
+  }
+  function play() { if (!snaps.length) return; playing = true; $('#btn-play').textContent = '❚❚ Pausa'; clearTimeout(timer); timer = setTimeout(tick, 1800 * 0.6 / speed); }
+  function pause() { playing = false; clearTimeout(timer); timer = null; $('#btn-play').textContent = '▶ Play'; }
+  function toggle() { playing ? pause() : play(); }
+  function setHand(v) { showOppHand = v; $('#btn-hand').classList.toggle('on', v); $('#btn-hand').textContent = (v ? '👁 ' : '🙈 ') + 'Mano avv'; try { localStorage.setItem('optcg.showOppHand', v ? '1' : '0'); } catch (e) { } if (snaps.length) render(cur); }
+
+  $('#btn-prev').onclick = () => { pause(); prev(); };
+  $('#btn-next').onclick = () => { pause(); next(); };
+  $('#btn-play').onclick = toggle;
+  $('#speed').onchange = (e) => { speed = +e.target.value; if (playing) { clearTimeout(timer); timer = setTimeout(tick, 300); } };
+  $('#turns').onchange = (e) => { const t = parsed.turns[+e.target.value]; if (t) goTo(t.first); };
+  $('#scrub').oninput = (e) => { pause(); goTo(+e.target.value); };
+  $('#btn-hand').onclick = () => setHand(!showOppHand);
+  $('#btn-open').onclick = () => { pause(); $('#drop').classList.remove('hidden'); if (dirHandle) listLogs(); };
+  const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } };
+  $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
+  $('#btn-debug').onclick = () => { const d = $('#debug'); d.classList.toggle('show'); if (d.classList.contains('show') && parsed) { $('#mid').classList.add('show'); runDebug(); } };
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+    if (!snaps.length) return;
+    if (e.code === 'Space') { e.preventDefault(); toggle(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); pause(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); pause(); prev(); }
+    else if (e.key === 'Home') { pause(); goTo(0); }
+    else if (e.key === 'End') { pause(); goTo(snaps.length - 1); }
+    else if (e.key === 'h' || e.key === 'H') setHand(!showOppHand);
+    else if (e.key === 'l' || e.key === 'L') toggleLog();
+  });
+  setHand(showOppHand);
+
+  function runDebug() {
+    const r = Core.buildSnapshots(parsed, { debug: true });
+    const d = $('#debug');
+    d.textContent = 'step: ' + parsed.steps.length + ' · mosse: ' + parsed.moveCount + ' (assegnate ' + parsed.steps.reduce((a, s) => a + s.moves.length, 0) + ') · turni: ' + parsed.turns.length + '\n' +
+      (r.mismatches.length ? r.mismatches.length + ' incoerenze:\n' + r.mismatches.join('\n') : '✓ nessuna incoerenza con i CHK e gli snapshot del log');
+  }
+
+  // ---------- loader ----------
+  async function loadText(text, fname) {
+    pause(); nodes.clear();
+    parsed = Core.parseLog(text);
+    for (const st of parsed.steps) for (const c of st.cards) nameOf[c.id] = c.name;
+    for (const p of [1, 2]) if (parsed.players[p].leader) nameOf[parsed.players[p].leader.id] = parsed.players[p].leader.name;
+    snaps = Core.buildSnapshots(parsed).snapshots;
+    if (!snaps.length) { $('#progress').textContent = 'Nessuna mossa trovata in ' + fname; return; }
+    document.title = 'OPTCG Replay · ' + (parsed.players[1].name || 'You').replace(/#\d+$/, '') + ' vs ' + (parsed.players[2].name || 'Opponent').replace(/#\d+$/, '');
+    buildEvents();
+    // preload immagini
+    const ids = new Set();
+    for (const S of [snaps[snaps.length - 1]]) for (const p of [1, 2]) { const P = S.players[p]; ids.add(P.leader.id); for (const z of [P.hand, P.chars, P.stage, P.trash, P.life]) for (const c of z) ids.add(c.id); }
+    for (const st of parsed.steps) for (const c of st.cards) ids.add(c.id);
+    ids.delete('Don');
+    let done = 0; const total = ids.size;
+    const prog = $('#progress'); prog.textContent = 'Carico le carte… 0 / ' + total;
+    await new Promise((res) => {
+      let finished = false; const fin = () => { if (!finished) { finished = true; res(); } };
+      const t = setTimeout(fin, 4000);
+      if (!total) fin();
+      for (const id of ids) { const im = new Image(); const step = () => { done++; prog.textContent = 'Carico le carte… ' + done + ' / ' + total; if (done >= total) { clearTimeout(t); fin(); } }; im.onload = step; setImg(im, id, step); }
+    });
+    $('#drop').classList.add('hidden');
+    goTo(0);
+    if (location.search.includes('debug')) { $('#debug').classList.add('show'); runDebug(); }
+    play();
+  }
+  async function loadFile(f) { if (!f) return; $('#progress').textContent = 'Leggo ' + f.name + '…'; loadText(await f.text(), f.name); }
+  $('#file').onchange = (e) => loadFile(e.target.files[0]);
+  const drop = $('#drop');
+  document.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.remove('hidden'); drop.classList.add('over'); });
+  document.addEventListener('dragleave', (e) => { if (e.relatedTarget === null) { drop.classList.remove('over'); if (snaps.length) drop.classList.add('hidden'); } });
+  document.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) loadFile(f); else if (snaps.length) drop.classList.add('hidden'); });
+  // ?log=<url> carica un log via fetch (serve un server http, es. python -m http.server); ?step=N salta allo step N in pausa
+  // ---------- cartella dei log (File System Access API, Chrome/Edge) ----------
+  let dirHandle = null, logFiles = [];
+  const idb = () => new Promise((res, rej) => { const r = indexedDB.open('optcg-replay', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  async function kvGet(k) { try { const db = await idb(); return await new Promise((res) => { const t = db.transaction('kv').objectStore('kv').get(k); t.onsuccess = () => res(t.result); t.onerror = () => res(null); }); } catch (e) { return null; } }
+  async function kvSet(k, v) { try { const db = await idb(); db.transaction('kv', 'readwrite').objectStore('kv').put(v, k); } catch (e) { } }
+  const fmtDate = (d) => d.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
+
+  async function listLogs() {
+    logFiles = [];
+    for await (const [name, h] of dirHandle.entries()) if (h.kind === 'file' && /\.(log|txt)$/i.test(name)) { const f = await h.getFile(); logFiles.push({ name, handle: h, mtime: f.lastModified, size: f.size }); }
+    logFiles.sort((a, b) => b.mtime - a.mtime);
+    const ul = $('#loglist'); ul.replaceChildren();
+    if (!logFiles.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nessun file .log in questa cartella'; ul.append(li); }
+    logFiles.forEach((lf, i) => {
+      const li = document.createElement('li'); li.append(document.createTextNode(lf.name.replace(/\.log$/i, '')));
+      const s = document.createElement('span'); s.textContent = fmtDate(new Date(lf.mtime)) + ' · ' + Math.round(lf.size / 1024) + ' KB'; li.append(s);
+      li.onclick = () => openLog(i); ul.append(li);
+    });
+    const sel = $('#logsel'); sel.replaceChildren();
+    logFiles.forEach((lf, i) => { const o = document.createElement('option'); o.value = i; o.textContent = fmtDate(new Date(lf.mtime)); sel.append(o); });
+    sel.hidden = !logFiles.length;
+    $('#folder-name').textContent = dirHandle.name; $('#btn-refolder').hidden = false;
+  }
+  async function openLog(i) { const lf = logFiles[i]; if (!lf) return; $('#logsel').value = i; await loadFile(await lf.handle.getFile()); }
+  async function pickFolder() {
+    if (!window.showDirectoryPicker) { alert('Il tuo browser non supporta la scelta della cartella: usa Chrome o Edge, oppure trascina il file.'); return; }
+    try { dirHandle = await window.showDirectoryPicker({ id: 'optcg-logs', mode: 'read' }); } catch (e) { return; }
+    await kvSet('dir', dirHandle); await listLogs();
+  }
+  async function reopenFolder() {
+    const h = await kvGet('dir'); if (!h) return pickFolder();
+    let p = await h.queryPermission({ mode: 'read' });
+    if (p !== 'granted') p = await h.requestPermission({ mode: 'read' });
+    if (p !== 'granted') return pickFolder();
+    dirHandle = h; await listLogs();
+  }
+  $('#btn-folder').onclick = pickFolder;
+  $('#btn-refolder').onclick = reopenFolder;
+  $('#logsel').onchange = (e) => { pause(); openLog(+e.target.value); };
+  kvGet('dir').then(async (h) => {
+    if (!h) return;
+    $('#folder-name').textContent = h.name; $('#btn-refolder').hidden = false;
+    // se il permesso è ancora valido (stessa sessione del browser) elenca subito, senza click
+    try { if (await h.queryPermission({ mode: 'read' }) === 'granted') { dirHandle = h; await listLogs(); } } catch (e) { }
+  });
+
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('log')) {
+    fetch(qs.get('log')).then(r => r.text()).then(t => loadText(t, qs.get('log')).then(() => { if (qs.has('step')) { pause(); goTo(+qs.get('step')); } })).catch(e => { $('#progress').textContent = 'Errore caricamento: ' + e.message; });
+  }
+})();
+</script>
+</body>
+</html>
