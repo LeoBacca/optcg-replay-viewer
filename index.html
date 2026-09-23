@@ -554,7 +554,7 @@ const Core = (() => {
       else if (/^<b><size/.test(body) || /^<b>/.test(body)) { s = newStep('chat', player, text, { delay: 0.8 }); }
       else if (cards.length && /^.+?: /.test(body) && body.indexOf(cards[0].raw) < body.indexOf(': ')) {
         // effetto "Sorgente: azione"
-        const src = cards[0]; const rest = body.slice(body.indexOf(': ') + 2);
+        const src = cards[0]; const rest = body.slice(body.indexOf(': ') + 2).replace(TAGS, '');
         const tcards = cards.slice(1);
         let sub = 'effect', target = tcards[0] || null, delay = 1;
         if (/^Rest \d+ Don/.test(rest) || /^Rest Don \[/.test(rest)) { s = newStep('restDon', player, text, { cards, src, delay: 0.7 }); }

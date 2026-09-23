@@ -24,3 +24,12 @@ test('il log di esempio si ricostruisce senza incoerenze', () => {
   assert.equal(parsed.moveCount, 641);
   assert.equal(parsed.steps.reduce((n, s) => n + s.moves.length, 0), 641);
 });
+
+test('Reveal and Draw in grassetto viene riconosciuto e prende la sua mossa', () => {
+  const { parsed } = replay(sampleLog);
+  const reveals = parsed.steps.filter((s) => s.kind === 'reveal');
+  assert.equal(reveals.length, 11);
+  const first = reveals.find((s) => s.line === 732);
+  assert.equal(first.target.id, 'OP06-038');
+  assert.deepEqual(first.moves.map((m) => [m.fz, m.tz, m.id]), [[0, 1, 'OP06-038']]);
+});
