@@ -527,7 +527,7 @@ const Core = (() => {
       if (actor && !player) { player = 0; }
 
       let s = null;
-      if (/^Leader is /.test(body)) { players[player].leader = cards[0]; s = newStep('leader', player, text, { cards, delay: 0.5 }); }
+      if (/^Leader is /.test(body)) { if (player) players[player].leader = cards[0]; s = newStep('leader', player, text, { cards, delay: 0.5 }); }
       else if (/^Chose to go /.test(body)) { s = newStep('info', player, text, { delay: 0.6 }); }
       else if (/^Draw \d+ Card$/.test(body) || (/^Draw \d+ Don$/.test(body) && activePlayer === 0)) {
         const isTurn = /Card$/.test(body) ? (turnEnded || player !== activePlayer) : true;
@@ -687,11 +687,13 @@ const Core = (() => {
   }
 
   function ownerOf(state, uid) { for (const p of [1, 2]) { const P = state.players[p]; if (P.leader.uid === uid) return p; for (const c of P.chars) if (c.uid === uid) return p; } return 0; }
+  const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase']);
   function refresh(P) { P.leader.rested = false; for (const c of P.chars) c.rested = false; for (const c of P.stage) c.rested = false; for (const d of P.donPool) d.rested = false; }
 
   function applyText(state, st, dbg) {
     const P = st.player ? state.players[st.player] : null;
     const O = st.player ? state.players[st.player === 1 ? 2 : 1] : null;
+    if (!P && !PLAYERLESS_KINDS.has(st.kind)) return;
     switch (st.kind) {
       case 'turnStart': state.turn = st.turn; state.active = st.player; refresh(P); state.combat = null; break;
       case 'attack': {
@@ -765,7 +767,7 @@ const Core = (() => {
     const snapshots = [];
     for (const st of parsed.steps) {
       state.flash = [];
-      if (st.kind === 'leader') state.players[st.player].leader.id = st.cards[0].id;
+      if (st.kind === 'leader' && st.player) state.players[st.player].leader.id = st.cards[0].id;
       applyText(state, st, dbg);
       for (const mv of st.moves) applyMove(state, mv, dbg);
       if (dbg) checkAssertions(state, st, dbg);

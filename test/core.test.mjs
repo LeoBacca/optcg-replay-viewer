@@ -44,3 +44,15 @@ test('il Trash per sostituire un personaggio ha un suo step', () => {
   const trash = parsed.steps.filter((s) => s.kind === 'trash').map((s) => [s.line, s.cards[0].id]);
   assert.deepEqual(trash, [[1724, 'ST32-001'], [1739, 'OP12-034']]);
 });
+
+test('una riga di un attore non associato a un giocatore non blocca il replay', () => {
+  const at = lines.findIndex((l) => / attacking /.test(l));
+  const injected = [
+    '[Sconosciuto#1] Yasopp ["OP17-031">OP17-031] attacking Dracule Mihawk ["OP14-020">OP14-020]',
+    '[Sconosciuto#1] Yasopp ["OP17-031">OP17-031] Destroyed',
+    '[Sconosciuto#1] Leader is Dracule Mihawk ["OP14-020">OP14-020]',
+  ];
+  const text = [...lines.slice(0, at), ...injected, ...lines.slice(at)].join('\n');
+  const { mismatches } = replay(text);
+  assert.deepEqual(mismatches, []);
+});
