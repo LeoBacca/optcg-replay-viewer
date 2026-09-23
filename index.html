@@ -790,8 +790,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   // Sorgenti immagini in ordine di preferenza. NB: en.onepiece-cardgame.com manda Cross-Origin-Resource-Policy: same-site,
   // quindi il browser rifiuta le sue immagini da altri siti: non è usabile.
   const IMG_SOURCES = [
-    (id) => 'https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/one-piece/' + id.split('-')[0] + '/' + id + '_EN.webp',
     (id) => 'https://static.dotgg.gg/onepiece/card/' + id + '.webp',
+    (id) => 'https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/one-piece/' + id.split('-')[0] + '/' + id + '_EN.webp',
   ];
   const IMG = (id, k) => IMG_SOURCES[k || 0](id);
   // imposta src con fallback a catena; chiama onFail se tutte le sorgenti falliscono
