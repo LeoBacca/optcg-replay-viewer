@@ -5,6 +5,7 @@ Pagina web singola, senza installazione: apri `index.html` nel browser (doppio c
 ## Controlli
 | Azione | Pulsante | Tasto |
 |---|---|---|
+| Menu (partita, riproduzione, vista, strumenti, aiuto) | ☰ Menu | M (Esc chiude) |
 | Play / Pausa | ▶ Play / ❚❚ Pausa | Spazio |
 | Mossa precedente / successiva | ◀ Prec / Succ ▶ | ← / → |
 | Inizio / fine partita | | Home / End |
@@ -15,6 +16,8 @@ Pagina web singola, senza installazione: apri `index.html` nel browser (doppio c
 | Pennarello per scarabocchiare sul tavolo (solo in pausa; al Play si cancella) | icona pennarello a destra | D |
 | Log degli eventi (pannello a scomparsa) | Log | L |
 | Verifiche di coerenza | Debug (dentro il pannello Log) | |
+
+Il menu ☰ (in basso a sinistra, o tasto M) raccoglie tutto in un pannello: scheda della partita (giocatori, leader, turni, esito), apertura di log e cartella con la lista dei log recenti, play/velocità/inizio/fine, e le impostazioni salvate nel browser: play automatico all'apertura, animazioni delle carte, mano dell'avversario, anteprima carta, log degli eventi. In fondo l'elenco dei tasti.
 
 Prec / Succ mettono in pausa. Ogni passo è una riga evento del log (deploy, rest, attacco, pesca, danno...). Nel pannello a sinistra si può cliccare qualsiasi evento per saltarci.
 
@@ -46,7 +49,9 @@ Sito: https://leobacca.github.io/optcg-replay-viewer/ — repo: https://github.c
 Non serve nessun tool: si modifica `index.html` e si apre nel browser. Il file è diviso in tre blocchi:
 1. `<style>` — tutto il CSS. Le misure delle carte partono dalle variabili `--ch` (altezza carta in campo) e `--hch` (in mano) definite in `:root`.
 2. `<script id="core">` — **Parser** (log → lista di step) e **Engine** (step → stato del tavolo, uno snapshot per step). Non tocca il DOM: si può testare in node estraendo il blocco.
-3. secondo `<script>` — **Renderer** (stato → DOM del tappetino), **Controller** (play/pausa/step), **Loader** (file, cartella, immagini).
+3. secondo `<script>` — **Renderer** (stato → DOM del tappetino), **Controller** (play/pausa/step), **Menu** (pannello ☰), **Loader** (file, cartella, immagini).
+
+Per aggiungere una feature al menu basta una riga in `SECTIONS()` dentro il modulo `Menu`: `{ ic, label, hint, kbd, on }` per un'azione, `type:'toggle'` con `get`/`set` per un interruttore, `type:'seg'` con `opts` per una scelta tra pochi valori. Le impostazioni che devono sopravvivere al riavvio passano da `Settings` (`get`/`set`, salvate in `localStorage` sotto `optcg.settings`, default in `DEF`, effetto immediato in `apply`).
 
 Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR provare il log di esempio con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza".
 

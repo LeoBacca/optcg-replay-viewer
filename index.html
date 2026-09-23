@@ -199,6 +199,69 @@
   dialog .grid{display:flex;flex-wrap:wrap;gap:8px;max-height:70vh;overflow:auto;padding:4px}
   dialog .grid .card{width:var(--hcw);height:var(--hch)}
   dialog h3{margin:0 0 10px}
+
+  /* ---------- menu (☰) ---------- */
+  #btn-menu{font-weight:700}
+  #btn-menu.on{border-color:var(--accent);color:var(--accent)}
+  #menu-backdrop{position:fixed;inset:0;background:#0007;z-index:20;display:none;backdrop-filter:blur(2px)}
+  #menu-backdrop.show{display:block}
+  #menu{position:fixed;left:0;top:0;bottom:0;width:min(350px,92vw);z-index:21;background:#1a120bf8;border-right:1px solid #0008;box-shadow:8px 0 30px #000a;
+        display:flex;flex-direction:column;transform:translateX(-105%);transition:transform .25s ease;color:#e6d8c3}
+  #menu.show{transform:none}
+  #menu header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #0006;background:#120c07}
+  #menu header .logo{width:38px;height:38px;border-radius:9px;background:var(--accent);color:#1a1200;font:900 17px/38px Impact,'Arial Black',sans-serif;text-align:center;box-shadow:0 2px 8px #000a;flex:none;letter-spacing:.02em}
+  #menu header h2{margin:0;font-size:16px;color:#fff;line-height:1.15}
+  #menu header h2 small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+  #menu header button{margin-left:auto}
+  #menu .body{flex:1;overflow:auto;padding:4px 0 12px;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+  #menu section{padding:10px 8px 6px}
+  #menu section + section{border-top:1px solid #0005}
+  #menu h3{margin:0 0 4px 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800}
+  #menu .row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;min-height:38px}
+  #menu .row.act{cursor:pointer}
+  #menu .row.act:hover{background:#fff1}
+  #menu .row .ic{width:24px;text-align:center;flex:none;font-size:15px}
+  #menu .row .lbl{flex:1;min-width:0;color:#f7e9d4}
+  #menu .row .lbl small{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #menu .row.dis{opacity:.4;pointer-events:none}
+  #menu kbd{font:11px/1 ui-monospace,Consolas,monospace;color:#f7e9d4;background:#0006;border:1px solid #fff2;border-bottom-width:2px;border-radius:4px;padding:3px 5px;flex:none;white-space:nowrap}
+  .sw{width:40px;height:22px;border-radius:11px;background:#0008;border:1px solid #fff3;position:relative;flex:none;cursor:pointer;padding:0;transition:background .2s}
+  .sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#aaa;transition:transform .2s,background .2s}
+  .sw.on{background:var(--ok);border-color:var(--ok)}
+  .sw.on::after{transform:translateX(18px);background:#fff}
+  #menu .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
+  #menu .seg button{border:0;border-radius:0;padding:4px 7px;font-size:12px;background:#0004}
+  #menu .seg button.sel{background:var(--accent);color:#1a1200;font-weight:700}
+  #menu .sub{margin:6px 10px 2px 44px;font-size:11px;color:var(--muted)}
+  #menu .recent{list-style:none;margin:0;padding:0}
+  #menu .recent li{padding:5px 10px 5px 44px;cursor:pointer;border-radius:8px;display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#f7e9d4}
+  #menu .recent li:hover{background:#fff1}
+  #menu .recent li.cur{color:var(--accent);font-weight:700}
+  #menu .recent li span{color:var(--muted);font-size:11px;white-space:nowrap;font-weight:400}
+  #menu .match{margin:2px 10px 8px;padding:10px 12px;border-radius:10px;background:#0005;border:1px solid #fff1;font-size:13px}
+  #menu .match.empty{color:var(--muted);text-align:center}
+  #menu .match .vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center}
+  #menu .match .vs img{width:46px;aspect-ratio:.716;border-radius:4px;display:block;margin:0 auto 4px;box-shadow:0 2px 6px #000a;background:#2b3040}
+  #menu .match .vs b{display:block;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #menu .match .vs small{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #menu .match .vs .you b{color:var(--you)}
+  #menu .match .vs .opp b{color:var(--opp)}
+  #menu .match .vs .x{font:900 14px Impact,'Arial Black',sans-serif;color:#fff8}
+  #menu .match .stats{display:flex;justify-content:space-around;margin-top:8px;color:var(--muted);font-size:11px;text-align:center}
+  #menu .match .stats b{display:block;color:#fff;font-size:14px}
+  #menu .match .res{margin-top:8px;text-align:center;font:900 15px Impact,'Arial Black',sans-serif;letter-spacing:.08em}
+  #menu .match .res.win{color:#ffd24a}
+  #menu .match .res.lose{color:var(--opp)}
+  #menu .keys{list-style:none;margin:0 10px 6px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;font-size:12px}
+  #menu .keys li{display:flex;align-items:center;gap:6px;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #menu .keys kbd{min-width:34px;text-align:center}
+  #menu footer{padding:8px 14px;border-top:1px solid #0006;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  #menu footer a{color:var(--accent);text-decoration:none}
+  #menu footer a:hover{text-decoration:underline}
+  #drop .box{position:relative}
+  #btn-drop-close{position:absolute;top:8px;right:8px;padding:4px 8px;font-size:12px}
+  body.noanim .card,body.noanim .dcard,body.noanim .doncard{transition:none!important}
+  body.noanim .card.flash,body.noanim .dcard.in{animation:none!important}
   
 </style>
 </head>
@@ -216,13 +279,14 @@
     </div>
     <div id="drop">
       <div class="box">
+        <button id="btn-drop-close" title="Torna al replay (Esc)" hidden>✕ Torna al replay</button>
         <h2>Replay OPTCGSim</h2>
         <p><button id="btn-folder" class="primary">📁 Scegli la cartella dei log</button> <button id="btn-refolder" hidden>↻ Riapri <span id="folder-name"></span></button></p>
         <ul id="loglist"></ul>
         <p class="kbd">oppure trascina qui un file .log, o <label for="file">scegline uno</label></p>
         <p id="progress"></p>
       </div>
-      <p class="kbd">Spazio = play/pausa · ← → = mossa indietro/avanti · H = mano avversario · Home/End</p>
+      <p class="kbd">M = menu · Spazio = play/pausa · ← → = mossa indietro/avanti · H = mano avversario · Home/End</p>
     </div>
     <input type="file" id="file" accept=".log,.txt" hidden>
 
@@ -264,6 +328,7 @@
 
   <canvas id="ink"></canvas>
   <footer id="bar">
+    <button id="btn-menu" title="Menu (M)">☰ Menu</button>
     <button id="btn-prev" title="Mossa precedente (←)">◀ Prec</button>
     <button id="btn-play" class="primary" title="Play/Pausa (spazio)">▶ Play</button>
     <button id="btn-next" title="Mossa successiva (→)">Succ ▶</button>
@@ -278,6 +343,17 @@
     <button id="btn-open" title="Apri un altro log">Apri log</button>
   </footer>
 </div>
+
+<div id="menu-backdrop"></div>
+<aside id="menu" aria-label="Menu">
+  <header>
+    <div class="logo">OP</div>
+    <h2>OPTCG Replay<small>Visualizzatore di replay per OPTCGSim</small></h2>
+    <button id="menu-close" title="Chiudi (Esc)">✕</button>
+  </header>
+  <div class="body" id="menu-body"></div>
+  <footer><span><kbd>M</kbd> apre e chiude il menu</span><a href="https://github.com/LeoBacca/optcg-replay-viewer" target="_blank" rel="noopener">GitHub ↗</a></footer>
+</aside>
 
 <dialog id="dlg"><h3 id="dlg-title"></h3><div class="grid" id="dlg-grid"></div><p style="text-align:right;margin:10px 0 0"><button id="dlg-close">Chiudi</button></p></dialog>
 
@@ -727,12 +803,27 @@ if (typeof module !== 'undefined') module.exports = Core;
   let parsed = null, snaps = [], cur = 0, playing = false, timer = null, speed = 1;
   let showOppHand = true;
   try { showOppHand = localStorage.getItem('optcg.showOppHand') !== '0'; } catch (e) { }
+  // impostazioni persistenti (localStorage): ogni chiave ha un default in DEF e il suo effetto immediato in apply()
+  const Settings = (() => {
+    const DEF = { autoplay: true, anim: true, preview: true, speed: 1 };
+    const s = { ...DEF };
+    try { Object.assign(s, JSON.parse(localStorage.getItem('optcg.settings') || '{}')); } catch (e) { }
+    if (![0.5, 1, 1.5, 2, 3].includes(s.speed)) s.speed = 1;
+    function apply(k) {
+      if (k === 'anim') document.body.classList.toggle('noanim', !s.anim);
+      if (k === 'preview' && !s.preview) { const pv = $('#preview'); pv.classList.remove('show'); pv.dataset.id = ''; }
+    }
+    for (const k in DEF) apply(k);
+    return { get: (k) => s[k], set(k, v) { s[k] = v; apply(k); try { localStorage.setItem('optcg.settings', JSON.stringify(s)); } catch (e) { } } };
+  })();
+  speed = Settings.get('speed'); $('#speed').value = speed;
   const nameOf = {};   // id -> name dal log
 
   // ---------- renderer ----------
   const nodes = new Map(); // uid -> element carta
   const backs = new Map(); // uid -> dorso (life)
   function showPreview(id) {
+    if (!Settings.get('preview')) return;
     const pv = $('#preview'); const img = pv.querySelector('img'); const info = pv.querySelector('.pinfo');
     if (pv.dataset.id === id) return; pv.dataset.id = id;
     setImg(img, id, () => { img.removeAttribute('src'); });
@@ -869,7 +960,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   function render(i, animate) {
     const S = snaps[i]; if (!S) return;
     const st = parsed.steps[i];
-    const prev = animate ? captureRects() : null;
+    const prev = animate && Settings.get('anim') ? captureRects() : null;
     renderSide(S.players[2], 2, $('#opp-half'), $('#opp-hand'), S);
     renderSide(S.players[1], 1, $('#you-half'), $('#you-hand'), S);
     layoutHand($('#opp-hand')); layoutHand($('#you-hand'));
@@ -949,8 +1040,9 @@ if (typeof module !== 'undefined') module.exports = Core;
     const st = parsed.steps[cur];
     timer = setTimeout(tick, 1800 * (st.delay || 1) / speed);
   }
-  function play() { if (!snaps.length) return; Ink.onPlay(); playing = true; $('#btn-play').textContent = '❚❚ Pausa'; clearTimeout(timer); timer = setTimeout(tick, 1800 * 0.6 / speed); }
-  function pause() { playing = false; clearTimeout(timer); timer = null; $('#btn-play').textContent = '▶ Play'; Ink.onPause(); }
+  function play() { if (!snaps.length) return; Ink.onPlay(); playing = true; $('#btn-play').textContent = '❚❚ Pausa'; clearTimeout(timer); timer = setTimeout(tick, 1800 * 0.6 / speed); Menu.refresh(); }
+  function pause() { playing = false; clearTimeout(timer); timer = null; $('#btn-play').textContent = '▶ Play'; Ink.onPause(); Menu.refresh(); }
+  function setSpeed(v) { speed = v; $('#speed').value = v; Settings.set('speed', v); if (playing) { clearTimeout(timer); timer = setTimeout(tick, 300); } }
 
   // ---------- pennarello (solo in pausa; al Play si cancella) ----------
   const Ink = (() => {
@@ -992,21 +1084,129 @@ if (typeof module !== 'undefined') module.exports = Core;
     };
   })();
   function toggle() { playing ? pause() : play(); }
-  function setHand(v) { showOppHand = v; $('#btn-hand').classList.toggle('on', v); $('#btn-hand').textContent = (v ? '👁 ' : '🙈 ') + 'Mano avv'; try { localStorage.setItem('optcg.showOppHand', v ? '1' : '0'); } catch (e) { } if (snaps.length) render(cur); }
+  function setHand(v) { showOppHand = v; $('#btn-hand').classList.toggle('on', v); $('#btn-hand').textContent = (v ? '👁 ' : '🙈 ') + 'Mano avv'; try { localStorage.setItem('optcg.showOppHand', v ? '1' : '0'); } catch (e) { } if (snaps.length) render(cur); Menu.refresh(); }
+  function openDrop() { pause(); $('#drop').classList.remove('hidden'); $('#btn-drop-close').hidden = !snaps.length; if (dirHandle) listLogs(); }
+  function closeDrop() { if (snaps.length) $('#drop').classList.add('hidden'); }
+  const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } Menu.refresh(); };
+  function showDebug() { const d = $('#debug'); d.classList.toggle('show'); if (d.classList.contains('show') && parsed) { $('#mid').classList.add('show'); runDebug(); } }
+
+  // ---------- menu (☰) ----------
+  // Ogni voce è un oggetto in SECTIONS(): aggiungere una feature = aggiungere una riga.
+  //   { ic, label, hint, kbd, on }                       → azione (click, poi il menu si chiude)
+  //   { ..., type:'toggle', get, set }                   → interruttore
+  //   { ..., type:'seg', opts:[[val,testo]], get, set }  → scelta tra pochi valori
+  //   { type:'match' | 'recent' | 'keys' }               → blocchi speciali (scheda partita, log recenti, tasti)
+  const Menu = (() => {
+    const el = $('#menu'), bd = $('#menu-backdrop'), body = $('#menu-body'), btn = $('#btn-menu');
+    const GH = 'https://github.com/LeoBacca/optcg-replay-viewer';
+    const clean = (n) => (n || '').replace(/#\d+$/, '');
+    let open = false;
+    const SECTIONS = () => {
+      const loaded = !!snaps.length;
+      return [
+        { title: 'Partita', items: [
+          { type: 'match' },
+          { ic: '📂', label: 'Apri un log…', hint: 'trascina o scegli un file .log di OPTCGSim', on: openDrop },
+          { ic: '📁', label: dirHandle ? 'Cambia cartella dei log' : 'Scegli la cartella dei log', hint: $('#folder-name').textContent || 'i log nuovi compaiono da soli', on: () => { openDrop(); pickFolder(); } },
+          { type: 'recent' },
+        ] },
+        { title: 'Riproduzione', items: [
+          { ic: playing ? '❚❚' : '▶', label: playing ? 'Pausa' : 'Play', kbd: 'Spazio', on: toggle, enabled: loaded },
+          { ic: '⏱', label: 'Velocità', type: 'seg', opts: [[0.5, '0.5×'], [1, '1×'], [1.5, '1.5×'], [2, '2×'], [3, '3×']], get: () => speed, set: setSpeed },
+          { ic: '⏮', label: 'Inizio partita', kbd: 'Home', on: () => { pause(); goTo(0); }, enabled: loaded },
+          { ic: '⏭', label: 'Fine partita', kbd: 'End', on: () => { pause(); goTo(snaps.length - 1); }, enabled: loaded },
+          { ic: '🔁', label: 'Play automatico all\'apertura', hint: 'altrimenti il replay parte in pausa', type: 'toggle', get: () => Settings.get('autoplay'), set: (v) => Settings.set('autoplay', v) },
+          { ic: '✨', label: 'Animazioni delle carte', hint: 'life → mano, mano → campo, campo → trash…', type: 'toggle', get: () => Settings.get('anim'), set: (v) => Settings.set('anim', v) },
+        ] },
+        { title: 'Vista', items: [
+          { ic: '👁', label: 'Mano dell\'avversario', type: 'toggle', kbd: 'H', get: () => showOppHand, set: setHand },
+          { ic: '🔍', label: 'Anteprima carta a destra', hint: 'al passaggio del mouse', type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
+          { ic: '📜', label: 'Log degli eventi', hint: 'pannello con tutte le mosse', type: 'toggle', kbd: 'L', get: () => $('#mid').classList.contains('show'), set: toggleLog },
+        ] },
+        { title: 'Strumenti', items: [
+          { ic: '🖍', label: 'Pennarello', hint: 'solo in pausa; al Play si cancella', kbd: 'D', on: () => Ink.toggle(), enabled: loaded },
+          { ic: '🧪', label: 'Verifiche di coerenza', hint: 'confronta lo stato con i CHK del log', on: showDebug, enabled: !!parsed },
+        ] },
+        { title: 'Aiuto', items: [
+          { type: 'keys' },
+          { ic: '🌐', label: 'Sito e codice sorgente', hint: GH.replace('https://', ''), on: () => window.open(GH, '_blank', 'noopener') },
+        ] },
+      ];
+    };
+    const KEYS = [['Spazio', 'Play / Pausa'], ['← →', 'Indietro / avanti'], ['Home / End', 'Inizio / fine'], ['H', 'Mano avversario'], ['L', 'Log eventi'], ['D', 'Pennarello'], ['M', 'Menu'], ['Esc', 'Chiudi']];
+    const mk = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+    function row(it) {
+      const r = mk('div', 'row'); if (it.enabled === false) r.classList.add('dis');
+      const lbl = mk('span', 'lbl', it.label); if (it.hint) lbl.append(mk('small', '', it.hint));
+      r.append(mk('span', 'ic', it.ic || ''), lbl);
+      if (it.kbd) r.append(mk('kbd', '', it.kbd));
+      if (it.type === 'toggle') {
+        const sw = mk('button', 'sw' + (it.get() ? ' on' : '')); sw.title = it.label; r.classList.add('act');
+        r.onclick = () => { it.set(!it.get()); sw.classList.toggle('on', !!it.get()); };
+        r.append(sw);
+      } else if (it.type === 'seg') {
+        const seg = mk('div', 'seg');
+        for (const [v, t] of it.opts) { const b = mk('button', it.get() === v ? 'sel' : '', t); b.onclick = () => { it.set(v); seg.querySelectorAll('button').forEach(x => x.classList.toggle('sel', x === b)); }; seg.append(b); }
+        r.append(seg);
+      } else { r.classList.add('act'); r.onclick = () => { close(); it.on(); }; }
+      return r;
+    }
+    function matchCard() {
+      if (!parsed) return mk('div', 'match empty', 'Nessuna partita aperta');
+      const m = mk('div', 'match'), vs = mk('div', 'vs');
+      for (const p of [1, 2]) {
+        const P = parsed.players[p], d = mk('div', p === 1 ? 'you' : 'opp'), L = P.leader;
+        if (L) { const img = document.createElement('img'); img.alt = ''; setImg(img, L.id, () => img.remove()); d.append(img); }
+        d.append(mk('b', '', clean(P.name) || (p === 1 ? 'Tu' : 'Avversario')), mk('small', '', L ? ((metaOf(L.id) || {}).name || nameOf[L.id] || L.id) : ''));
+        vs.append(d); if (p === 1) vs.append(mk('span', 'x', 'VS'));
+      }
+      const st = mk('div', 'stats');
+      for (const [t, v] of [['turni', parsed.turns.length], ['mosse', snaps.length], ['posizione', cur + 1]]) { const s = mk('span'); s.append(mk('b', '', v), t); st.append(s); }
+      m.append(vs, st);
+      const res = snaps[snaps.length - 1] && snaps[snaps.length - 1].result;
+      if (res) m.append(mk('div', 'res ' + (res.winner === 1 ? 'win' : 'lose'), res.winner === 1 ? 'YOU WIN' : 'YOU LOSE'));
+      return m;
+    }
+    function recent() {
+      if (!logFiles.length) return null;
+      const f = document.createDocumentFragment(); f.append(mk('div', 'sub', 'Log recenti nella cartella'));
+      const ul = mk('ul', 'recent'), curI = snaps.length ? +$('#logsel').value : -1;
+      logFiles.slice(0, 6).forEach((lf, i) => {
+        const li = mk('li', i === curI ? 'cur' : '', lf.name.replace(/\.log$/i, '')); li.append(mk('span', '', fmtDate(new Date(lf.mtime))));
+        li.onclick = () => { close(); pause(); openLog(i); }; ul.append(li);
+      });
+      f.append(ul); return f;
+    }
+    function keys() { const ul = mk('ul', 'keys'); for (const [k, t] of KEYS) { const li = mk('li'); li.append(mk('kbd', '', k), document.createTextNode(t)); ul.append(li); } return ul; }
+    function render() {
+      const top = body.scrollTop; body.replaceChildren();
+      for (const sec of SECTIONS()) {
+        const s = mk('section'); s.append(mk('h3', '', sec.title));
+        for (const it of sec.items) { const n = it.type === 'match' ? matchCard() : it.type === 'recent' ? recent() : it.type === 'keys' ? keys() : row(it); if (n) s.append(n); }
+        body.append(s);
+      }
+      body.scrollTop = top;
+    }
+    function setOpen(v) { open = v; el.classList.toggle('show', v); bd.classList.toggle('show', v); btn.classList.toggle('on', v); if (v) render(); }
+    const close = () => setOpen(false);
+    btn.onclick = () => setOpen(!open); bd.onclick = close; $('#menu-close').onclick = close;
+    return { open: () => setOpen(true), close, toggle: () => setOpen(!open), isOpen: () => open, refresh() { if (open) render(); } };
+  })();
 
   $('#btn-prev').onclick = () => { pause(); prev(); };
   $('#btn-next').onclick = () => { pause(); next(); };
   $('#btn-play').onclick = toggle;
-  $('#speed').onchange = (e) => { speed = +e.target.value; if (playing) { clearTimeout(timer); timer = setTimeout(tick, 300); } };
+  $('#speed').onchange = (e) => setSpeed(+e.target.value);
   $('#turns').onchange = (e) => { const t = parsed.turns[+e.target.value]; if (t) goTo(t.first); };
   $('#scrub').oninput = (e) => { pause(); goTo(+e.target.value); };
   $('#btn-hand').onclick = () => setHand(!showOppHand);
-  $('#btn-open').onclick = () => { pause(); $('#drop').classList.remove('hidden'); if (dirHandle) listLogs(); };
-  const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } };
+  $('#btn-open').onclick = openDrop; $('#btn-drop-close').onclick = closeDrop;
   $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
-  $('#btn-debug').onclick = () => { const d = $('#debug'); d.classList.toggle('show'); if (d.classList.contains('show') && parsed) { $('#mid').classList.add('show'); runDebug(); } };
+  $('#btn-debug').onclick = showDebug;
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+    if (e.key === 'Escape') { if (Menu.isOpen()) Menu.close(); else closeDrop(); return; }
+    if (e.key === 'm' || e.key === 'M') { Menu.toggle(); return; }
     if (!snaps.length) return;
     if (e.code === 'Space') { e.preventDefault(); toggle(); }
     else if (e.key === 'ArrowRight') { e.preventDefault(); pause(); next(); }
@@ -1052,7 +1252,8 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('#drop').classList.add('hidden');
     goTo(0);
     if (location.search.includes('debug')) { $('#debug').classList.add('show'); runDebug(); }
-    play();
+    Menu.refresh();
+    if (Settings.get('autoplay')) play();
   }
   async function loadFile(f) { if (!f) return; $('#progress').textContent = 'Leggo ' + f.name + '…'; loadText(await f.text(), f.name); }
   $('#file').onchange = (e) => loadFile(e.target.files[0]);
@@ -1082,6 +1283,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     logFiles.forEach((lf, i) => { const o = document.createElement('option'); o.value = i; o.textContent = fmtDate(new Date(lf.mtime)); sel.append(o); });
     sel.hidden = !logFiles.length;
     if (dirName) { $('#folder-name').textContent = dirName; $('#btn-refolder').hidden = false; }
+    Menu.refresh();
   }
   async function listLogs() {
     if (isDesktop) { logFiles = await window.desktop.listLogs(); const s = await window.desktop.getSettings(); renderLogList(s.logDir ? s.logDir.split(/[\\/]/).pop() : ''); return; }
