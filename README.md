@@ -49,3 +49,18 @@ Non serve nessun tool: si modifica `index.html` e si apre nel browser. Il file �
 3. secondo `<script>` — **Renderer** (stato → DOM del tappetino), **Controller** (play/pausa/step), **Loader** (file, cartella, immagini).
 
 Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR provare il log di esempio con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza".
+
+## App per Windows (eseguibile)
+Stessa pagina dentro una finestra nativa (Electron), con accesso vero ai file: scegli la cartella dei log una volta e l'app la riapre da sola a ogni avvio, senza conferme; quando il sim salva un log nuovo compare subito in lista.
+- Scarica `OPTCG-Replay-portable.exe` dalle Releases di GitHub: nessuna installazione, doppio click e parte.
+- Avvio con `--open-latest` apre subito l'ultima partita.
+
+Per gli sviluppatori (cartella `desktop/`):
+```
+cd desktop
+npm install          # una volta
+npm start            # copia index.html in app/ e avvia l'app
+npm run build        # produce dist/OPTCG-Replay-portable.exe e l'installer
+```
+`main.js` è il processo nativo (finestra, cartella, watcher dei file), `preload.js` espone `window.desktop` alla pagina, `sync.js` copia i file web in `app/`. La pagina rileva `window.desktop` e usa quello al posto della File System Access API del browser; il codice del replay è identico.
+Nota: se nell'ambiente c'è la variabile `ELECTRON_RUN_AS_NODE` (es. terminale di VS Code) l'app non parte: lanciare con `env -u ELECTRON_RUN_AS_NODE npm start`.

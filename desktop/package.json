@@ -1,0 +1,47 @@
+{
+  "name": "optcg-replay",
+  "productName": "OPTCG Replay",
+  "version": "0.1.0",
+  "description": "Visualizzatore di replay per i combat log di OPTCGSim",
+  "main": "main.js",
+  "author": "LeoBacca",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "sync": "node sync.js",
+    "start": "node sync.js && electron .",
+    "build": "node sync.js && electron-builder --win"
+  },
+  "build": {
+    "appId": "it.leobacca.optcgreplay",
+    "productName": "OPTCG Replay",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "language": "1040"
+    },
+    "portable": {
+      "artifactName": "OPTCG-Replay-portable.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3"
+  }
+}

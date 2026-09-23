@@ -1038,10 +1038,9 @@ if (typeof module !== 'undefined') module.exports = Core;
   async function kvSet(k, v) { try { const db = await idb(); db.transaction('kv', 'readwrite').objectStore('kv').put(v, k); } catch (e) { } }
   const fmtDate = (d) => d.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
 
-  async function listLogs() {
-    logFiles = [];
-    for await (const [name, h] of dirHandle.entries()) if (h.kind === 'file' && /\.(log|txt)$/i.test(name)) { const f = await h.getFile(); logFiles.push({ name, handle: h, mtime: f.lastModified, size: f.size }); }
-    logFiles.sort((a, b) => b.mtime - a.mtime);
+  // Due sorgenti: app desktop (window.desktop, accesso diretto ai file) oppure browser (File System Access API)
+  const isDesktop = !!window.desktop;
+  function renderLogList(dirName) {
     const ul = $('#loglist'); ul.replaceChildren();
     if (!logFiles.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nessun file .log in questa cartella'; ul.append(li); }
     logFiles.forEach((lf, i) => {
@@ -1052,15 +1051,28 @@ if (typeof module !== 'undefined') module.exports = Core;
     const sel = $('#logsel'); sel.replaceChildren();
     logFiles.forEach((lf, i) => { const o = document.createElement('option'); o.value = i; o.textContent = fmtDate(new Date(lf.mtime)); sel.append(o); });
     sel.hidden = !logFiles.length;
-    $('#folder-name').textContent = dirHandle.name; $('#btn-refolder').hidden = false;
+    if (dirName) { $('#folder-name').textContent = dirName; $('#btn-refolder').hidden = false; }
   }
-  async function openLog(i) { const lf = logFiles[i]; if (!lf) return; $('#logsel').value = i; await loadFile(await lf.handle.getFile()); }
+  async function listLogs() {
+    if (isDesktop) { logFiles = await window.desktop.listLogs(); const s = await window.desktop.getSettings(); renderLogList(s.logDir ? s.logDir.split(/[\\/]/).pop() : ''); return; }
+    logFiles = [];
+    for await (const [name, h] of dirHandle.entries()) if (h.kind === 'file' && /\.(log|txt)$/i.test(name)) { const f = await h.getFile(); logFiles.push({ name, handle: h, mtime: f.lastModified, size: f.size }); }
+    logFiles.sort((a, b) => b.mtime - a.mtime);
+    renderLogList(dirHandle.name);
+  }
+  async function openLog(i) {
+    const lf = logFiles[i]; if (!lf) return; $('#logsel').value = i;
+    if (lf.path) { $('#progress').textContent = 'Leggo ' + lf.name + '…'; await loadText(await window.desktop.readLog(lf.path), lf.name); }
+    else await loadFile(await lf.handle.getFile());
+  }
   async function pickFolder() {
+    if (isDesktop) { const d = await window.desktop.pickDir(); if (d) await listLogs(); return; }
     if (!window.showDirectoryPicker) { alert('Il tuo browser non supporta la scelta della cartella: usa Chrome o Edge, oppure trascina il file.'); return; }
     try { dirHandle = await window.showDirectoryPicker({ id: 'optcg-logs', mode: 'read' }); } catch (e) { return; }
     await kvSet('dir', dirHandle); await listLogs();
   }
   async function reopenFolder() {
+    if (isDesktop) return listLogs();
     const h = await kvGet('dir'); if (!h) return pickFolder();
     let p = await h.queryPermission({ mode: 'read' });
     if (p !== 'granted') p = await h.requestPermission({ mode: 'read' });
@@ -1070,10 +1082,14 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#btn-folder').onclick = pickFolder;
   $('#btn-refolder').onclick = reopenFolder;
   $('#logsel').onchange = (e) => { pause(); openLog(+e.target.value); };
-  kvGet('dir').then(async (h) => {
+  if (isDesktop) {
+    // app: cartella ricordata, aperta da sola; i log nuovi compaiono appena il sim li salva
+    dirHandle = true;
+    window.desktop.getSettings().then(async (s) => { if (s.logDir) { await listLogs(); if (new URLSearchParams(location.search).get('open') === 'latest' && logFiles.length) openLog(0); } });
+    window.desktop.onLogsChanged((list) => { const curPath = logFiles[+$('#logsel').value] && logFiles[+$('#logsel').value].path; logFiles = list; renderLogList(); const k = logFiles.findIndex(l => l.path === curPath); if (k >= 0) $('#logsel').value = k; });
+  } else kvGet('dir').then(async (h) => {
     if (!h) return;
     $('#folder-name').textContent = h.name; $('#btn-refolder').hidden = false;
-    // se il permesso è ancora valido (stessa sessione del browser) elenca subito, senza click
     try { if (await h.queryPermission({ mode: 'read' }) === 'granted') { dirHandle = h; await listLogs(); } } catch (e) { }
   });
 
