@@ -71,14 +71,14 @@
   .area::before{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 clamp(14px,2.2vw,30px)/1 Impact,'Arial Black',sans-serif;letter-spacing:.04em;color:#ffffffcc;text-transform:uppercase;text-shadow:0 2px 6px #0008;pointer-events:none}
   .area.small{min-height:auto;padding:4px}
   .area.small::before{font-size:clamp(9px,1vw,13px)}
-  .a-chars{grid-area:chars;padding:6px 14px;z-index:3}
-  .a-chars .card{margin:0 4px}
-  .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 4px)}
+  .a-chars{grid-area:chars;padding:6px 6px;gap:0;z-index:3}
+  .a-chars .card{margin:0 2px}
+  .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 2px)}
   .a-leader{grid-area:leader;background:transparent;border:none;min-height:auto;padding:0;z-index:3}
   .a-stage{grid-area:stage}
   .a-deck{grid-area:deck;background:transparent;border:none;padding:0;min-height:auto}
   .a-trash{grid-area:trash;cursor:pointer;padding:2px}
-  .a-cost{grid-area:cost;justify-content:flex-start;flex-wrap:wrap;padding:4px 10px;gap:4px}
+  .a-cost{grid-area:cost;justify-content:flex-start;flex-wrap:nowrap;padding:4px 12px;gap:0;overflow:hidden}
   .a-dond{grid-area:dond;background:transparent;border:none;padding:0;min-height:auto}
   .a-life{grid-area:life;background:transparent;border:none;flex-direction:column;justify-content:center;gap:0;padding:0}
   .a-name{grid-area:name;color:#1d2b22;font-weight:800;font-size:clamp(11px,1.1vw,15px);line-height:1.2;text-align:center;display:flex;flex-direction:column;justify-content:center;text-shadow:0 1px 0 #fff8}
@@ -134,8 +134,12 @@
   .back.life:first-child{margin-top:0}
   .back.life::after{width:30%;height:50%}
   .lifecnt{font-weight:900;color:#fff;background:#000a;border-radius:6px;padding:0 8px;margin-top:8px;font-size:clamp(13px,1.4vw,20px)}
-  .doncard{width:calc(var(--cw) * 0.62);height:calc(var(--ch) * 0.62);border-radius:4px;background:#111 url(don.jpg) center/cover no-repeat;color:transparent;font-size:0;flex:none;transition:transform .25s;box-shadow:0 2px 4px #0008}
-  .doncard.r{transform:rotate(90deg);margin:0 calc(var(--ch) * 0.07);opacity:.75}
+  .doncard{width:calc(var(--cw) * 0.9);height:calc(var(--ch) * 0.9);border-radius:5px;background:#111 url(don.jpg) center/cover no-repeat;color:transparent;font-size:0;flex:none;transition:transform .25s,margin .25s;box-shadow:-2px 0 4px #0008}
+  .doncard + .doncard{margin-left:calc(var(--cw) * -0.58)}
+  .doncard.r + .doncard.r{margin-left:calc(var(--cw) * -0.62)}
+  .doncard.r + .doncard:not(.r){margin-left:calc(var(--ch) * 0.1)}
+  .doncard.r{transform:rotate(90deg);opacity:.8}
+  .doncard.r:first-child{margin-left:calc((var(--ch) - var(--cw)) * 0.45)}
   .dond{width:calc(var(--cw) * 0.62);height:calc(var(--ch) * 0.62);border-radius:4px;background:#111 url(don.jpg) center/cover no-repeat;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 #444,4px 4px 0 #222;filter:brightness(.8)}
   .dond .n{color:#fff;background:#000b;font-size:14px}
   .cnt{position:absolute;right:4px;bottom:2px;font-weight:800;color:#fff;background:#000a;border-radius:5px;padding:0 6px;font-size:12px;z-index:2}
@@ -720,7 +724,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     const aDeck = area('a-deck'); aDeck.append(pile(P.deck));
     // cost area (DON) + DON deck + trash
     const aCost = area('a-cost', 'Cost area');
-    for (const d of P.donPool) { const dc = document.createElement('div'); dc.className = 'doncard' + (d.rested ? ' r' : ''); dc.textContent = 'DON!!'; aCost.append(dc); }
+    for (const d of [...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0))) { const dc = document.createElement('div'); dc.className = 'doncard' + (d.rested ? ' r' : ''); dc.textContent = 'DON!!'; aCost.append(dc); }
     const aDond = area('a-dond'); const dd = document.createElement('div'); dd.className = 'dond'; const dn = document.createElement('span'); dn.className = 'n'; dn.textContent = P.donDeck; dd.append(dn); aDond.append(dd);
     const aTrash = area('a-trash', P.trash.length ? '' : 'Trash');
     if (P.trash.length) { aTrash.append(tag(cardEl(P.trash[P.trash.length - 1]))); const c = document.createElement('span'); c.className = 'cnt'; c.textContent = P.trash.length; aTrash.append(c); }
