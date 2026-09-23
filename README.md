@@ -12,6 +12,7 @@ Pagina web singola, senza installazione: apri `index.html` nel browser (doppio c
 | Salta a un turno | menu "Turno N" o slider | |
 | Mostra / nascondi la mano dell'avversario | 👁 Mano avv | H |
 | Lista trash | click sulla pila del trash | |
+| Pennarello per scarabocchiare sul tavolo (solo in pausa; al Play si cancella) | icona pennarello a destra | D |
 | Log degli eventi (pannello a scomparsa) | Log | L |
 | Verifiche di coerenza | Debug (dentro il pannello Log) | |
 
