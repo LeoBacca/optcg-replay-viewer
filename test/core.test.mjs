@@ -56,3 +56,21 @@ test('una riga di un attore non associato a un giocatore non blocca il replay', 
   const { mismatches } = replay(text);
   assert.deepEqual(mismatches, []);
 });
+
+test('le carte entrate in mano in modo pubblico restano note finché non escono', () => {
+  const { snapshots } = replay(sampleLog);
+  const known = (step, player) => snapshots[step].players[player].hand.filter((c) => c.known).map((c) => [c.id, c.known]);
+  assert.deepEqual(known(26, 2), []);
+  assert.deepEqual(known(27, 2), [['ST32-001', 'revealed']]);
+  assert.deepEqual(known(199, 2), [['OP17-022', 'revealed'], ['OP12-034', 'field']]);
+  assert.deepEqual(known(402, 2), [['OP06-038', 'revealed'], ['OP01-055', 'revealed']]);
+  assert.deepEqual(known(408, 2), [['OP06-038', 'revealed']]);
+  assert.deepEqual(known(157, 1), [['ST32-001', 'field'], ['OP12-034', 'field']]);
+});
+
+test('le carte pescate o prese dalla Life non sono note', () => {
+  const { snapshots } = replay(sampleLog);
+  const last = snapshots[snapshots.length - 1];
+  assert.equal(last.players[2].hand.length, 8);
+  assert.deepEqual(last.players[2].hand.filter((c) => c.known), []);
+});
