@@ -35,3 +35,14 @@ Vengono scaricate al volo (e messe in cache dal browser) da Limitless, con fallb
 
 ## Formato log (per chi vuole modificare il parser)
 Il log ha righe testuali (`[You] Deploy X ["ID">ID]`, `A [8000] vs B [6000]`, ...) e righe `RZ1|seq|player|carta|daZona|daIdx|aZona|aIdx|f1|f2|f3|0|0` che spostano una carta tra zone (0 deck, 1 mano, 2 personaggi, 3 life, 4 DON deck, 5 DON attivi, 6 trash, 7 stage, 9 DON attaccati; `aIdx = slot*100+n` sui personaggi, `9900+n` sul leader). `RZ1|CHK|...` porta i conteggi per verifica. Lo stato "riposato" di personaggi e leader non è nelle righe RZ1 e viene dedotto dal testo; il refresh di inizio turno non è loggato e viene sintetizzato.
+
+## Online
+Sito: https://leobacca.github.io/optcg-replay-viewer/ — repo: https://github.com/LeoBacca/optcg-replay-viewer. Ogni push su `main` aggiorna il sito in un minuto circa.
+
+## Per chi collabora
+Non serve nessun tool: si modifica `index.html` e si apre nel browser. Il file è diviso in tre blocchi:
+1. `<style>` — tutto il CSS. Le misure delle carte partono dalle variabili `--ch` (altezza carta in campo) e `--hch` (in mano) definite in `:root`.
+2. `<script id="core">` — **Parser** (log → lista di step) e **Engine** (step → stato del tavolo, uno snapshot per step). Non tocca il DOM: si può testare in node estraendo il blocco.
+3. secondo `<script>` — **Renderer** (stato → DOM del tappetino), **Controller** (play/pausa/step), **Loader** (file, cartella, immagini).
+
+Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR provare il log di esempio con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza".
