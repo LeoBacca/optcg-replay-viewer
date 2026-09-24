@@ -31,6 +31,9 @@
   .hand .card + .card,.hand .back + .back{margin-left:calc(-1 * var(--ov))}
   .hand .card:hover{z-index:5;transform:translateY(-10px) scale(1.06)}
   #opp-hand .card:hover{transform:translateY(10px) scale(1.06)}
+  .hand .card.isknown{box-shadow:0 0 0 3px var(--accent),0 2px 6px #0008}
+  .hand .card .known{display:none;position:absolute;left:2px;top:4%;max-height:92%;writing-mode:vertical-rl;transform:rotate(180deg);padding:4px 1px;border-radius:4px;background:#f5b73aee;color:#1a1200;font-size:clamp(9px,.8vw,11px);font-weight:800;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;z-index:4}
+  .hand .card .known.show{display:block}
   .hand .hcnt{position:absolute;left:0;right:0;bottom:-6px;text-align:center;color:#f7e9d4;font-weight:700;text-shadow:0 1px 3px #000}
   #right{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;min-width:0;gap:14px;position:relative}
   #marker{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;z-index:9;align-items:flex-start}
@@ -337,7 +340,7 @@
     <input type="range" id="scrub" min="0" max="0" value="0">
     <span id="pos">0 / 0</span>
     <span id="step-text"></span>
-    <button id="btn-hand" title="Mostra/nascondi mano avversario (H)">👁 Mano avv</button>
+    <button id="btn-hand" title="Mano avversario: tutte, solo quelle note, coperte (H)">Mano avv: tutte</button>
     <button id="btn-log" title="Mostra/nascondi il log (L)">Log</button>
     <select id="logsel" title="Altri log della cartella" hidden></select>
     <button id="btn-open" title="Apri un altro log">Apri log</button>
@@ -512,7 +515,7 @@ const Core = (() => {
       const cards = refs(body);
 
       // drop / assertions
-      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(raw)) || /Downloaded the Combat Log/.test(raw)) continue;
+      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(body)) || /Downloaded the Combat Log/.test(raw)) continue;
       if (actor && /^(Hand|Board|Trash|Life|Hand before Mulligan|Hand after Mulligan): /.test(body)) {
         const kind = body.split(':')[0];
         const val = body.slice(kind.length + 1).trim();
@@ -527,7 +530,7 @@ const Core = (() => {
       if (actor && !player) { player = 0; }
 
       let s = null;
-      if (/^Leader is /.test(body)) { players[player].leader = cards[0]; s = newStep('leader', player, text, { cards, delay: 0.5 }); }
+      if (/^Leader is /.test(body)) { if (player) players[player].leader = cards[0]; s = newStep('leader', player, text, { cards, delay: 0.5 }); }
       else if (/^Chose to go /.test(body)) { s = newStep('info', player, text, { delay: 0.6 }); }
       else if (/^Draw \d+ Card$/.test(body) || (/^Draw \d+ Don$/.test(body) && activePlayer === 0)) {
         const isTurn = /Card$/.test(body) ? (turnEnded || player !== activePlayer) : true;
@@ -537,6 +540,7 @@ const Core = (() => {
       }
       else if (/^Draw \d+ Don$/.test(body)) { s = newStep('drawDon', player, text, { delay: 0.6 }); }
       else if (/^Deploy /.test(body)) { s = newStep('deploy', player, text, { cards, delay: 1 }); }
+      else if (/^Trash /.test(body) && cards.length) { s = newStep('trash', player, text, { cards, delay: 0.6 }); }
       else if (/^Mulligan$/.test(body)) { s = newStep('mulligan', player, text, { delay: 0.6 }); }
       else if (/^End Turn$/.test(body)) { turnEnded = true; s = newStep('endTurn', player, text, { delay: 0.8 }); }
       else if (/ attacking /.test(body) && cards.length >= 2) { s = newStep('attack', player, text, { cards, delay: 1 }); }
@@ -554,7 +558,7 @@ const Core = (() => {
       else if (/^<b><size/.test(body) || /^<b>/.test(body)) { s = newStep('chat', player, text, { delay: 0.8 }); }
       else if (cards.length && /^.+?: /.test(body) && body.indexOf(cards[0].raw) < body.indexOf(': ')) {
         // effetto "Sorgente: azione"
-        const src = cards[0]; const rest = body.slice(body.indexOf(': ') + 2);
+        const src = cards[0]; const rest = body.slice(body.indexOf(': ') + 2).replace(TAGS, '');
         const tcards = cards.slice(1);
         let sub = 'effect', target = tcards[0] || null, delay = 1;
         if (/^Rest \d+ Don/.test(rest) || /^Rest Don \[/.test(rest)) { s = newStep('restDon', player, text, { cards, src, delay: 0.7 }); }
@@ -636,7 +640,7 @@ const Core = (() => {
 
   // ---------------- ENGINE ----------------
   let UID = 0;
-  const mkCard = (id) => ({ uid: ++UID, id, rested: false, don: 0 });
+  const mkCard = (id) => ({ uid: ++UID, id, rested: false, don: 0, known: null });
   const mkPlayer = (name, leaderId) => ({
     name, leader: { uid: ++UID, id: leaderId, rested: false, don: 0 },
     deck: 50, donDeck: 10, hand: [], chars: [], stage: [], life: [], trash: [], donPool: [], flash: []
@@ -656,7 +660,14 @@ const Core = (() => {
     return pool[0];
   }
 
-  function applyMove(state, mv, dbg) {
+  const KNOWN_FROM_ZONE = { 2: 'field', 6: 'trash', 7: 'field' };
+  function knownReason(mv, st) {
+    if (KNOWN_FROM_ZONE[mv.fz]) return KNOWN_FROM_ZONE[mv.fz];
+    if (mv.fz === 0 && st && st.kind === 'reveal') return 'revealed';
+    return null;
+  }
+
+  function applyMove(state, mv, dbg, st) {
     const P = state.players[mv.player];
     const { fz, tz, fi, ti, id, f3 } = mv;
     try {
@@ -672,6 +683,7 @@ const Core = (() => {
         else { const a = zoneArr(P, fz); if (a) { card = a.splice(fi, 1)[0]; } if (!card) { dbg && dbg.push('carta ' + id + ' non trovata in zona ' + fz + '[' + fi + '] (r' + mv.line + ')'); card = mkCard(id); } if (card.id !== id) card.id = id; if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; } }
         if (tz === 0) { P.deck++; }
         else { const a = zoneArr(P, tz); if (a) a.splice(Math.min(ti, a.length), 0, card); else dbg && dbg.push('zona sconosciuta ' + tz + ' (r' + mv.line + ')'); if (tz === 2 || tz === 7) { card.rested = false; card.don = 0; } }
+        card.known = tz === 1 ? knownReason(mv, st) : null;
       }
     } catch (e) { dbg && dbg.push('errore mossa r' + mv.line + ': ' + e.message); }
     if (mv.chk) {
@@ -686,11 +698,13 @@ const Core = (() => {
   }
 
   function ownerOf(state, uid) { for (const p of [1, 2]) { const P = state.players[p]; if (P.leader.uid === uid) return p; for (const c of P.chars) if (c.uid === uid) return p; } return 0; }
+  const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase']);
   function refresh(P) { P.leader.rested = false; for (const c of P.chars) c.rested = false; for (const c of P.stage) c.rested = false; for (const d of P.donPool) d.rested = false; }
 
   function applyText(state, st, dbg) {
     const P = st.player ? state.players[st.player] : null;
     const O = st.player ? state.players[st.player === 1 ? 2 : 1] : null;
+    if (!P && !PLAYERLESS_KINDS.has(st.kind)) return;
     switch (st.kind) {
       case 'turnStart': state.turn = st.turn; state.active = st.player; refresh(P); state.combat = null; break;
       case 'attack': {
@@ -764,9 +778,9 @@ const Core = (() => {
     const snapshots = [];
     for (const st of parsed.steps) {
       state.flash = [];
-      if (st.kind === 'leader') state.players[st.player].leader.id = st.cards[0].id;
+      if (st.kind === 'leader' && st.player) state.players[st.player].leader.id = st.cards[0].id;
       applyText(state, st, dbg);
-      for (const mv of st.moves) applyMove(state, mv, dbg);
+      for (const mv of st.moves) applyMove(state, mv, dbg, st);
       if (dbg) checkAssertions(state, st, dbg);
       snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
       if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) state.combat = null;
@@ -787,8 +801,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   // Sorgenti immagini in ordine di preferenza. NB: en.onepiece-cardgame.com manda Cross-Origin-Resource-Policy: same-site,
   // quindi il browser rifiuta le sue immagini da altri siti: non è usabile.
   const IMG_SOURCES = [
-    (id) => 'https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/one-piece/' + id.split('-')[0] + '/' + id + '_EN.webp',
     (id) => 'https://static.dotgg.gg/onepiece/card/' + id + '.webp',
+    (id) => 'https://limitlesstcg.nyc3.cdn.digitaloceanspaces.com/one-piece/' + id.split('-')[0] + '/' + id + '_EN.webp',
   ];
   const IMG = (id, k) => IMG_SOURCES[k || 0](id);
   // imposta src con fallback a catena; chiama onFail se tutte le sorgenti falliscono
@@ -801,8 +815,11 @@ if (typeof module !== 'undefined') module.exports = Core;
   const metaOf = (id) => { const m = META[id]; return m ? { name: m[0], cost: m[1], power: m[2], counter: m[3], life: m[4] } : null; };
 
   let parsed = null, snaps = [], cur = 0, playing = false, timer = null, speed = 1;
-  let showOppHand = true;
-  try { showOppHand = localStorage.getItem('optcg.showOppHand') !== '0'; } catch (e) { }
+  const OPP_HAND_MODES = ['all', 'known', 'hidden'];
+  const OPP_HAND_LABELS = { all: 'Mano avv: tutte', known: 'Mano avv: note', hidden: 'Mano avv: coperte' };
+  const KNOWN_LABELS = { field: 'tornata in mano', trash: 'dal trash', revealed: 'rivelata' };
+  let oppHand = 'all';
+  try { const saved = localStorage.getItem('optcg.oppHand'); if (OPP_HAND_MODES.includes(saved)) oppHand = saved; } catch (e) { }
   // impostazioni persistenti (localStorage): ogni chiave ha un default in DEF e il suo effetto immediato in apply()
   const Settings = (() => {
     const DEF = { autoplay: true, anim: true, preview: true, speed: 1 };
@@ -840,7 +857,8 @@ if (typeof module !== 'undefined') module.exports = Core;
       const dons = document.createElement('span'); dons.className = 'dons';
       const donx = document.createElement('span'); donx.className = 'donx';
       const pw = document.createElement('span'); pw.className = 'pw';
-      el.append(dons, img, donx, pw);
+      const known = document.createElement('span'); known.className = 'known';
+      el.append(dons, img, donx, pw, known);
       el.addEventListener('mouseenter', () => showPreview(card.id));
       nodes.set(card.uid, el);
     }
@@ -848,6 +866,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     const dons = el.querySelector('.dons');
     while (dons.children.length > card.don) dons.lastChild.remove();
     while (dons.children.length < card.don) { const d = document.createElement('span'); d.className = 'dcard in'; d.style.setProperty('--k', dons.children.length); d.textContent = 'DON!!'; dons.append(d); }
+    const known = el.querySelector('.known'); known.textContent = KNOWN_LABELS[card.known] || ''; known.classList.toggle('show', !!card.known); el.classList.toggle('isknown', !!card.known);
     const donx = el.querySelector('.donx'); donx.textContent = 'DON!! ×' + card.don; donx.classList.toggle('show', card.don > 0); donx.style.setProperty('--n', card.don);
     return el;
   }
@@ -888,9 +907,11 @@ if (typeof module !== 'undefined') module.exports = Core;
     aTrash.onclick = () => openTrash(P, p);
     half.append(aLife, aChars, aName, aLead, aStage, aDeck, aDond, aCost, aTrash);
     // mano (colonna sinistra, a ventaglio)
-    if (isOpp && !showOppHand) {
-      for (let i = 0; i < P.hand.length; i++) hand.append(backEl(null, ''));
-      const c = document.createElement('div'); c.className = 'hcnt'; c.textContent = P.hand.length + ' carte in mano'; hand.append(c);
+    if (isOpp && oppHand !== 'all') {
+      const showKnown = oppHand === 'known';
+      for (const c of P.hand) hand.append(showKnown && c.known ? tag(cardEl(c)) : backEl(null, ''));
+      const nKnown = P.hand.filter(c => c.known).length;
+      const c = document.createElement('div'); c.className = 'hcnt'; c.textContent = P.hand.length + ' carte in mano' + (showKnown ? ', ' + nKnown + ' note' : ''); hand.append(c);
     } else for (const c of P.hand) hand.append(tag(cardEl(c)));
   }
   // sovrapposizione delle carte in mano per farle stare nella colonna
@@ -1084,7 +1105,8 @@ if (typeof module !== 'undefined') module.exports = Core;
     };
   })();
   function toggle() { playing ? pause() : play(); }
-  function setHand(v) { showOppHand = v; $('#btn-hand').classList.toggle('on', v); $('#btn-hand').textContent = (v ? '👁 ' : '🙈 ') + 'Mano avv'; try { localStorage.setItem('optcg.showOppHand', v ? '1' : '0'); } catch (e) { } if (snaps.length) render(cur); Menu.refresh(); }
+  function setOppHand(mode) { oppHand = mode; $('#btn-hand').classList.toggle('on', mode !== 'hidden'); $('#btn-hand').textContent = OPP_HAND_LABELS[mode]; try { localStorage.setItem('optcg.oppHand', mode); } catch (e) { } if (snaps.length) render(cur); Menu.refresh(); }
+  const nextOppHand = () => setOppHand(OPP_HAND_MODES[(OPP_HAND_MODES.indexOf(oppHand) + 1) % OPP_HAND_MODES.length]);
   function openDrop() { pause(); $('#drop').classList.remove('hidden'); $('#btn-drop-close').hidden = !snaps.length; if (dirHandle) listLogs(); }
   function closeDrop() { if (snaps.length) $('#drop').classList.add('hidden'); }
   const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } Menu.refresh(); };
@@ -1119,7 +1141,7 @@ if (typeof module !== 'undefined') module.exports = Core;
           { ic: '✨', label: 'Animazioni delle carte', hint: 'life → mano, mano → campo, campo → trash…', type: 'toggle', get: () => Settings.get('anim'), set: (v) => Settings.set('anim', v) },
         ] },
         { title: 'Vista', items: [
-          { ic: '👁', label: 'Mano dell\'avversario', type: 'toggle', kbd: 'H', get: () => showOppHand, set: setHand },
+          { ic: '👁', label: 'Mano dell\'avversario', type: 'seg', kbd: 'H', opts: [['all', 'tutte'], ['known', 'note'], ['hidden', 'coperte']], get: () => oppHand, set: setOppHand },
           { ic: '🔍', label: 'Anteprima carta a destra', hint: 'al passaggio del mouse', type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
           { ic: '📜', label: 'Log degli eventi', hint: 'pannello con tutte le mosse', type: 'toggle', kbd: 'L', get: () => $('#mid').classList.contains('show'), set: toggleLog },
         ] },
@@ -1199,7 +1221,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#speed').onchange = (e) => setSpeed(+e.target.value);
   $('#turns').onchange = (e) => { const t = parsed.turns[+e.target.value]; if (t) goTo(t.first); };
   $('#scrub').oninput = (e) => { pause(); goTo(+e.target.value); };
-  $('#btn-hand').onclick = () => setHand(!showOppHand);
+  $('#btn-hand').onclick = nextOppHand;
   $('#btn-open').onclick = openDrop; $('#btn-drop-close').onclick = closeDrop;
   $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
   $('#btn-debug').onclick = showDebug;
@@ -1213,11 +1235,11 @@ if (typeof module !== 'undefined') module.exports = Core;
     else if (e.key === 'ArrowLeft') { e.preventDefault(); pause(); prev(); }
     else if (e.key === 'Home') { pause(); goTo(0); }
     else if (e.key === 'End') { pause(); goTo(snaps.length - 1); }
-    else if (e.key === 'h' || e.key === 'H') setHand(!showOppHand);
+    else if (e.key === 'h' || e.key === 'H') nextOppHand();
     else if (e.key === 'l' || e.key === 'L') toggleLog();
     else if (e.key === 'd' || e.key === 'D') Ink.toggle();
   });
-  setHand(showOppHand);
+  setOppHand(oppHand);
 
   function runDebug() {
     const r = Core.buildSnapshots(parsed, { debug: true });

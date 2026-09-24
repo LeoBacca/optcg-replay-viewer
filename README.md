@@ -11,7 +11,7 @@ Pagina web singola, senza installazione: apri `index.html` nel browser (doppio c
 | Inizio / fine partita | | Home / End |
 | Velocità | menu 0.5× … 3× | |
 | Salta a un turno | menu "Turno N" o slider | |
-| Mostra / nascondi la mano dell'avversario | 👁 Mano avv | H |
+| Mano dell'avversario: tutte, solo quelle note, coperte | Mano avv | H |
 | Lista trash | click sulla pila del trash | |
 | Pennarello per scarabocchiare sul tavolo (solo in pausa; al Play si cancella) | icona pennarello a destra | D |
 | Log degli eventi (pannello a scomparsa) | Log | L |
@@ -24,15 +24,18 @@ Prec / Succ mettono in pausa. Ogni passo è una riga evento del log (deploy, res
 ## Layout
 Riproduce il tavolo di OPTCGSim: mano dell'avversario in alto, mano tua in basso, in mezzo il tappetino con il lato avversario ruotato di 180°, Cost Area (DON), Character Area, leader, stage, deck, life e trash nelle stesse posizioni del simulatore. Le dimensioni delle carte si adattano all'altezza della finestra. Durante un attacco una freccia rossa collega l'attaccante al bersaglio e le potenze (base + DON) compaiono in rosa sulle due carte. I DON attaccati stanno sotto la carta con l'etichetta DON!! ×N, il leader di chi è di turno ha un alone bianco, gli spostamenti (life → mano, deck → mano, mano → campo, campo → trash) sono animati. Passando col mouse su una carta compare ingrandita nella colonna di destra. A fine partita compare YOU WIN / YOU LOSE (concessione, danno letale, oppure abbandono/disconnessione segnalati come esito probabile).
 
+## Carte note
+In modalità "Mano avv: note" la mano dell'avversario mostra scoperte solo le carte che hai potuto vedere: rivelate da un effetto (Reveal and Draw), tornate in mano dal campo o recuperate dal trash. Le carte pescate o prese dalla Life restano coperte. Una carta smette di essere nota quando esce dalla mano. Le carte note hanno un bordo giallo e un'etichetta con il motivo, anche nella tua mano: così vedi cosa conosce l'avversario.
+
 ## File
 - `index.html` — tutto il programma (parser del log, motore di stato, interfaccia).
-- `don.svg` — skin della carta DON!! (disegnata in SVG, nessuna CDN la ospita).
 - `don.jpg` — immagine della carta DON!! (fornita da Leo).
 - `cards_meta.js` — nome / costo / potenza / counter per ogni carta (tooltip al passaggio del mouse). Se manca, funziona lo stesso.
 - `Esempio COmbat log/` — un log di prova.
+- `test/core.test.mjs` - test di parser ed engine sul log di esempio.
 
 ## Immagini delle carte
-Vengono scaricate al volo (e messe in cache dal browser) da Limitless, con fallback su dotgg. Il sito ufficiale Bandai non è utilizzabile: manda l'header `Cross-Origin-Resource-Policy: same-site` e il browser blocca le sue immagini da qualsiasi altro sito.
+Vengono scaricate al volo (e messe in cache dal browser) da dotgg, con fallback su Limitless. dotgg viene prima perché ha la scritta SAMPLE solo su una parte delle carte recenti, mentre Limitless ce l'ha su tutte. Se nessuna delle due ha l'immagine (per esempio le promo da P-120 a P-134) la carta viene mostrata con il nome. Il sito ufficiale Bandai non è utilizzabile: manda l'header `Cross-Origin-Resource-Policy: same-site` e il browser blocca le sue immagini da qualsiasi altro sito.
 
 ## Parametri URL (opzionali, servono se la pagina è servita via http)
 - `?log=<url del log>` carica un log automaticamente (es. `python -m http.server` nella cartella e poi `http://localhost:8000/index.html?log=Esempio%20COmbat%20log/....log`).
@@ -53,7 +56,9 @@ Non serve nessun tool: si modifica `index.html` e si apre nel browser. Il file �
 
 Per aggiungere una feature al menu basta una riga in `SECTIONS()` dentro il modulo `Menu`: `{ ic, label, hint, kbd, on }` per un'azione, `type:'toggle'` con `get`/`set` per un interruttore, `type:'seg'` con `opts` per una scelta tra pochi valori. Le impostazioni che devono sopravvivere al riavvio passano da `Settings` (`get`/`set`, salvate in `localStorage` sotto `optcg.settings`, default in `DEF`, effetto immediato in `apply`).
 
-Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR provare il log di esempio con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza".
+Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR:
+- `node --test` (Node 18 o successivo, nessuna dipendenza): esegue parser ed engine sul log di esempio;
+- provare il log di esempio con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza".
 
 ## App per Windows (eseguibile)
 Stessa pagina dentro una finestra nativa (Electron), con accesso vero ai file: scegli la cartella dei log una volta e l'app la riapre da sola a ogni avvio, senza conferme; quando il sim salva un log nuovo compare subito in lista.
