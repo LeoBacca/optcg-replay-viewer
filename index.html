@@ -52,7 +52,7 @@
   #marker-hint{display:none;font-size:12px;color:#f7e9d4;background:#1a120bcc;border-radius:8px;padding:4px 8px;text-shadow:0 1px 2px #000}
   #marker-hint.show{display:block}
   #ink{position:fixed;inset:0;width:100vw;height:100vh;z-index:7;pointer-events:none;touch-action:none}
-  #bar{position:relative;z-index:8}
+  #bar{position:relative;z-index:11}
   #ink.active{pointer-events:auto;cursor:crosshair}
   #ink.active.eraser{cursor:cell}
   #preview{display:none;flex-direction:column;align-items:center;gap:8px;width:min(100%, calc(var(--ch) * 2.6))}
@@ -185,18 +185,59 @@
   #step-text{color:#fff;flex:1 1 200px;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .kbd{font-size:11px;color:var(--muted)}
 
-  #drop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#d8c8b0;text-align:center;padding:30px;background:#000a;z-index:10;backdrop-filter:blur(3px)}
+  #drop{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#d8c8b0;text-align:center;padding:24px 30px 84px;background:#000a;z-index:10;backdrop-filter:blur(3px)}
   #drop h2{color:#fff;margin:0}
   #drop.hidden{display:none}
   #drop .box{border:2px dashed #fff5;border-radius:14px;padding:30px 50px;max-width:620px;background:#1a120bee}
   #drop.over .box{border-color:var(--accent);background:#f5b73a22}
   #drop label{color:var(--accent);cursor:pointer;text-decoration:underline}
   #progress{color:#fff}
-  #loglist{list-style:none;margin:14px 0;padding:0;max-height:40vh;overflow:auto;text-align:left;min-width:420px}
-  #loglist li{padding:7px 10px;border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;color:#fff}
+  /* ---------- raccolta: partite della cartella + statistiche ---------- */
+  #drop .box.wide{max-width:min(1020px,94vw);width:100%;padding:24px 28px}
+  #lib-bar{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+  #lib-bar select{max-width:230px}
+  #lib-tabs{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  #lib-tabs button{border:0;border-radius:0;background:#0004}
+  #lib-tabs button.sel{background:var(--accent);color:#1a1200;font-weight:700}
+  #lib-sum{margin:10px 0 0;color:#fff}
+  #lib-sum b{color:var(--accent)}
+  #loglist,#lib-stats{margin:12px 0;padding:0;max-height:46vh;overflow:auto;text-align:left;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+  #loglist{list-style:none}
+  #loglist li{padding:6px 10px;border-radius:6px;cursor:pointer;display:grid;grid-template-columns:112px minmax(0,1fr) 20px minmax(0,1fr) 26px 66px 40px;align-items:center;gap:10px;color:#fff}
   #loglist li:hover{background:#fff2}
-  #loglist li span{color:#d8c8b0;font-size:12px;white-space:nowrap}
-  #loglist li.empty{color:var(--muted);cursor:default}
+  #loglist li.cur{background:#f5b73a22;box-shadow:inset 3px 0 0 var(--accent)}
+  #loglist li.raw{grid-template-columns:112px minmax(0,1fr) auto}
+  #loglist li.empty{display:block;color:var(--muted);cursor:default;text-align:center}
+  #loglist li.empty:hover{background:none}
+  #loglist .d,#loglist .tn,#loglist .st,#loglist .x,#loglist .ord{color:#d8c8b0;font-size:12px;white-space:nowrap}
+  #loglist .x,#loglist .ord{text-align:center}
+  #loglist .tn{text-align:right}
+  #loglist .fn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ld{display:flex;align-items:center;gap:8px;min-width:0}
+  .ld img{width:26px;aspect-ratio:.716;border-radius:3px;background:#2b3040;flex:none;object-fit:cover}
+  .ld .nm{min-width:0;line-height:1.2}
+  .ld .nm b,.ld .nm small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ld .nm b{font-weight:600;color:#fff}
+  .ld .nm small{color:var(--muted);font-size:11px}
+  .rb{font-weight:800;text-align:center;border-radius:6px;padding:2px 0;font-size:13px}
+  .rb.w{background:#48d28c33;color:var(--ok)}
+  .rb.l{background:#ff5f6d33;color:var(--opp)}
+  .rb.o{color:var(--muted)}
+  #lib-stats .lead{display:flex;align-items:center;gap:10px;margin:18px 0 6px;color:#fff}
+  #lib-stats .lead:first-child{margin-top:0}
+  #lib-stats .lead img{width:34px;aspect-ratio:.716;border-radius:4px;background:#2b3040;object-fit:cover}
+  #lib-stats .lead b{font-size:15px}
+  #lib-stats .lead small{color:#d8c8b0;margin-left:auto;white-space:nowrap}
+  #lib-stats table{width:100%;border-collapse:collapse;font-size:13px}
+  #lib-stats th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;text-align:right;padding:4px 8px;border-bottom:1px solid #fff2;white-space:nowrap}
+  #lib-stats td{padding:5px 8px;text-align:right;color:#f7e9d4;border-bottom:1px solid #fff1;font-variant-numeric:tabular-nums;white-space:nowrap}
+  #lib-stats th:first-child,#lib-stats td:first-child{text-align:left;width:34%}
+  #lib-stats tr.mu{cursor:pointer}
+  #lib-stats tr.mu:hover td{background:#fff1}
+  #lib-stats .wr{font-weight:700;color:#fff}
+  #lib-stats .wrbar{display:inline-block;width:54px;height:6px;border-radius:3px;background:#ff5f6d66;vertical-align:middle;margin-right:8px;overflow:hidden}
+  #lib-stats .wrbar i{display:block;height:100%;background:var(--ok)}
+  #lib-stats .empty{color:var(--muted);text-align:center}
   dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;max-width:80vw}
   dialog::backdrop{background:#0009}
   dialog .grid{display:flex;flex-wrap:wrap;gap:8px;max-height:70vh;overflow:auto;padding:4px}
@@ -285,8 +326,19 @@
         <button id="btn-drop-close" title="Torna al replay (Esc)" hidden>✕ Torna al replay</button>
         <h2>Replay OPTCGSim</h2>
         <p><button id="btn-folder" class="primary">📁 Scegli la cartella dei log</button> <button id="btn-refolder" hidden>↻ Riapri <span id="folder-name"></span></button></p>
-        <ul id="loglist"></ul>
+        <div id="lib" hidden>
+          <div id="lib-bar">
+            <div id="lib-tabs"><button data-tab="games" class="sel">Partite</button><button data-tab="stats">Statistiche</button></div>
+            <select id="flt-me" title="Filtra per il tuo leader"></select>
+            <select id="flt-opp" title="Filtra per il leader avversario"></select>
+            <select id="flt-res" title="Filtra per esito"><option value="">Tutti gli esiti</option><option value="w">Vittorie</option><option value="l">Sconfitte</option><option value="o">Incerte o non concluse</option></select>
+          </div>
+          <p id="lib-sum"></p>
+          <ul id="loglist"></ul>
+          <div id="lib-stats" hidden></div>
+        </div>
         <p class="kbd">oppure trascina qui un file .log, o <label for="file">scegline uno</label></p>
+        <p class="kbd" id="lib-progress"></p>
         <p id="progress"></p>
       </div>
       <p class="kbd">M = menu · Spazio = play/pausa · ← → = mossa indietro/avanti · H = mano avversario · Home/End</p>
@@ -343,7 +395,7 @@
     <button id="btn-hand" title="Mano avversario: tutte, solo quelle note, coperte (H)">Mano avv: tutte</button>
     <button id="btn-log" title="Mostra/nascondi il log (L)">Log</button>
     <select id="logsel" title="Altri log della cartella" hidden></select>
-    <button id="btn-open" title="Apri un altro log">Apri log</button>
+    <button id="btn-open" title="Raccolta delle partite, statistiche e apertura di un log">Raccolta</button>
   </footer>
 </div>
 
@@ -776,19 +828,57 @@ const Core = (() => {
       players: { 1: mkPlayer(parsed.players[1].name, parsed.players[1].leader ? parsed.players[1].leader.id : null), 2: mkPlayer(parsed.players[2].name, parsed.players[2].leader ? parsed.players[2].leader.id : null) }
     };
     const snapshots = [];
+    const lastStep = parsed.steps[parsed.steps.length - 1];
     for (const st of parsed.steps) {
       state.flash = [];
       if (st.kind === 'leader' && st.player) state.players[st.player].leader.id = st.cards[0].id;
       applyText(state, st, dbg);
       for (const mv of st.moves) applyMove(state, mv, dbg, st);
       if (dbg) checkAssertions(state, st, dbg);
-      snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
+      // lastOnly: solo lo stato finale (basta per l'esito, evita una copia per step)
+      if (!opts.lastOnly || st === lastStep) snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
       if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) state.combat = null;
     }
     return { snapshots, mismatches: dbg || [] };
   }
 
-  return { parseLog, buildSnapshots, clean, refs };
+  // ---------------- RACCOLTA: riepilogo di una partita e statistiche ----------------
+  // Il giocatore 1 è sempre chi ha scaricato il log ([You]), quindi "me" è lui in ogni partita.
+  function summarize(text) {
+    const parsed = parseLog(text);
+    const last = buildSnapshots(parsed, { lastOnly: true }).snapshots[0];
+    const side = (p) => { const P = parsed.players[p], L = P.leader; return { name: P.name, leader: L ? { id: L.id, name: L.name } : null }; };
+    return { me: side(1), opp: side(2), first: parsed.turns.length ? parsed.turns[0].player : 0, result: (last && last.result) || null, turns: parsed.turns.length, steps: parsed.steps.length };
+  }
+  // OPTCGSim chiama i log 2026-09-23T13.26.58.log: la data della partita sta nel nome (ora locale). null se il nome è un altro.
+  function gameDate(fileName) {
+    const m = /(\d{4})-(\d{2})-(\d{2})T(\d{2})\.(\d{2})\.(\d{2})/.exec(fileName || '');
+    return m ? new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTime() : null;
+  }
+  // 'w' | 'l' | 'o': gli esiti mancanti o incerti (abbandono, disconnessione) restano fuori dal winrate
+  const outcome = (g) => !g.result || g.result.uncertain ? 'o' : g.result.winner === 1 ? 'w' : 'l';
+  const winrate = (b) => b.w + b.l ? Math.round(100 * b.w / (b.w + b.l)) : null;
+  // games = riepiloghi di summarize(). Esce un blocco per ogni mio leader, con dentro i matchup (anche divisi tra primo e secondo).
+  function stats(games) {
+    const blank = () => ({ games: 0, w: 0, l: 0, open: 0 });
+    const add = (b, r) => { b.games++; if (r === 'w') b.w++; else if (r === 'l') b.l++; else b.open++; };
+    const total = blank(), leaders = new Map();
+    for (const g of games) {
+      if (!g || !g.me || !g.me.leader) continue;
+      const r = outcome(g), mine = g.me.leader, theirs = g.opp.leader || { id: '?', name: '?' };
+      add(total, r);
+      let L = leaders.get(mine.id);
+      if (!L) leaders.set(mine.id, L = Object.assign(blank(), { id: mine.id, name: mine.name, matchups: new Map() }));
+      add(L, r);
+      let M = L.matchups.get(theirs.id);
+      if (!M) L.matchups.set(theirs.id, M = Object.assign(blank(), { id: theirs.id, name: theirs.name, first: blank(), second: blank() }));
+      add(M, r); add(g.first === 1 ? M.first : M.second, r);
+    }
+    const byGames = (a, b) => b.games - a.games;
+    return { total, leaders: [...leaders.values()].map((L) => Object.assign({}, L, { matchups: [...L.matchups.values()].sort(byGames) })).sort(byGames) };
+  }
+
+  return { parseLog, buildSnapshots, clean, refs, summarize, gameDate, outcome, winrate, stats };
 })();
 if (typeof module !== 'undefined') module.exports = Core;
 </script>
@@ -798,6 +888,7 @@ if (typeof module !== 'undefined') module.exports = Core;
 (() => {
   'use strict';
   const $ = (s) => document.querySelector(s);
+  const mk = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
   // Sorgenti immagini in ordine di preferenza. NB: en.onepiece-cardgame.com manda Cross-Origin-Resource-Policy: same-site,
   // quindi il browser rifiuta le sue immagini da altri siti: non è usabile.
   const IMG_SOURCES = [
@@ -929,6 +1020,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     return null;
   }
   function basePower(c) { const m = metaOf(c.id); return m ? m.power : 0; }
+  const howText = (res) => res.how === 'concede' ? (res.winner === 1 ? 'L\'avversario concede' : 'Hai conceduto') : res.how === 'lethal' ? 'Danno letale' : res.how === 'disconnect' ? 'Disconnessione (esito probabile)' : 'Abbandono (esito probabile)';
 
   function drawArrow(ae, de) {
     const svg = $('#arrows'); svg.replaceChildren();
@@ -1006,8 +1098,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       const win = S.result.winner === 1;
       const was = rs.classList.contains('show');
       rs.className = 'show ' + (win ? 'win' : 'lose'); rs.querySelector('.big').textContent = win ? 'YOU WIN' : 'YOU LOSE';
-      const how = S.result.how === 'concede' ? (win ? 'L\'avversario concede' : 'Hai conceduto') : S.result.how === 'lethal' ? 'Danno letale' : S.result.how === 'disconnect' ? 'Disconnessione (esito probabile)' : 'Abbandono (esito probabile)';
-      rs.querySelector('.how').textContent = how;
+      rs.querySelector('.how').textContent = howText(S.result);
       if (was) rs.style.animation = 'none';
       else rs.style.animation = '';
     } else rs.className = '';
@@ -1128,7 +1219,8 @@ if (typeof module !== 'undefined') module.exports = Core;
       return [
         { title: 'Partita', items: [
           { type: 'match' },
-          { ic: '📂', label: 'Apri un log…', hint: 'trascina o scegli un file .log di OPTCGSim', on: openDrop },
+          { ic: '📚', label: 'Raccolta e statistiche', hint: 'tutte le partite della cartella, winrate per matchup', on: openDrop },
+          { ic: '📂', label: 'Apri un log…', hint: 'scegli un file .log di OPTCGSim', on: () => $('#file').click() },
           { ic: '📁', label: dirHandle ? 'Cambia cartella dei log' : 'Scegli la cartella dei log', hint: $('#folder-name').textContent || 'i log nuovi compaiono da soli', on: () => { openDrop(); pickFolder(); } },
           { type: 'recent' },
         ] },
@@ -1156,7 +1248,6 @@ if (typeof module !== 'undefined') module.exports = Core;
       ];
     };
     const KEYS = [['Spazio', 'Play / Pausa'], ['← →', 'Indietro / avanti'], ['Home / End', 'Inizio / fine'], ['H', 'Mano avversario'], ['L', 'Log eventi'], ['D', 'Pennarello'], ['M', 'Menu'], ['Esc', 'Chiudi']];
-    const mk = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
     function row(it) {
       const r = mk('div', 'row'); if (it.enabled === false) r.classList.add('dis');
       const lbl = mk('span', 'lbl', it.label); if (it.hint) lbl.append(mk('small', '', it.hint));
@@ -1194,7 +1285,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       const f = document.createDocumentFragment(); f.append(mk('div', 'sub', 'Log recenti nella cartella'));
       const ul = mk('ul', 'recent'), curI = snaps.length ? +$('#logsel').value : -1;
       logFiles.slice(0, 6).forEach((lf, i) => {
-        const li = mk('li', i === curI ? 'cur' : '', lf.name.replace(/\.log$/i, '')); li.append(mk('span', '', fmtDate(new Date(lf.mtime))));
+        const li = mk('li', i === curI ? 'cur' : '', Library.label(lf)); li.append(mk('span', '', fmtDate(new Date(Core.gameDate(lf.name) || lf.mtime))));
         li.onclick = () => { close(); pause(); openLog(i); }; ul.append(li);
       });
       f.append(ul); return f;
@@ -1271,7 +1362,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       if (!total) fin();
       for (const id of ids) { const im = new Image(); const step = () => { done++; prog.textContent = 'Carico le carte… ' + done + ' / ' + total; if (done >= total) { clearTimeout(t); fin(); } }; im.onload = step; setImg(im, id, step); }
     });
-    $('#drop').classList.add('hidden');
+    $('#drop').classList.add('hidden'); prog.textContent = '';
     goTo(0);
     if (location.search.includes('debug')) { $('#debug').classList.add('show'); runDebug(); }
     Menu.refresh();
@@ -1293,14 +1384,128 @@ if (typeof module !== 'undefined') module.exports = Core;
 
   // Due sorgenti: app desktop (window.desktop, accesso diretto ai file) oppure browser (File System Access API)
   const isDesktop = !!window.desktop;
+
+  // ---------- raccolta: tutte le partite della cartella, con filtri e statistiche per matchup ----------
+  // Ogni log viene riassunto una volta (Core.summarize) e il riepilogo resta in IndexedDB sotto 'index',
+  // con chiave nome|size|mtime: a ogni apertura si analizzano solo i file nuovi.
+  const Library = (() => {
+    const INDEX_V = 1;   // da alzare quando cambia ciò che esce da Core.summarize: la cache viene rifatta
+    const RES = { w: 'V', l: 'S', o: '–' };
+    let items = null, run = 0, tab = 'games';
+    const flt = { me: '', opp: '', res: '' };
+    const keyOf = (lf) => lf.name + '|' + lf.size + '|' + Math.round(lf.mtime);
+    const sumOf = (lf) => { const s = items && items[keyOf(lf)]; return s && !s.error ? s : null; };
+    const readText = (lf) => lf.path ? window.desktop.readLog(lf.path) : lf.handle.getFile().then((f) => f.text());
+    const leaderName = (L) => L ? ((metaOf(L.id) || {}).name || L.name || L.id) : '?';
+    const nick = (n) => (n || '').replace(/#\d+$/, '');
+    const dateOf = (lf) => fmtDate(new Date(Core.gameDate(lf.name) || lf.mtime));
+    const save = () => kvSet('index', { v: INDEX_V, items });
+    const record = (b) => b.w + ' V · ' + b.l + ' S' + (b.open ? ' · ' + b.open + (b.open === 1 ? ' incerta' : ' incerte') : '');
+
+    function leaderEl(L, cls, sub) {
+      const d = mk('span', 'ld ' + cls);
+      if (L) { const img = document.createElement('img'); img.alt = ''; img.loading = 'lazy'; setImg(img, L.id, () => img.remove()); d.append(img); }
+      const t = mk('span', 'nm'); t.append(mk('b', '', leaderName(L))); if (sub) t.append(mk('small', '', sub));
+      d.append(t); return d;
+    }
+    function gameRow(lf, i) {
+      const s = sumOf(lf);
+      if (!s) {
+        const li = mk('li', 'raw'); li.append(mk('span', 'd', dateOf(lf)), mk('span', 'fn', lf.name), mk('span', 'st', items && items[keyOf(lf)] ? 'non leggibile' : 'in analisi…'));
+        li.onclick = () => openLog(i); return li;
+      }
+      const r = Core.outcome(s), unsure = s.result && s.result.uncertain;
+      const li = mk('li', 'g'), ord = mk('span', 'ord', s.first === 1 ? '1°' : '2°');
+      ord.title = s.first === 1 ? 'Hai iniziato tu' : 'Ha iniziato l\'avversario';
+      const res = mk('span', 'rb ' + r, unsure ? (s.result.winner === 1 ? 'V?' : 'S?') : RES[r]);
+      res.title = s.result ? howText(s.result) : 'Partita non conclusa nel log';
+      const oppNick = nick(s.opp.name);
+      li.append(mk('span', 'd', dateOf(lf)), leaderEl(s.me.leader, 'you'), mk('span', 'x', 'vs'), leaderEl(s.opp.leader, 'opp', oppNick === 'Opponent' ? '' : oppNick), ord, mk('span', 'tn', s.turns + ' turni'), res);
+      li.onclick = () => openLog(i);
+      return li;
+    }
+    function statsView(root, st) {
+      if (!st.leaders.length) { root.append(mk('p', 'empty', 'Nessuna partita analizzata con questi filtri')); return; }
+      const split = (b) => Core.winrate(b) != null ? b.w + '–' + b.l + ' (' + Core.winrate(b) + '%)' : '·';
+      for (const L of st.leaders) {
+        const h = mk('div', 'lead'), img = document.createElement('img'); img.alt = ''; setImg(img, L.id, () => img.remove());
+        const wr = Core.winrate(L);
+        h.append(img, mk('b', '', leaderName(L)), mk('small', '', L.games + (L.games === 1 ? ' partita · ' : ' partite · ') + record(L) + (wr != null ? ' · winrate ' + wr + '%' : '')));
+        const tb = mk('table'), hr = mk('tr');
+        for (const t of ['Contro', 'Partite', 'V', 'S', 'Incerte', 'Winrate', 'Da primo', 'Da secondo']) hr.append(mk('th', '', t));
+        tb.append(hr);
+        for (const M of L.matchups) {
+          const tr = mk('tr', 'mu'), first = mk('td'), wrTd = mk('td', 'wr'), mwr = Core.winrate(M);
+          first.append(leaderEl(M.id === '?' ? null : M, 'opp'));
+          if (mwr != null) { const bar = mk('span', 'wrbar'), fillEl = mk('i'); fillEl.style.width = mwr + '%'; bar.append(fillEl); wrTd.append(bar, mwr + '%'); } else wrTd.textContent = '·';
+          tr.append(first, mk('td', '', M.games), mk('td', '', M.w), mk('td', '', M.l), mk('td', '', M.open || '·'), wrTd, mk('td', '', split(M.first)), mk('td', '', split(M.second)));
+          tr.title = 'Mostra queste partite';
+          tr.onclick = () => { flt.me = L.id; flt.opp = M.id === '?' ? '' : M.id; flt.res = ''; $('#flt-res').value = ''; setTab('games'); };
+          tb.append(tr);
+        }
+        root.append(h, tb);
+      }
+    }
+    function fillSelect(sel, all, opts, k) {
+      sel.replaceChildren(new Option(all, ''));
+      for (const [id, name, n] of opts) sel.append(new Option(name + ' (' + n + ')', id));
+      if (!opts.some((o) => o[0] === flt[k])) flt[k] = '';
+      sel.value = flt[k];
+    }
+    function render() {
+      $('#lib').hidden = false; $('#drop .box').classList.add('wide');
+      const all = logFiles.map((lf, i) => ({ lf, i, s: sumOf(lf) })), known = all.filter((g) => g.s);
+      const count = (pick) => { const m = new Map(); for (const g of known) { const L = pick(g.s); if (!L) continue; const e = m.get(L.id) || [L.id, leaderName(L), 0]; e[2]++; m.set(L.id, e); } return [...m.values()].sort((a, b) => b[2] - a[2]); };
+      fillSelect($('#flt-me'), 'Tutti i miei leader', count((s) => s.me.leader), 'me');
+      fillSelect($('#flt-opp'), 'Tutti gli avversari', count((s) => s.opp.leader), 'opp');
+      const filtering = flt.me || flt.opp || flt.res;
+      const pass = (s) => (!flt.me || s.me.leader.id === flt.me) && (!flt.opp || (s.opp.leader && s.opp.leader.id === flt.opp)) && (!flt.res || Core.outcome(s) === flt.res);
+      const shown = all.filter((g) => g.s ? pass(g.s) : !filtering);
+      const st = Core.stats(shown.map((g) => g.s)), T = st.total, wr = Core.winrate(T);
+      const sum = $('#lib-sum'); sum.replaceChildren();
+      if (T.games) { sum.append(T.games + (T.games === 1 ? ' partita · ' : ' partite · ') + record(T)); if (wr != null) sum.append(' · winrate ', mk('b', '', wr + '%')); }
+      const ul = $('#loglist'), top = ul.scrollTop; ul.replaceChildren(); ul.hidden = tab !== 'games';
+      const sv = $('#lib-stats'); sv.replaceChildren(); sv.hidden = tab !== 'stats';
+      if (tab === 'stats') { statsView(sv, st); return; }
+      if (!logFiles.length) ul.append(mk('li', 'empty', 'Nessun file .log in questa cartella'));
+      else if (!shown.length) ul.append(mk('li', 'empty', 'Nessuna partita con questi filtri'));
+      const open = snaps.length ? +$('#logsel').value : -1;
+      for (const g of shown) { const li = gameRow(g.lf, g.i); if (g.i === open) li.classList.add('cur'); ul.append(li); }
+      ul.scrollTop = top;
+    }
+    function setTab(t) { tab = t; for (const b of document.querySelectorAll('#lib-tabs button')) b.classList.toggle('sel', b.dataset.tab === t); render(); }
+    // analizza i log non ancora in cache; una chiamata più recente (cartella cambiata, log nuovo) ferma quella in corso
+    async function sync() {
+      const my = ++run;
+      if (!items) { const saved = await kvGet('index'); if (my !== run) return; items = saved && saved.v === INDEX_V && saved.items ? saved.items : {}; }
+      const todo = logFiles.filter((lf) => !items[keyOf(lf)]), prog = $('#lib-progress');
+      render();
+      for (let n = 0; n < todo.length; n++) {
+        prog.textContent = 'Analizzo le partite… ' + n + ' / ' + todo.length;
+        let s;
+        try { s = Core.summarize(await readText(todo[n])); if (!s.me.leader || !s.turns) s = { error: true }; } catch (e) { s = { error: true }; }
+        if (my !== run) return;
+        items[keyOf(todo[n])] = s;
+        if (n % 10 === 9) { render(); save(); }
+        await new Promise((r) => setTimeout(r));
+        if (my !== run) return;
+      }
+      const keep = new Set(logFiles.map(keyOf)); let pruned = false;
+      for (const k in items) if (!keep.has(k)) { delete items[k]; pruned = true; }
+      if (todo.length || pruned) save();
+      prog.textContent = ''; render(); Menu.refresh();
+    }
+    document.querySelectorAll('#lib-tabs button').forEach((b) => b.onclick = () => setTab(b.dataset.tab));
+    for (const k of ['me', 'opp', 'res']) $('#flt-' + k).onchange = (e) => { flt[k] = e.target.value; render(); };
+    return {
+      sync,
+      // etichetta breve per menu e tendina: "V · Mihawk vs Shanks", oppure il nome del file se non è ancora analizzato
+      label(lf) { const s = sumOf(lf); if (!s) return lf.name.replace(/\.log$/i, ''); const r = Core.outcome(s); return (r === 'o' ? '' : RES[r] + ' · ') + leaderName(s.me.leader) + ' vs ' + leaderName(s.opp.leader); },
+    };
+  })();
+
   function renderLogList(dirName) {
-    const ul = $('#loglist'); ul.replaceChildren();
-    if (!logFiles.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nessun file .log in questa cartella'; ul.append(li); }
-    logFiles.forEach((lf, i) => {
-      const li = document.createElement('li'); li.append(document.createTextNode(lf.name.replace(/\.log$/i, '')));
-      const s = document.createElement('span'); s.textContent = fmtDate(new Date(lf.mtime)) + ' · ' + Math.round(lf.size / 1024) + ' KB'; li.append(s);
-      li.onclick = () => openLog(i); ul.append(li);
-    });
+    Library.sync();
     const sel = $('#logsel'); sel.replaceChildren();
     logFiles.forEach((lf, i) => { const o = document.createElement('option'); o.value = i; o.textContent = fmtDate(new Date(lf.mtime)); sel.append(o); });
     sel.hidden = !logFiles.length;

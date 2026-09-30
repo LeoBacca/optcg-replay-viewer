@@ -74,3 +74,50 @@ test('le carte pescate o prese dalla Life non sono note', () => {
   assert.equal(last.players[2].hand.length, 8);
   assert.deepEqual(last.players[2].hand.filter((c) => c.known), []);
 });
+
+test('il riepilogo dice leader, chi inizia ed esito della partita', () => {
+  const s = Core.summarize(sampleLog);
+  assert.deepEqual(s.me, { name: 'LeoIlPirata#3980', leader: { id: 'OP14-020', name: 'Dracule Mihawk' } });
+  assert.deepEqual(s.opp, { name: 'Theshyopop#27381', leader: { id: 'OP14-020', name: 'Dracule Mihawk' } });
+  assert.equal(s.first, 2);
+  assert.deepEqual(s.result, { winner: 1, how: 'concede' });
+  assert.equal(s.turns, 17);
+});
+
+test('lastOnly restituisce lo stesso stato finale del replay completo', () => {
+  const parsed = Core.parseLog(sampleLog);
+  const full = Core.buildSnapshots(parsed).snapshots;
+  const last = Core.buildSnapshots(Core.parseLog(sampleLog), { lastOnly: true }).snapshots;
+  assert.equal(last.length, 1);
+  const zones = (S) => [1, 2].map((p) => ['hand', 'chars', 'life', 'trash'].map((z) => S.players[p][z].map((c) => c.id)));
+  assert.deepEqual(zones(last[0]), zones(full[full.length - 1]));
+  assert.deepEqual(last[0].result, full[full.length - 1].result);
+});
+
+test('un log troncato prima della fine non ha esito', () => {
+  const cut = lines.slice(0, lines.findIndex((l) => /Concedes!/.test(l))).join('\n');
+  assert.equal(Core.summarize(cut).result, null);
+});
+
+test('la data della partita viene dal nome del file', () => {
+  assert.equal(Core.gameDate('2026-09-23T13.26.58.log'), new Date(2026, 8, 23, 13, 26, 58).getTime());
+  assert.equal(Core.gameDate('partita.log'), null);
+});
+
+test('le statistiche raggruppano per mio leader e per matchup, con gli esiti incerti fuori dal winrate', () => {
+  const game = (mine, theirs, first, result) => ({ me: { name: 'Io', leader: { id: mine, name: mine } }, opp: { name: 'X', leader: { id: theirs, name: theirs } }, first, result });
+  const win = { winner: 1, how: 'lethal' }, loss = { winner: 2, how: 'concede' }, unsure = { winner: 1, how: 'quit', uncertain: true };
+  const st = Core.stats([
+    game('A', 'B', 1, win), game('A', 'B', 1, win), game('A', 'B', 2, loss), game('A', 'B', 2, unsure),
+    game('A', 'C', 2, loss), game('D', 'B', 1, null), { error: true },
+  ]);
+  assert.deepEqual(st.total, { games: 6, w: 2, l: 2, open: 2 });
+  assert.deepEqual(st.leaders.map((L) => [L.id, L.games]), [['A', 5], ['D', 1]]);
+  const [ab, ac] = st.leaders[0].matchups;
+  assert.deepEqual([ab.id, ab.games, ab.w, ab.l, ab.open], ['B', 4, 2, 1, 1]);
+  assert.deepEqual(ab.first, { games: 2, w: 2, l: 0, open: 0 });
+  assert.deepEqual(ab.second, { games: 2, w: 0, l: 1, open: 1 });
+  assert.equal(Core.winrate(ab), 67);
+  assert.equal(Core.winrate(ac), 0);
+  assert.equal(Core.winrate(st.leaders[1]), null);
+});
