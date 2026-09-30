@@ -1608,7 +1608,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   }
 
   // ---------- condivisione: carica il log sul server (senza chat né nick avversario) e ne ricava un link pubblico ----------
-  const SHARE_SERVER = '';   // indirizzo predefinito del server dei replay
+  const SHARE_SERVER = 'https://178-104-213-148.sslip.io';   // indirizzo predefinito del server dei replay
   const Share = (() => {
     const cfg = { base: '', token: '' };
     try { Object.assign(cfg, JSON.parse(localStorage.getItem('optcg.share') || '{}')); } catch (e) { }

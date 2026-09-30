@@ -67,6 +67,14 @@ Variabili: `DATA_DIR` (predefinita `server/data`), `PORT`, `HOST`, `PUBLIC_URL` 
 | `DELETE /api/replays/:id`, `DELETE /api/replays/:id/notes/:nota` | chi ha caricato | elimina il replay o una nota |
 | `GET /api/me` | token | verifica il token |
 
+Messa in linea su una macchina Linux (cartella `server/deploy/`):
+```
+git clone https://github.com/LeoBacca/optcg-replay-viewer.git ~/optcg-replay && cd ~/optcg-replay
+PUBLIC_URL=https://<ip-con-trattini>.sslip.io bash server/deploy/setup.sh   # senza sudo: Node nella home, servizio utente su 127.0.0.1:8790
+sudo bash server/deploy/caddy.sh <ip-con-trattini>.sslip.io                 # HTTPS con Caddy davanti (porte 80 e 443 aperte)
+```
+Per aggiornare: `git pull` e di nuovo `setup.sh`. I dati stanno in `~/optcg-replay-data` (basta copiare quella cartella per averne un salvataggio). L'indirizzo predefinito nell'app è `SHARE_SERVER` in `index.html`.
+
 Le note sono ancorate al numero di riga del log e non all'indice dello step: il log non cambia mai, mentre gli step si spostano quando il parser viene corretto. Per questo l'oscuramento di chat e nick sostituisce il testo sul posto senza togliere righe.
 
 ## Immagini delle carte
