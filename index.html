@@ -560,12 +560,14 @@
           <div id="lib-stats" hidden></div>
         </div>
         <p class="kbd">oppure trascina qui un file .log, o <label for="file">scegline uno</label></p>
+        <p class="kbd" id="dirfiles-hint">Se il browser non lascia scegliere quella cartella (su Mac i log del sim stanno in una cartella di sistema, e Safari e Firefox non hanno il pulsante sopra): <label for="dirfiles">apri i log di una cartella</label> con la finestra dei file. Non viene ricordata: si rifà a ogni apertura.</p>
         <p class="kbd" id="lib-progress"></p>
         <p id="progress"></p>
       </div>
       <p class="kbd">M = menu · Spazio = play/pausa · ← → = mossa indietro/avanti · H = mano avversario · Home/End</p>
     </div>
     <input type="file" id="file" accept=".log,.txt" hidden>
+    <input type="file" id="dirfiles" webkitdirectory multiple hidden>
 
     <div id="mat">
       <div class="half opp" id="opp-half"></div>
@@ -2026,7 +2028,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     const flt = { me: '', opp: '', res: '' };
     const keyOf = (lf) => lf.name + '|' + lf.size + '|' + Math.round(lf.mtime);
     const sumOf = (lf) => { const s = items && items[keyOf(lf)]; return s && !s.error ? s : null; };
-    const readText = (lf) => lf.path ? window.desktop.readLog(lf.path) : lf.handle.getFile().then((f) => f.text());
+    const readText = (lf) => lf.path ? window.desktop.readLog(lf.path) : lf.file ? lf.file.text() : lf.handle.getFile().then((f) => f.text());
     const leaderName = (L) => L ? ((metaOf(L.id) || {}).name || L.name || L.id) : '?';
     const nick = (n) => (n || '').replace(/#\d+$/, '');
     const dateOf = (lf) => fmtDate(new Date(Core.gameDate(lf.name) || lf.mtime));
@@ -2324,11 +2326,23 @@ if (typeof module !== 'undefined') module.exports = Core;
   async function openLog(i) {
     const lf = logFiles[i]; if (!lf) return; $('#logsel').value = i;
     if (lf.path) { $('#progress').textContent = 'Leggo ' + lf.name + '…'; await loadText(await window.desktop.readLog(lf.path), lf.name, lf); }
-    else await loadFile(await lf.handle.getFile(), lf);
+    else await loadFile(lf.file || await lf.handle.getFile(), lf);
   }
+  // Ripiego senza File System Access API: la finestra classica dei file con webkitdirectory. Chrome non ci applica il blocco
+  // delle cartelle di sistema (su Mac i log del sim stanno sotto ~/Library) e funziona anche in Safari e Firefox.
+  // I File restano in memoria: si prendono solo quelli direttamente nella cartella scelta, come fa listLogs, e niente viene ricordato.
+  function useFolderFiles(files) {
+    const list = [...files].filter((f) => /\.(log|txt)$/i.test(f.name) && (f.webkitRelativePath || '').split('/').length <= 2);
+    if (!list.length) { alert('Nessun file .log in questa cartella'); return; }
+    dirHandle = null; logFiles = list.map((f) => ({ name: f.name, file: f, mtime: f.lastModified, size: f.size }));
+    logFiles.sort((a, b) => b.mtime - a.mtime);
+    renderLogList((list[0].webkitRelativePath || '').split('/')[0]);
+    $('#btn-refolder').hidden = true;
+  }
+  $('#dirfiles').onchange = (e) => { useFolderFiles(e.target.files); e.target.value = ''; };
   async function pickFolder() {
     if (isDesktop) { const d = await window.desktop.pickDir(); if (d) await listLogs(); return; }
-    if (!window.showDirectoryPicker) { alert('Il tuo browser non supporta la scelta della cartella: usa Chrome o Edge, oppure trascina il file.'); return; }
+    if (!window.showDirectoryPicker) { $('#dirfiles').click(); return; }
     try { dirHandle = await window.showDirectoryPicker({ id: 'optcg-logs', mode: 'read' }); } catch (e) { return; }
     await kvSet('dir', dirHandle); await listLogs();
   }
@@ -2345,7 +2359,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#logsel').onchange = (e) => { pause(); openLog(+e.target.value); };
   if (isDesktop) {
     // app: cartella ricordata, aperta da sola; i log nuovi compaiono appena il sim li salva
-    dirHandle = true;
+    dirHandle = true; $('#dirfiles-hint').hidden = true;
     window.desktop.getSettings().then(async (s) => { if (s.logDir) { await listLogs(); if (new URLSearchParams(location.search).get('open') === 'latest' && logFiles.length) openLog(0); } });
     window.desktop.onLogsChanged((list) => { const curPath = logFiles[+$('#logsel').value] && logFiles[+$('#logsel').value].path; logFiles = list; renderLogList(); const k = logFiles.findIndex(l => l.path === curPath); if (k >= 0) $('#logsel').value = k; });
   } else kvGet('dir').then(async (h) => {
