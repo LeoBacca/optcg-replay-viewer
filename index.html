@@ -79,7 +79,7 @@
   #mat{display:grid;grid-template-rows:1fr 1fr;gap:6px;min-height:0;width:calc(var(--ch) * 5.6);border-radius:10px;overflow:hidden;box-shadow:0 6px 24px #0008;
        background:linear-gradient(180deg,#e8c9c6 0%,#d9b3b0 49%,#cfe3d3 51%,#bcd8c4 100%)}
   .half{display:grid;gap:6px;padding:8px 12px;min-height:0;overflow:hidden;
-        grid-template-columns:calc(var(--ch) * 0.68) 1fr var(--ch) var(--cw) var(--cw);
+        grid-template-columns:calc(var(--ch) * 0.74) 1fr var(--ch) var(--cw) var(--cw);
         grid-template-rows:minmax(0,1fr) auto auto;
         grid-template-areas:
           "life chars chars  chars chars"
@@ -105,6 +105,13 @@
   .a-life{grid-area:life;background:transparent;border:none;flex-direction:column;justify-content:center;gap:0;padding:0}
   .a-name{grid-area:name;color:#1d2b22;font-weight:800;font-size:clamp(11px,1.1vw,15px);line-height:1.2;text-align:center;display:flex;flex-direction:column;justify-content:center;text-shadow:0 1px 0 #fff8}
   .half.opp .a-name{transform:rotate(180deg)}
+  /* evento in risoluzione: sta accanto al leader, nella cella del nome, finché non va nel trash */
+  .a-resolve{grid-area:name;justify-self:end;align-self:center;background:transparent;border:none;padding:0;min-height:auto;margin-right:6px;z-index:4}
+  .a-resolve .card{box-shadow:0 0 0 3px var(--accent),0 0 22px 4px var(--accent)}
+  .a-resolve .rtag{position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);background:var(--accent);color:#1a1200;font-size:clamp(8px,.75vw,11px);font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:4px;white-space:nowrap;z-index:5;box-shadow:0 2px 6px #0008}
+  .half.opp .a-resolve .rtag{transform:translateX(-50%) rotate(180deg)}
+  .half.you .a-name.res{padding-right:calc(var(--cw) + 12px)}
+  .half.opp .a-name.res{padding-left:calc(var(--cw) + 12px)}
   .a-name small{font-weight:600;opacity:.8}
   .a-name .turn{color:#8a2a1a}
 
@@ -144,17 +151,18 @@
   .half.opp .card:hover .tip{transform:translateX(-50%) rotate(180deg);bottom:auto;top:calc(100% + 6px)}
 
   /* dorsi */
-  .back{width:var(--cw);height:var(--ch);border-radius:6px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;
-        background:radial-gradient(circle at 50% 45%, #2a2f6e 0 22%, #1b1f4e 23% 26%, #23285f 27% 100%);border:2px solid #d8b562;box-shadow:0 2px 6px #0008}
-  .back::after{content:'';position:absolute;width:44%;height:32%;border:2px solid #d8b562;border-radius:50%;opacity:.7}
+  .back{width:var(--cw);height:var(--ch);border-radius:5px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;
+        background:#1b2350 url(cardback.jpg) center/cover no-repeat;box-shadow:0 0 0 1px #0008,0 2px 6px #0008}
   .back .n{font-size:clamp(14px,1.6vw,24px);font-weight:900;color:#fff;text-shadow:0 1px 4px #000;z-index:1;background:#000a;border-radius:6px;padding:0 6px}
   .half.opp .n{transform:rotate(180deg)}
   .pile{position:relative}
   .pile .back{position:absolute;left:0;top:0}
   .pile{width:calc(var(--cw) + 8px);height:calc(var(--ch) + 8px)}
-  .back.life{width:calc(var(--ch) * 0.62);height:calc(var(--cw) * 0.62);margin-top:calc(var(--cw) * -0.38);box-shadow:0 -2px 6px #0007}
+  /* life: carte di traverso, una sotto l'altra. --ls = quanta parte di ogni carta resta scoperta (in altezze carta); la imposta renderSide, e si stringe se le life sono tante */
+  .back.life{width:calc(var(--ch) * 0.7);height:calc(var(--cw) * 0.7);margin-top:calc(var(--ch) * (var(--ls, .33) - 0.501));background:none;box-shadow:0 0 0 1px #0008,0 -2px 6px #0007}
   .back.life:first-child{margin-top:0}
-  .back.life::after{width:30%;height:50%}
+  /* il dorso è un'immagine verticale: sulle life, che stanno di traverso, va girata insieme alla carta */
+  .back.life::before{content:'';position:absolute;left:50%;top:50%;width:calc(var(--cw) * 0.7);height:calc(var(--ch) * 0.7);border-radius:5px;background:#1b2350 url(cardback.jpg) center/cover no-repeat;transform:translate(-50%,-50%) rotate(90deg)}
   .lifecnt{font-weight:900;color:#fff;background:#000a;border-radius:6px;padding:0 8px;margin-top:8px;font-size:clamp(13px,1.4vw,20px)}
   .doncard{width:calc(var(--cw) * 0.9);height:calc(var(--ch) * 0.9);border-radius:5px;background:#111 url(don.jpg) center/cover no-repeat;color:transparent;font-size:0;flex:none;transition:transform .25s,margin .25s;box-shadow:-2px 0 4px #0008}
   .doncard + .doncard{margin-left:calc(var(--cw) * -0.58)}
@@ -167,6 +175,16 @@
   .cnt{position:absolute;right:4px;bottom:2px;font-weight:800;color:#fff;background:#000a;border-radius:5px;padding:0 6px;font-size:12px;z-index:2}
   .half.opp .cnt{transform:rotate(180deg)}
 
+  /* "guarda le prime N carte": le carte viste stanno nella colonna di sinistra, accanto alla mano di chi le guarda, senza coprire il campo;
+     quella presa va in mano, le altre in fondo al mazzo. Le carte si stringono per stare tutte nella colonna. */
+  #look{display:none;flex-direction:column;align-items:center;gap:6px;min-width:0;padding:8px 10px 10px;border-radius:12px;background:#120c07ee;border:2px solid var(--accent);box-shadow:0 8px 30px #000b}
+  #look.show{display:flex}
+  #look.p1{margin-top:auto} #look.p2{margin-bottom:auto}
+  #look .ltitle{color:#fff;font-weight:700;font-size:13px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #look .ltitle small{color:var(--accent);font-weight:600;margin-left:8px}
+  #look .lcards{display:flex;justify-content:center;gap:6px;width:100%}
+  #look .card,#look .back{flex:0 1 var(--hcw);min-width:0;width:auto;height:auto;aspect-ratio:.716}
+  .ghost{position:fixed;margin:0;z-index:60;pointer-events:none}
   #arrows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
   #result{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;flex-direction:column;align-items:center;gap:6px;pointer-events:none;z-index:6;text-align:center}
   #result.show{display:flex;animation:resultin .6s cubic-bezier(.2,1.4,.4,1)}
@@ -300,21 +318,21 @@
   #menu section{padding:10px 8px 6px}
   #menu section + section{border-top:1px solid #0005}
   #menu h3{margin:0 0 4px 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800}
-  #menu .row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;min-height:38px}
-  #menu .row.act{cursor:pointer}
-  #menu .row.act:hover{background:#fff1}
-  #menu .row .ic{width:24px;text-align:center;flex:none;font-size:15px}
-  #menu .row .lbl{flex:1;min-width:0;color:#f7e9d4}
-  #menu .row .lbl small{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  #menu .row.dis{opacity:.4;pointer-events:none}
-  #menu kbd{font:11px/1 ui-monospace,Consolas,monospace;color:#f7e9d4;background:#0006;border:1px solid #fff2;border-bottom-width:2px;border-radius:4px;padding:3px 5px;flex:none;white-space:nowrap}
+  :is(#menu,#home) .row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;min-height:38px}
+  :is(#menu,#home) .row.act{cursor:pointer}
+  :is(#menu,#home) .row.act:hover{background:#fff1}
+  :is(#menu,#home) .row .ic{width:24px;text-align:center;flex:none;font-size:15px}
+  :is(#menu,#home) .row .lbl{flex:1;min-width:0;color:#f7e9d4}
+  :is(#menu,#home) .row .lbl small{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  :is(#menu,#home) .row.dis{opacity:.4;pointer-events:none}
+  :is(#menu,#home) kbd{font:11px/1 ui-monospace,Consolas,monospace;color:#f7e9d4;background:#0006;border:1px solid #fff2;border-bottom-width:2px;border-radius:4px;padding:3px 5px;flex:none;white-space:nowrap}
   .sw{width:40px;height:22px;border-radius:11px;background:#0008;border:1px solid #fff3;position:relative;flex:none;cursor:pointer;padding:0;transition:background .2s}
   .sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#aaa;transition:transform .2s,background .2s}
   .sw.on{background:var(--ok);border-color:var(--ok)}
   .sw.on::after{transform:translateX(18px);background:#fff}
-  #menu .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
-  #menu .seg button{border:0;border-radius:0;padding:4px 7px;font-size:12px;background:#0004}
-  #menu .seg button.sel{background:var(--accent);color:#1a1200;font-weight:700}
+  :is(#menu,#home) .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
+  :is(#menu,#home) .seg button{border:0;border-radius:0;padding:4px 7px;font-size:12px;background:#0004}
+  :is(#menu,#home) .seg button.sel{background:var(--accent);color:#1a1200;font-weight:700}
   #menu .sub{margin:6px 10px 2px 44px;font-size:11px;color:var(--muted)}
   #menu .recent{list-style:none;margin:0;padding:0}
   #menu .recent li{padding:5px 10px 5px 44px;cursor:pointer;border-radius:8px;display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#f7e9d4}
@@ -335,14 +353,55 @@
   #menu .match .res{margin-top:8px;text-align:center;font:900 15px Impact,'Arial Black',sans-serif;letter-spacing:.08em}
   #menu .match .res.win{color:#ffd24a}
   #menu .match .res.lose{color:var(--opp)}
-  #menu .keys{list-style:none;margin:0 10px 6px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;font-size:12px}
-  #menu .keys li{display:flex;align-items:center;gap:6px;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  #menu .keys kbd{min-width:34px;text-align:center}
+  :is(#menu,#home) .keys{list-style:none;margin:0 10px 6px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;font-size:12px}
+  :is(#menu,#home) .keys li{display:flex;align-items:center;gap:6px;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  :is(#menu,#home) .keys kbd{min-width:34px;text-align:center}
   #menu footer{padding:8px 14px;border-top:1px solid #0006;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
   #menu footer a{color:var(--accent);text-decoration:none}
   #menu footer a:hover{text-decoration:underline}
   #drop .box{position:relative}
   #btn-drop-close{position:absolute;top:8px;right:8px;padding:4px 8px;font-size:12px}
+  #btn-drop-home{position:absolute;top:8px;left:8px;padding:4px 8px;font-size:12px}
+
+  /* ---------- menu di benvenuto ---------- */
+  #home{position:fixed;inset:0;z-index:12;display:flex;flex-direction:column;align-items:center;gap:clamp(12px,3vh,30px);padding:clamp(20px,7vh,72px) 20px 14px;overflow:auto;color:#e6d8c3;
+        background:
+          radial-gradient(ellipse 70% 50% at 50% 0%, #f5b73a30 0%, transparent 70%),
+          radial-gradient(ellipse 90% 50% at 50% 115%, #8a4a1ccc 0%, transparent 70%),
+          linear-gradient(180deg,#1d130b 0%,#0e0906 100%)}
+  #home.hidden{display:none}
+  #home > header{text-align:center;position:relative;z-index:1}
+  #home h1{margin:0;font:900 clamp(46px,9vw,118px)/.95 Impact,'Arial Black',sans-serif;letter-spacing:.03em;color:#fff;text-shadow:0 4px 0 #000,0 0 44px #f5b73a66}
+  #home h1 span{color:var(--accent)}
+  #home > header p{margin:12px 0 0;font-size:clamp(10px,1.1vw,14px);letter-spacing:.34em;text-transform:uppercase;color:#d8c8b0}
+  #home-nav{display:flex;flex-direction:column;gap:10px;width:min(400px,86vw);margin:auto 0;position:relative;z-index:1}
+  #home-nav[hidden],#home .hsub[hidden]{display:none}
+  #home-nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 18px;border-radius:10px;border:2px solid #fff2;background:#0007;color:#f7e9d4;
+        font:900 clamp(19px,3vh,28px)/1.1 Impact,'Arial Black',sans-serif;letter-spacing:.09em;text-transform:uppercase;
+        transition:transform .12s,background .12s,border-color .12s,box-shadow .12s;animation:homein .4s backwards;animation-delay:calc(var(--i) * 60ms)}
+  #home-nav button small{font:400 12px/1.3 system-ui,Segoe UI,Roboto,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)}
+  #home-nav button:focus{outline:none}
+  #home-nav button.sel{background:var(--accent);border-color:var(--accent);color:#1a1200;transform:scale(1.05);box-shadow:0 8px 28px #f5b73a44}
+  #home-nav button.sel small{color:#1a1200cc}
+  #home-nav button.sel::before{content:'▶';position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:.6em}
+  @keyframes homein{from{opacity:0;transform:translateY(14px)}}
+  #home .hsub{width:min(640px,94vw);margin:auto 0;min-height:0;display:flex;flex-direction:column;background:#0008;border:1px solid #fff2;border-radius:14px;padding:14px 16px 16px;position:relative;z-index:1;animation:homein .3s backwards}
+  #home .hsub > header{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1px solid #fff2}
+  #home .hsub h2{margin:0;font:900 22px/1 Impact,'Arial Black',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#fff}
+  #home .hsub .body{overflow:auto;min-height:0;padding-top:10px;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+  #home .hsub h3{margin:12px 0 4px 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800}
+  #home .hsub h3:first-child{margin-top:0}
+  #home .steps{list-style:none;margin:0 0 4px;padding:0 6px;counter-reset:s;display:flex;flex-direction:column;gap:12px}
+  #home .steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+  #home .steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--accent);color:#1a1200;font:900 16px/32px Impact,'Arial Black',sans-serif;text-align:center}
+  #home .steps b{display:block;color:#fff}
+  #home .steps span{color:#d8c8b0;font-size:13px}
+  #home > footer{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font-size:12px;color:var(--muted);position:relative;z-index:1}
+  #home .bg{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+  #home .deco{position:absolute;bottom:calc(var(--ch) * -0.35);display:flex;opacity:.55}
+  #home .deco.l{left:3vw} #home .deco.r{right:3vw}
+  #home .deco .back{margin:0 calc(var(--cw) * -0.22);transform-origin:50% 120%;transform:rotate(calc(var(--r) * 1deg))}
+  @media (max-width:900px){#home .deco{display:none}}
   body.noanim .card,body.noanim .dcard,body.noanim .doncard{transition:none!important}
   body.noanim .card.flash,body.noanim .dcard.in{animation:none!important}
   
@@ -352,6 +411,7 @@
 <div id="app">
   <div id="left">
     <div class="hand" id="opp-hand"></div>
+    <div id="look"><div class="ltitle"></div><div class="lcards"></div></div>
     <section id="notes" hidden>
       <header><h1>Note <span id="notes-n"></span></h1><button id="notes-close" title="Chiudi le note (N)">✕</button></header>
       <ul id="notes-list"></ul>
@@ -368,8 +428,9 @@
       <ul id="events"></ul>
       <pre id="debug"></pre>
     </div>
-    <div id="drop">
+    <div id="drop" class="hidden">
       <div class="box">
+        <button id="btn-drop-home" title="Torna al menu principale">‹ Menu</button>
         <button id="btn-drop-close" title="Torna al replay (Esc)" hidden>✕ Torna al replay</button>
         <h2>Replay OPTCGSim</h2>
         <p><button id="btn-folder" class="primary">📁 Scegli la cartella dei log</button> <button id="btn-refolder" hidden>↻ Riapri <span id="folder-name"></span></button></p>
@@ -449,6 +510,39 @@
   </footer>
 </div>
 
+<!-- menu di benvenuto: la prima schermata all'apertura -->
+<div id="home">
+  <div class="bg">
+    <div class="deco l"><i class="back" style="--r:-24"></i><i class="back" style="--r:-8"></i><i class="back" style="--r:8"></i></div>
+    <div class="deco r"><i class="back" style="--r:-8"></i><i class="back" style="--r:8"></i><i class="back" style="--r:24"></i></div>
+  </div>
+  <header>
+    <h1>OPTCG <span>REPLAY</span></h1>
+    <p>Rivedi le tue partite di OPTCGSim</p>
+  </header>
+  <nav id="home-nav" aria-label="Menu principale"></nav>
+  <section class="hsub" id="home-settings" hidden>
+    <header><button class="hback">‹ Indietro</button><h2>Impostazioni</h2></header>
+    <div class="body"></div>
+  </section>
+  <section class="hsub" id="home-tutorial" hidden>
+    <header><button class="hback">‹ Indietro</button><h2>Tutorial</h2></header>
+    <div class="body">
+      <ol class="steps">
+        <li><div><b>Scegli la cartella dei log</b><span>Indica una volta la cartella dove OPTCGSim salva i combat log: le partite nuove compaiono da sole. In alternativa trascina un file .log nella finestra.</span></div></li>
+        <li><div><b>Apri una partita</b><span>In Replay c'è una riga per partita: data, leader, chi ha iniziato, turni ed esito. Un click e il replay parte.</span></div></li>
+        <li><div><b>Rivedila mossa per mossa</b><span>Spazio per play e pausa, le frecce per andare avanti e indietro di una mossa, la barra in basso per saltare a un turno. In pausa puoi scarabocchiare sul tavolo con il pennarello.</span></div></li>
+        <li><div><b>Guarda i numeri</b><span>In Stats trovi il winrate di ogni tuo leader contro ogni leader avversario, diviso anche tra partite iniziate da primo e da secondo.</span></div></li>
+        <li><div><b>Condividi e commenta</b><span>Genera link crea una pagina pubblica del replay: chi la apre può lasciare note su un momento preciso della partita. Serve un token personale, che si imposta in Impostazioni.</span></div></li>
+      </ol>
+      <h3>Tasti durante il replay</h3>
+    </div>
+  </section>
+  <footer><span><kbd>↑</kbd> <kbd>↓</kbd> scegli</span><span><kbd>Invio</kbd> conferma</span><span><kbd>Esc</kbd> indietro</span></footer>
+</div>
+<!-- i link condivisi (?r=), ?log= e --open-latest saltano il menu e mostrano subito il caricamento -->
+<script>if (/[?&](r|log|open)=/.test(location.search)) { document.getElementById('home').classList.add('hidden'); document.getElementById('drop').classList.remove('hidden'); }</script>
+
 <div id="menu-backdrop"></div>
 <aside id="menu" aria-label="Menu">
   <header>
@@ -479,16 +573,30 @@ const Core = (() => {
   'use strict';
   const REF_G = /(.+?) \["([A-Za-z0-9\-_]+)">\2\]/g;          // Name ["ID">ID]
   const REF_ONE = /([^:\[\]]+?) \["([A-Za-z0-9\-_]+)">\2\]/;
+  // i log salvati da soli dal sim (cartella AutoSaved) tengono il markup intero: Name [<mark><link="ID">ID</link></mark>]
+  const RICH_REF = /<mark><link=("([A-Za-z0-9\-_]+)">\2)<\/link><\/mark>/g;
   const MOVE = /^RZ1\|(\d+)\|([12])\|([^|]+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([01])\|([01])\|([01])/;
   const CHK  = /^RZ1\|CHK\|(\d+)\|([12])\|(.*)$/;
   const ACTOR = /^\[([^\]]+)\] ?(.*)$/;
   const TAGS = /<\/?[a-z][^>]*>/gi;
   const ZWSP = /[​-‍﻿]/g;
 
-  // "Sorgente: Rest Y" — chi riposa carte PROPRIE (costi) e chi riposa sempre quelle AVVERSARIE.
-  // Regola: leader, auto-riferimento (Yasopp: Rest Yasopp) e OWN → lato proprio; OPP → lato avversario; altrimenti avversario prima.
-  const OWN_REST_SOURCES = new Set(['ST32-001', 'OP01-055']);   // Kin'emon ST, You Can Be My Samurai
-  const OPP_REST_SOURCES = new Set(['OP17-022']);               // Shanks OP17
+  // ---------------- REGOLE PER CARTA ----------------
+  // Qui sta solo quello che il log non dice: una riga per carta, con il motivo. Ogni regola ha il suo test in test/core.test.mjs.
+  //   rest: 'own' | 'opp' → "Sorgente: Rest Y" non dice da che lato sta Y: own = una carta di chi gioca (di solito un costo), opp = una dell'avversario.
+  //         Un elenco vale per i riposi di una stessa attivazione, in ordine: ['own', 'own', 'opp'] = i primi due propri, dal terzo in poi avversari.
+  // Senza regola vale il default: leader e auto-riferimento (X: Rest X) → lato proprio, tutto il resto → lato avversario.
+  // Quando il default deve scegliere tra due carte uguali, una per lato, buildSnapshots lo segnala nei dubbi: è il segno che qui manca una riga.
+  // Quello che il log dice da solo (per esempio una carta che entra riposata, flag f3 della mossa) non va messo qui.
+  const CARD_RULES = {
+    'ST32-001': { rest: 'own' },   // Kin'emon (ST32)
+    'OP01-055': { rest: 'own' },   // You Can Be My Samurai!!!: riposa due personaggi di chi la gioca
+    'OP14-020': { rest: 'own' },   // Dracule Mihawk (leader): riposa una propria carta per riattivare i DON
+    'OP14-038': { rest: ['own', 'own', 'opp'] },   // I Never Bother to Remember the Faces of Trash: riposa due propri personaggi, pesca, poi ne riposa uno avversario
+    'OP17-022': { rest: 'opp' },   // Shanks (OP17)
+    'OP17-031': { rest: 'opp' },   // Yasopp: all'ingresso riposa un personaggio avversario, anche un altro Yasopp
+  };
+  const ruleOf = (card, k) => (card && CARD_RULES[card.id] && CARD_RULES[card.id][k]) || null;
 
   function refs(text) {
     const out = []; let m; REF_G.lastIndex = 0;
@@ -506,6 +614,25 @@ const Core = (() => {
   }
   function stripName(s) { return s.replace(ZWSP, '').trim(); }
 
+  // Un log di AutoSaved contiene tutte le partite della sessione (le rivincite si accodano), e l'ultima è quella a cui il file dà il nome:
+  // le precedenti stanno già nei file salvati prima. Restituisce le righe [from, to) dell'ultima partita giocata (tutto il file se è una sola).
+  // Una partita parte dalle righe "Leader is". Quando finisce, il sim fa ripartire le mosse da capo (RZ1|HDR, seq 1) per sgombrare il tavolo,
+  // per esempio i DON attaccati che tornano nella Cost Area: quelle mosse non sono né della partita finita né della rivincita, e restano fuori.
+  const LEADER_LINE = /^\[(?:You|Opponent)\] Leader is /;
+  const TURN_LINE = /^\[(?:You|Opponent)\] (?:Draw \d+ (?:Card|Don)|End Turn)\s*$/;
+  function lastGame(lines) {
+    let from = 0, to = lines.length, cand = 0, seq = 0, m;
+    let st = 1;   // 0 = tra due partite, 1 = intestazione letta, 2 = si gioca
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if ((m = MOVE.exec(l))) { if (st === 2 && +m[1] < seq) { st = 0; to = i; } seq = +m[1]; }
+      else if (st === 2 && /^RZ1\|HDR/.test(l)) { st = 0; to = i; }
+      else if (st !== 1 && LEADER_LINE.test(l)) { if (st === 2) to = i; st = 1; cand = i; }
+      else if (st === 1 && TURN_LINE.test(l)) { st = 2; from = cand; to = lines.length; }   // una rivincita accettata e mai iniziata non è una partita
+    }
+    return { from, to };
+  }
+
   // ---------------- PARSER ----------------
   function parseLog(text) {
     const lines = text.split(/\r?\n/);
@@ -517,6 +644,7 @@ const Core = (() => {
     let activePlayer = 0, turn = 0, turnEnded = true;
     let inCombat = false;
     let moveCount = 0;
+    let run = { key: null, rests: 0 };   // attivazione in corso: righe consecutive con la stessa sorgente (serve a numerare i suoi "Rest")
     const warnings = [];
 
     const newStep = (kind, player, text, extra) => {
@@ -556,6 +684,8 @@ const Core = (() => {
         }
       }
       if (cur.kind === 'attack' && inCombat) { cur.parked.push(mv); return; }
+      // in combattimento, se dopo l'attacco è già passata una riga di testo, le mosse rimaste in attesa vanno applicate prima di questa: l'ordine del log conta (gli indici in mano si spostano)
+      if (inCombat) { const atk = steps.slice().reverse().find(x => x.kind === 'attack'); if (atk && atk.parked.length) { cur.moves.push(...atk.parked); atk.parked = []; } }
       mv.prot = owns(cur, mv);
       cur.moves.push(mv);
     };
@@ -595,8 +725,9 @@ const Core = (() => {
       for (const mv of taken) { mv.prot = owns(s, mv); s.moves.push(mv); }
     };
 
-    for (let li = 0; li < lines.length; li++) {
-      const raw = lines[li];
+    const game = lastGame(lines);
+    for (let li = game.from; li < game.to; li++) {
+      const raw = lines[li].replace(RICH_REF, '$1');
       if (!raw.trim()) continue;
       let m;
       if ((m = MOVE.exec(raw))) {
@@ -626,7 +757,7 @@ const Core = (() => {
       const cards = refs(body);
 
       // drop / assertions
-      if (/^(Waiting for a Connection|Your Client Has Connected|Version is|Opponent Has Connected|Will select turn order|Downloaded the Combat Log)/.test(clean(body)) || /Downloaded the Combat Log/.test(raw)) continue;
+      if (/^(Waiting for a Connection|Attempting to connect|Your Client Has Connected|Version is|Opponent Has Connected|Opponent is Ready for Rematch|Will select turn order|Downloaded the Combat Log|RZ1\|)/.test(clean(body)) || /Downloaded the Combat Log/.test(raw)) continue;
       if (actor && /^(Hand|Board|Trash|Life|Hand before Mulligan|Hand after Mulligan): /.test(body)) {
         const kind = body.split(':')[0];
         const val = body.slice(kind.length + 1).trim();
@@ -687,9 +818,12 @@ const Core = (() => {
         else if (/^Can't play/.test(rest)) { sub = 'note'; delay = 0.5; target = null; }
         else { sub = 'other'; }
         if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay });
+        const key = player + ':' + src.id; if (run.key !== key) run = { key, rests: 0 };
+        if (s.sub === 'rest') s.nth = run.rests++;
       }
       else { s = newStep('unknown', player, text, { cards, delay: 0.6 }); }
 
+      if (!s.src) run.key = null;
       s.line = li + 1; s.actor = actor;
       // combattimento: flush del parcheggio sugli step di risoluzione o su step che chiudono la finestra
       if (inCombat && cur) {
@@ -730,6 +864,98 @@ const Core = (() => {
         // le asserzioni restano sull'ultimo step emesso
         if (st.assertions.length) { grp.assertions = st.assertions; st.assertions = []; }
       } else out.push(st);
+    }
+
+    // "Guarda le prime N carte" (Perona, Otama...). Il log dà la carta presa (Reveal and Draw) e, sotto "Placing Cards on Bottom of Deck",
+    // le altre, una mossa mazzo → fondo del mazzo per carta, con il suo codice. Aggiungo prima uno step "guarda" con tutte le carte viste.
+    for (let k = 0; k < out.length; k++) {
+      const B = out[k];
+      if (B.kind !== 'bottom' || !B.moves.length || !B.moves.every(mv => mv.fz === 0 && mv.tz === 0)) continue;
+      const rv = k > 0 && out[k - 1].kind === 'reveal' && out[k - 1].player === B.player ? out[k - 1] : null;
+      const take = rv ? rv.moves.find(mv => mv.fz === 0 && mv.tz === 1) : null;
+      // senza altro, l'ordine è quello del log: la carta presa, poi le altre come vanno in fondo
+      let order = B.moves.map(mv => mv.id); if (take) order.unshift(take.id);
+      // Ordine vero in cima al mazzo (la cima è l'indice più alto). Ogni mossa verso il fondo alza di un posto le carte che stavano sotto:
+      // seguo gli n posti in cima e assegno a ognuno la carta che la mossa va a prendere lì.
+      const deck = B.moves[0].chk ? B.moves[0].chk.deck : 0;
+      if (deck) {
+        const slots = B.moves.map((_, i) => ({ at: deck - 1 - i, id: null }));
+        const ok = B.moves.every(mv => { const sl = slots.find(x => !x.id && x.at === mv.fi); if (!sl) return false; sl.id = mv.id; for (const x of slots) if (!x.id && x.at < mv.fi) x.at++; return true; });
+        const pos = take ? deck - take.fi : 0;   // posto della carta presa, contando dalla cima, prima che uscisse dal mazzo
+        if (ok && pos >= 0 && pos <= slots.length) { order = slots.map(x => x.id); if (take) order.splice(pos, 0, take.id); }
+      }
+      const first = rv || B, src = rv && rv.src ? rv.src : null;
+      const look = newStep('look', B.player, (src ? src.name + ': ' : '') + 'guarda le prime ' + order.length + ' carte', { look: order, cards: src ? [src] : [], delay: 1.3, turn: first.turn, active: first.active, line: first.line, actor: first.actor });
+      if (src) look.src = src;
+      out.splice(rv ? k - 1 : k, 0, look); k++;
+    }
+
+    // Eventi giocati dalla mano. Il log scrive prima gli effetti ("Evento: Rest X") e solo dopo le mosse: DON del costo, evento mano → trash.
+    // Aggiungo uno step "gioca" prima del primo effetto e uno di chiusura dopo l'ultimo: tra i due la carta sta risolvendo (state.resolving)
+    // e il tavolo la mostra accanto al leader. Le mosse restano dove le mette il log; solo il DON del costo viene anticipato al "gioca".
+    const NEUTRAL = new Set(['draw', 'synthetic', 'bottom', 'look']);
+    const isSrc = (st, mv) => !!st.src && st.src.id === mv.id && st.player === mv.player;
+    for (let k = 0; k < out.length; k++) {
+      const S = out[k];
+      const j = S.moves.findIndex(mv => mv.fz === 1 && mv.tz === 6 && !mv.prot && !mv.evt);
+      if (j < 0) continue;
+      const ev = S.moves[j]; ev.evt = true;
+      let a = isSrc(S, ev) ? k : -1;
+      for (let i = k - 1; i >= 0; i--) {
+        const st = out[i];
+        if (isSrc(st, ev)) a = i;
+        else if (!NEUTRAL.has(st.kind) || st.player !== ev.player || st.moves.some(mv => mv.evt && mv.id === ev.id)) break;
+      }
+      if (a < 0) { k--; continue; }   // nessun effetto con questa sorgente: non è un evento riconoscibile (k-- per cercare altre mosse nello stesso step)
+      let e = k;
+      for (let i = k + 1; i < out.length; i++) {
+        const st = out[i];
+        if (isSrc(st, ev) || (st.kind === 'draw' && st.player === ev.player)) e = i;
+        else break;
+      }
+      const card = out[a].src;
+      const play = newStep('event', ev.player, 'gioca ' + card.name, { cards: [card], delay: 1, turn: out[a].turn, active: out[a].active, line: out[a].line, actor: out[a].actor });
+      const end = newStep('eventEnd', ev.player, card.name + ' va nel trash', { cards: [card], delay: 0.8, turn: out[e].turn, active: out[e].active, line: out[e].line, actor: out[e].actor });
+      // DON del costo: i riposi non posseduti subito prima della mossa dell'evento. Si anticipano solo se nel frattempo nessun'altra mossa tocca i DON di quel giocatore.
+      let c = j; while (c > 0 && S.moves[c - 1].id === 'Don' && S.moves[c - 1].fz === 5 && S.moves[c - 1].tz === 5 && S.moves[c - 1].f3 === 1 && !S.moves[c - 1].prot && S.moves[c - 1].player === ev.player) c--;
+      const cost = S.moves.slice(c, j);
+      const otherDon = out.slice(a, k + 1).some(st => st.moves.some(mv => mv.id === 'Don' && mv.player === ev.player && !cost.includes(mv)));
+      if (cost.length && !otherDon) { S.moves.splice(c, cost.length); for (const mv of cost) mv.chk = null; play.moves = cost; }
+      // quale copia in mano è quella giocata: parto dall'indice della mossa (ev.fi) e disfo a ritroso le mosse sulla mano fatte nel frattempo
+      let hi = ev.fi;
+      const between = [];
+      for (let i = a; i <= k; i++) for (const mv of out[i].moves) { if (mv === ev) break; if (mv.player === ev.player) between.push(mv); }
+      for (let i = between.length - 1; i >= 0 && hi >= 0; i--) {
+        const mv = between[i];
+        if (mv.tz === 1 && mv.fz !== 1) { if (mv.ti < hi) hi--; else if (mv.ti === hi) hi = -1; }
+        else if (mv.fz === 1 && mv.tz !== 1 && mv.fi <= hi) hi++;
+      }
+      play.handIdx = hi;
+      if (out[e].assertions.length) { end.assertions = out[e].assertions; out[e].assertions = []; }
+      out.splice(e + 1, 0, end); out.splice(a, 0, play);
+      // S è scalato al posto k + 1: il giro successivo riparte da lui, per eventuali altre mosse di evento al suo interno
+    }
+
+    // Potenze in combattimento. La riga "A[8000] vs B[9000]" arriva solo dopo counter e buff: da lì risalgo alle potenze al momento dell'attacco,
+    // togliendo quello che è stato aggiunto nel frattempo. Così contano anche i bonus fissi che il log non nomina (es. Mihawk +1000 contro certi leader).
+    for (let i = 0; i < out.length; i++) {
+      const A = out[i]; if (A.kind !== 'attack') continue;
+      let atk = 0, def = 0, vs = null;
+      for (let j = i + 1; j < out.length && !vs; j++) {
+        const st = out[j];
+        if (st.kind === 'vs') vs = st;
+        else if (st.kind === 'attack' || st.kind === 'endTurn' || st.kind === 'turnStart' || st.kind === 'hit' || st.kind === 'fail') break;
+        else if (st.kind === 'counter') { const m = /for Counter (\d+)/.exec(st.text); if (m) { st.amt = +m[1]; st.side = 'def'; def += st.amt; } }
+        else if (st.kind === 'effect' && st.sub === 'buff' && st.target) {
+          const m = /(-?\d+) for the /.exec(st.text), a = A.cards[0].id, d = A.cards[1].id, t = st.target.id;
+          // chi attacca potenzia di norma l'attaccante, chi difende il difensore
+          const side = st.player === A.player ? (t === a ? 'atk' : t === d ? 'def' : null) : (t === d ? 'def' : t === a ? 'atk' : null);
+          if (m && side) { st.amt = +m[1]; st.side = side; if (side === 'atk') atk += st.amt; else def += st.amt; }
+        }
+      }
+      if (!vs || vs.atk == null || vs.def == null) continue;
+      if (vs.cards[0] && vs.cards[0].id === A.cards[0].id) A.atk0 = vs.atk - atk;
+      if (vs.cards[1] && vs.cards[1].id === A.cards[1].id) A.def0 = vs.def - def;   // se il difensore è cambiato (blocker) la potenza del primo bersaglio non si ricava
     }
 
     // etichette + turni
@@ -778,7 +1004,7 @@ const Core = (() => {
     return null;
   }
 
-  function applyMove(state, mv, dbg, st) {
+  function applyMove(state, mv, dbg, st, doubts) {
     const P = state.players[mv.player];
     const { fz, tz, fi, ti, id, f3 } = mv;
     try {
@@ -788,12 +1014,25 @@ const Core = (() => {
       else if (fz === 9 && tz === 5) { const t = donTarget(P, fi); if (t && t.don > 0) t.don--; P.donPool.splice(Math.min(ti, P.donPool.length), 0, { uid: ++UID, rested: f3 === 1 }); }
       else if (fz === 4 && tz === 5) { P.donDeck--; P.donPool.splice(Math.min(ti, P.donPool.length), 0, { uid: ++UID, rested: f3 === 1 }); }
       else if (fz === 5 && tz === 4) { P.donPool.splice(fi, 1); P.donDeck++; }
+      else if (fz === 9 && tz === 4) { const t = donTarget(P, fi); if (t && t.don > 0) t.don--; else dbg && dbg.push('DON attaccato a ' + fi + ' mancante (r' + mv.line + ')'); P.donDeck++; }   // "Minus N Don" pagato con un DON attaccato
       else {
         let card = null;
-        if (fz === 0) { P.deck--; card = mkCard(id); }
-        else { const a = zoneArr(P, fz); if (a) { card = a.splice(fi, 1)[0]; } if (!card) { dbg && dbg.push('carta ' + id + ' non trovata in zona ' + fz + '[' + fi + '] (r' + mv.line + ')'); card = mkCard(id); } if (card.id !== id) card.id = id; if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; } }
+        if (fz === 0) {
+          P.deck--; card = mkCard(id);
+          // la carta presa tra quelle guardate è la stessa carta: tiene il suo uid, così sul tavolo è lei a spostarsi in mano
+          const L = state.look, k = L && L.p === mv.player && tz === 1 ? L.cards.findIndex(c => c.id === id) : -1;
+          if (k >= 0) card.uid = L.cards.splice(k, 1)[0].uid;
+        }
+        else { const a = zoneArr(P, fz);
+          // evento in risoluzione: se nel trash va un'altra copia rispetto a quella segnata al "gioca", è quella la carta che sta risolvendo
+          const R = state.resolving;
+          if (R && fz === 1 && tz === 6 && R.p === mv.player && R.id === id && a[fi] && a[fi].id === id) R.uid = a[fi].uid;
+          if (a) { card = a.splice(fi, 1)[0]; } if (!card) { dbg && dbg.push('carta ' + id + ' non trovata in zona ' + fz + '[' + fi + '] (r' + mv.line + ')'); card = mkCard(id); } if (card.id !== id) card.id = id;
+          // quando un personaggio torna in mano, f3 dice se era riposato (nelle mosse verso il trash invece è sempre 0)
+          if (doubts && fz === 2 && tz === 1 && card.rested !== (f3 === 1)) doubts.push('r' + mv.line + ' ' + id + ': torna in mano ' + (f3 ? 'riposata' : 'attiva') + ' secondo il log, ma qui risulta ' + (card.rested ? 'riposata' : 'attiva'));
+          if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; } }
         if (tz === 0) { P.deck++; }
-        else { const a = zoneArr(P, tz); if (a) a.splice(Math.min(ti, a.length), 0, card); else dbg && dbg.push('zona sconosciuta ' + tz + ' (r' + mv.line + ')'); if (tz === 2 || tz === 7) { card.rested = false; card.don = 0; } }
+        else { const a = zoneArr(P, tz); if (a) a.splice(Math.min(ti, a.length), 0, card); else dbg && dbg.push('zona sconosciuta ' + tz + ' (r' + mv.line + ')'); if (tz === 2 || tz === 7) { card.rested = f3 === 1; card.don = 0; } }   // f3 = la carta entra in campo riposata (es. giocata da un effetto)
         card.known = tz === 1 ? knownReason(mv, st) : null;
       }
     } catch (e) { dbg && dbg.push('errore mossa r' + mv.line + ': ' + e.message); }
@@ -812,19 +1051,37 @@ const Core = (() => {
   const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase']);
   function refresh(P) { P.leader.rested = false; for (const c of P.chars) c.rested = false; for (const c of P.stage) c.rested = false; for (const d of P.donPool) d.rested = false; }
 
-  function applyText(state, st, dbg) {
+  const who = (st) => 'r' + st.line + ' ' + st.text;
+  // doubts: punti in cui la ricostruzione non torna con le regole del gioco, o ha dovuto scegliere alla cieca. Non sono errori certi.
+  function applyText(state, st, dbg, doubts) {
     const P = st.player ? state.players[st.player] : null;
     const O = st.player ? state.players[st.player === 1 ? 2 : 1] : null;
     if (!P && !PLAYERLESS_KINDS.has(st.kind)) return;
     switch (st.kind) {
-      case 'turnStart': state.turn = st.turn; state.active = st.player; refresh(P); state.combat = null; break;
+      case 'turnStart': state.turn = st.turn; state.active = st.player; refresh(P); state.combat = null; state.resolving = null; state.look = null; break;
+      // carte guardate in cima al mazzo: restano in vista finché quella presa non va in mano e le altre non tornano in fondo
+      case 'look': state.look = { p: st.player, title: st.text, cards: st.look.map(id => ({ uid: ++UID, id })) }; break;
+      case 'bottom': state.look = null; break;
+      case 'event': {
+        const id = st.cards[0].id;
+        let c = st.handIdx >= 0 ? P.hand[st.handIdx] : null;
+        if (!c || c.id !== id) c = P.hand.find(x => x.id === id);
+        state.resolving = c ? { p: st.player, uid: c.uid, id } : null;
+        break;
+      }
+      case 'eventEnd': state.resolving = null; break;
       case 'attack': {
         const a = findCard(P, st.cards[0].id, { prefer: 'active' });
         const d = findCard(O, st.cards[1].id, { prefer: 'rested' });
+        if (doubts) {
+          if (a && a.rested) doubts.push(who(st) + ': attacca ma risulta già riposato');
+          if (d && d !== O.leader && !d.rested) doubts.push(who(st) + ': il personaggio attaccato risulta attivo');
+        }
         if (a) a.rested = true;
-        state.combat = { attacker: a ? a.uid : null, defender: d ? d.uid : null, aName: st.cards[0].name, dName: st.cards[1].name, atk: null, def: null, buffs: [], result: null };
+        state.combat = { attacker: a ? a.uid : null, defender: d ? d.uid : null, aName: st.cards[0].name, dName: st.cards[1].name, atk: st.atk0 != null ? st.atk0 : null, def: st.def0 != null ? st.def0 : null, buffs: [], result: null };
         break;
       }
+      case 'counter': if (state.combat && st.side && state.combat[st.side] != null) state.combat[st.side] += st.amt; break;
       case 'vs': if (state.combat) { state.combat.atk = st.atk; state.combat.def = st.def; } else state.combat = { attacker: null, defender: null, aName: st.cards[0] && st.cards[0].name, dName: st.cards[1] && st.cards[1].name, atk: st.atk, def: st.def, buffs: [], result: null }; break;
       case 'hit': if (state.combat) { state.combat.result = 'hit ' + st.dmg; const t = state.combat.defender; if (t) state.flash.push(t);
         // danno letale: il difensore è un leader senza life
@@ -836,18 +1093,24 @@ const Core = (() => {
       case 'effect': {
         const src = st.src, t = st.target;
         if (!t) break;
-        const srcIsLeader = src && P.leader.id === src.id;
-        const ownFirst = src && !OPP_REST_SOURCES.has(src.id) && (srcIsLeader || src.id === t.id || OWN_REST_SOURCES.has(src.id));
         if (st.sub === 'rest') {
+          const list = ruleOf(src, 'rest'), rule = Array.isArray(list) ? list[Math.min(st.nth || 0, list.length - 1)] : list;
+          const ownFirst = rule ? rule === 'own' : !!src && (P.leader.id === src.id || src.id === t.id);
           const order = ownFirst ? [P, O] : [O, P];
           let c = null;
-          for (const side of order) { c = findCard(side, t.id, { prefer: 'active' }); if (c && !c.rested) break; }
+          for (const side of order) { const x = findCard(side, t.id, { prefer: 'active' }); if (x && !x.rested) { c = x; break; } c = c || x; }
+          if (doubts) {
+            const free = (side) => { const x = findCard(side, t.id, { prefer: 'active' }); return !!x && !x.rested; };
+            if (!c) doubts.push(who(st) + ': nessuna carta in campo con quel nome');
+            else if (!rule && free(P) && free(O)) doubts.push(who(st) + ': bersaglio ambiguo, ce n\'è una attiva per lato; scelto il lato ' + (ownFirst ? 'di chi gioca' : 'avversario') + '. Serve una regola per ' + src.id);
+          }
           if (c) c.rested = true;
         } else if (st.sub === 'active') {
           let c = findCard(P, t.id, { prefer: 'rested' }) || findCard(O, t.id, { prefer: 'rested' });
+          if (doubts && (!c || !c.rested)) doubts.push(who(st) + ': nessuna carta riposata con quel nome');
           if (c) c.rested = false;
         } else if (st.sub === 'buff') {
-          if (state.combat) state.combat.buffs.push(st.text.replace(/^.*?: /, ''));
+          if (state.combat) { state.combat.buffs.push(st.text.replace(/^.*?: /, '')); if (st.side && state.combat[st.side] != null) state.combat[st.side] += st.amt; }
         } else if (st.sub === 'destroy') {
           const c = findCard(O, t.id, { prefer: 'rested' }) || findCard(P, t.id);
           if (c) state.flash.push(c.uid);
@@ -881,9 +1144,9 @@ const Core = (() => {
 
   function buildSnapshots(parsed, opts) {
     opts = opts || {};
-    const dbg = opts.debug ? [] : null;
+    const dbg = opts.debug ? [] : null, doubts = opts.debug ? [] : null;
     const state = {
-      turn: 0, active: 0, result: null, combat: null, flash: [],
+      turn: 0, active: 0, result: null, combat: null, resolving: null, look: null, flash: [],
       players: { 1: mkPlayer(parsed.players[1].name, parsed.players[1].leader ? parsed.players[1].leader.id : null), 2: mkPlayer(parsed.players[2].name, parsed.players[2].leader ? parsed.players[2].leader.id : null) }
     };
     const snapshots = [];
@@ -891,14 +1154,14 @@ const Core = (() => {
     for (const st of parsed.steps) {
       state.flash = [];
       if (st.kind === 'leader' && st.player) state.players[st.player].leader.id = st.cards[0].id;
-      applyText(state, st, dbg);
-      for (const mv of st.moves) applyMove(state, mv, dbg, st);
+      applyText(state, st, dbg, doubts);
+      for (const mv of st.moves) applyMove(state, mv, dbg, st, doubts);
       if (dbg) checkAssertions(state, st, dbg);
       // lastOnly: solo lo stato finale (basta per l'esito, evita una copia per step)
       if (!opts.lastOnly || st === lastStep) snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
       if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) state.combat = null;
     }
-    return { snapshots, mismatches: dbg || [] };
+    return { snapshots, mismatches: dbg || [], doubts: doubts || [] };
   }
 
   // ---------------- RACCOLTA: riepilogo di una partita e statistiche ----------------
@@ -941,6 +1204,9 @@ const Core = (() => {
   // Sostituisce sul posto, senza togliere righe: i numeri di riga restano quelli del file originale,
   // così una nota ancorata a una riga cade nello stesso punto sul log condiviso e su quello locale.
   function redact(text) {
+    // delle partite precedenti nello stesso file (AutoSaved) restano solo le righe vuote
+    const lines = text.split(/\r?\n/), game = lastGame(lines);
+    if (game.from || game.to < lines.length) text = lines.map((l, i) => i < game.from || i >= game.to ? '' : l).join('\n');
     let out = text.replace(/^(\[[^\]]+\] ?<b><size=\d+>).*(<\/size><\/b>)(?=[ \t]*\r?$)/gm, '$1…$2');
     const { nameMap } = parseLog(text);
     const esc = (ch) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -1032,7 +1298,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     el.classList.toggle('rested', !!card.rested);
     const dons = el.querySelector('.dons');
     while (dons.children.length > card.don) dons.lastChild.remove();
-    while (dons.children.length < card.don) { const d = document.createElement('span'); d.className = 'dcard in'; d.style.setProperty('--k', dons.children.length); d.textContent = 'DON!!'; dons.append(d); }
+    while (dons.children.length < card.don) { const d = document.createElement('span'); d.className = 'dcard in'; d.style.setProperty('--k', dons.children.length); d.textContent = 'DON!!'; d.addEventListener('animationend', () => d.classList.remove('in'), { once: true }); dons.append(d); }
     const known = el.querySelector('.known'); known.textContent = KNOWN_LABELS[card.known] || ''; known.classList.toggle('show', !!card.known); el.classList.toggle('isknown', !!card.known);
     const donx = el.querySelector('.donx'); donx.textContent = 'DON!! ×' + card.don; donx.classList.toggle('show', card.don > 0); donx.style.setProperty('--n', card.don);
     return el;
@@ -1045,41 +1311,55 @@ if (typeof module !== 'undefined') module.exports = Core;
   function area(cls, label) { const a = document.createElement('div'); a.className = 'area ' + cls; if (label) a.dataset.label = label; return a; }
   function pile(n) { const p = document.createElement('div'); p.className = 'pile'; const k = Math.min(4, Math.max(1, Math.ceil(n / 12))); for (let i = 0; i < k; i++) { const b = backEl(i === k - 1 ? n : null, ''); b.style.left = (i * 2) + 'px'; b.style.top = (i * 2) + 'px'; p.append(b); } if (!n) p.style.opacity = .3; return p; }
 
+  // Le aree di ogni metà del tappetino si creano una volta sola e a ogni step si aggiornano sul posto:
+  // staccare e riattaccare un nodo fa ripartire le sue animazioni CSS (l'alone del leader di turno, l'ingresso dei DON sotto le carte).
+  const sides = {};
+  function sideAreas(p, half) {
+    if (sides[p]) return sides[p];
+    const A = { life: area('a-life'), chars: area('a-chars', 'Character area'), name: mk('div', 'a-name'), res: area('a-resolve'), lead: area('a-leader'), stage: area('a-stage'),
+      deck: area('a-deck'), dond: area('a-dond'), cost: area('a-cost', 'Cost area'), trash: area('a-trash'),
+      lifecnt: mk('div', 'lifecnt'), trashcnt: mk('span', 'cnt'), restag: mk('span', 'rtag', 'in risoluzione') };
+    half.replaceChildren(A.life, A.chars, A.name, A.res, A.lead, A.stage, A.deck, A.dond, A.cost, A.trash);
+    return sides[p] = A;
+  }
+  // mette in parent esattamente kids, in quell'ordine, senza toccare i nodi che sono già al loro posto
+  function setKids(parent, kids) {
+    kids.forEach((k, i) => { if (parent.children[i] !== k) parent.insertBefore(k, parent.children[i] || null); });
+    while (parent.children.length > kids.length) parent.lastChild.remove();
+  }
+
   function renderSide(P, p, half, hand, S) {
-    const isOpp = p === 2;
-    half.replaceChildren(); hand.replaceChildren();
+    const isOpp = p === 2, A = sideAreas(p, half);
     const tag = (el) => { el.dataset.p = p; return el; };
+    // evento in risoluzione: per il motore sta ancora in mano (o è già nel trash), sul tavolo resta accanto al leader finché non ha finito
+    const R = S.resolving && S.resolving.p === p ? P.hand.find((c) => c.uid === S.resolving.uid) || P.trash.find((c) => c.uid === S.resolving.uid) : null;
+    const inHand = R ? P.hand.filter((c) => c !== R) : P.hand, inTrash = R ? P.trash.filter((c) => c !== R) : P.trash;
     // life: pila di carte di traverso (elementi keyati per uid, così la carta può animarsi verso la mano)
-    const aLife = area('a-life'); for (const c of P.life) aLife.append(tag(lifeEl(c)));
-    const lc = document.createElement('div'); lc.className = 'lifecnt'; lc.textContent = P.life.length; aLife.append(lc);
-    if (isOpp) lc.style.transform = 'rotate(180deg)';
+    A.lifecnt.textContent = P.life.length; if (isOpp) A.lifecnt.style.transform = 'rotate(180deg)';
+    A.life.style.setProperty('--ls', Math.min(0.33, 1.35 / Math.max(1, P.life.length - 1)));
+    setKids(A.life, [...P.life.map((c) => tag(lifeEl(c))), A.lifecnt]);
     // personaggi
-    const aChars = area('a-chars', 'Character area'); for (const c of P.chars) aChars.append(tag(cardEl(c)));
+    setKids(A.chars, P.chars.map((c) => tag(cardEl(c))));
     // nome / info
-    const aName = document.createElement('div'); aName.className = 'a-name';
-    const nm = document.createElement('div'); nm.textContent = (P.name || (p === 1 ? 'You' : 'Opponent')).replace(/#\d+$/, '');
-    const inf = document.createElement('small'); inf.textContent = 'Deck ' + P.deck + ' · DON ' + P.donPool.filter(d => !d.rested).length + '/' + P.donPool.length;
-    aName.append(nm, inf);
-    if (S.active === p) { const t = document.createElement('div'); t.className = 'turn'; t.textContent = '● turno ' + S.turn; aName.append(t); }
+    A.name.replaceChildren(mk('div', '', (P.name || (p === 1 ? 'You' : 'Opponent')).replace(/#\d+$/, '')), mk('small', '', 'Deck ' + P.deck + ' · DON ' + P.donPool.filter(d => !d.rested).length + '/' + P.donPool.length));
+    if (S.active === p) A.name.append(mk('div', 'turn', '● turno ' + S.turn));
+    A.name.classList.toggle('res', !!R);
+    setKids(A.res, R ? [tag(cardEl(R)), A.restag] : []);
     // leader (alone bianco se è il suo turno), stage, deck
-    const aLead = area('a-leader'); const le = tag(cardEl(P.leader)); le.classList.toggle('myturn', S.active === p); aLead.append(le);
-    const aStage = area('a-stage', P.stage.length ? '' : 'Stage'); for (const c of P.stage) aStage.append(tag(cardEl(c)));
-    const aDeck = area('a-deck'); aDeck.append(pile(P.deck));
+    const le = tag(cardEl(P.leader)); le.classList.toggle('myturn', S.active === p); setKids(A.lead, [le]);
+    A.stage.dataset.label = P.stage.length ? '' : 'Stage'; setKids(A.stage, P.stage.map((c) => tag(cardEl(c))));
+    A.deck.replaceChildren(pile(P.deck));
     // cost area (DON) + DON deck + trash
-    const aCost = area('a-cost', 'Cost area');
-    for (const d of [...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0))) { const dc = document.createElement('div'); dc.className = 'doncard' + (d.rested ? ' r' : ''); dc.textContent = 'DON!!'; aCost.append(dc); }
-    const aDond = area('a-dond'); const dd = document.createElement('div'); dd.className = 'dond'; const dn = document.createElement('span'); dn.className = 'n'; dn.textContent = P.donDeck; dd.append(dn); aDond.append(dd);
-    const aTrash = area('a-trash', P.trash.length ? '' : 'Trash');
-    if (P.trash.length) { aTrash.append(tag(cardEl(P.trash[P.trash.length - 1]))); const c = document.createElement('span'); c.className = 'cnt'; c.textContent = P.trash.length; aTrash.append(c); }
-    aTrash.onclick = () => openTrash(P, p);
-    half.append(aLife, aChars, aName, aLead, aStage, aDeck, aDond, aCost, aTrash);
+    A.cost.replaceChildren(...[...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0)).map((d) => mk('div', 'doncard' + (d.rested ? ' r' : ''), 'DON!!')));
+    const dd = mk('div', 'dond'); dd.append(mk('span', 'n', P.donDeck)); A.dond.replaceChildren(dd);
+    A.trash.dataset.label = inTrash.length ? '' : 'Trash'; A.trashcnt.textContent = inTrash.length;
+    setKids(A.trash, inTrash.length ? [tag(cardEl(inTrash[inTrash.length - 1])), A.trashcnt] : []);
+    A.trash.onclick = () => openTrash(P, p);
     // mano (colonna sinistra, a ventaglio)
     if (isOpp && oppHand !== 'all') {
       const showKnown = oppHand === 'known';
-      for (const c of P.hand) hand.append(showKnown && c.known ? tag(cardEl(c)) : backEl(null, ''));
-      const nKnown = P.hand.filter(c => c.known).length;
-      const c = document.createElement('div'); c.className = 'hcnt'; c.textContent = P.hand.length + ' carte in mano' + (showKnown ? ', ' + nKnown + ' note' : ''); hand.append(c);
-    } else for (const c of P.hand) hand.append(tag(cardEl(c)));
+      setKids(hand, [...inHand.map((c) => showKnown && c.known ? tag(cardEl(c)) : backEl(null, '')), mk('div', 'hcnt', inHand.length + ' carte in mano' + (showKnown ? ', ' + inHand.filter(c => c.known).length + ' note' : ''))]);
+    } else setKids(hand, inHand.map((c) => tag(cardEl(c))));
   }
   // sovrapposizione delle carte in mano per farle stare nella colonna
   function layoutHand(hand) {
@@ -1089,6 +1369,31 @@ if (typeof module !== 'undefined') module.exports = Core;
     const w = kids[0].offsetWidth, avail = hand.clientWidth - 8;
     const ov = Math.max(0, (kids.length * w - avail) / (kids.length - 1));
     hand.style.setProperty('--ov', Math.min(ov, w * 0.8) + 'px');
+  }
+
+  // carte guardate in cima al mazzo. Quella presa ha lo stesso uid della carta che entra in mano, quindi ci vola da sola (FLIP);
+  // le altre, quando il riquadro si chiude, volano verso il mazzo.
+  function renderLook(S, animate) {
+    const L = S.look, box = $('#look'), row = box.querySelector('.lcards');
+    const leaving = animate ? [...row.children].filter((e) => e.dataset.uid).map((e) => ({ el: e, r: e.getBoundingClientRect() })) : [];
+    box.className = L ? 'show p' + L.p : '';
+    if (L) {
+      // sotto la mano dell'avversario (in alto) oppure sopra la tua (in basso)
+      if (L.p === 2) { if (box.previousElementSibling !== $('#opp-hand')) $('#opp-hand').after(box); }
+      else if (box.nextElementSibling !== $('#you-hand')) $('#you-hand').before(box);
+      const hidden = L.p === 2 && oppHand !== 'all';   // con la mano avversaria coperta restano coperte anche le carte che guarda
+      const t = box.querySelector('.ltitle'); t.textContent = (L.p === 1 ? 'Tu' : 'Avv') + ' · ' + L.title;
+      if (hidden) t.append(mk('small', '', 'coperte: Mano avv'));
+      setKids(row, L.cards.map((c) => { if (hidden) return backEl(null, ''); const el = cardEl(c); el.dataset.p = L.p; return el; }));
+    } else setKids(row, []);
+    leaving.filter((x) => !x.el.isConnected && x.r.width).forEach((x, i) => {
+      const deck = document.querySelector('#' + (x.el.dataset.p === '1' ? 'you' : 'opp') + '-half .a-deck'); if (!deck) return;
+      const d = deck.getBoundingClientRect(), g = x.el.cloneNode(true);
+      g.classList.add('ghost'); g.style.cssText = 'left:' + x.r.left + 'px;top:' + x.r.top + 'px;width:' + x.r.width + 'px;height:' + x.r.height + 'px';
+      document.body.append(g);
+      const dx = d.left + d.width / 2 - (x.r.left + x.r.width / 2), dy = d.top + d.height / 2 - (x.r.top + x.r.height / 2);
+      g.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + (d.width / x.r.width) + ')', opacity: .25 }], { duration: 520, delay: i * 90, easing: 'cubic-bezier(.4,0,.5,1)', fill: 'both' }).onfinish = () => g.remove();
+    });
   }
 
   function cardByUid(S, uid) {
@@ -1120,14 +1425,14 @@ if (typeof module !== 'undefined') module.exports = Core;
   // FLIP: anima le carte dalla posizione precedente a quella nuova (life → mano, deck → mano, mano → campo, campo → trash)
   function captureRects() {
     const m = new Map();
-    for (const el of document.querySelectorAll('#mat [data-uid], .hand [data-uid]')) { const r = el.getBoundingClientRect(); if (r.width) m.set(el.dataset.uid, r); }
+    for (const el of document.querySelectorAll('#mat [data-uid], .hand [data-uid], #look [data-uid]')) { const r = el.getBoundingClientRect(); if (r.width) m.set(el.dataset.uid, r); }
     const deck = {};
     for (const p of [1, 2]) { const d = document.querySelector('#' + (p === 1 ? 'you' : 'opp') + '-half .a-deck'); if (d) deck[p] = d.getBoundingClientRect(); }
     return { m, deck };
   }
   function flipFrom(prev) {
     if (!prev) return;
-    for (const el of document.querySelectorAll('#mat [data-uid], .hand [data-uid]')) {
+    for (const el of document.querySelectorAll('#mat [data-uid], .hand [data-uid], #look [data-uid]')) {
       const uid = el.dataset.uid;
       const now = el.getBoundingClientRect(); if (!now.width) continue;
       let old = prev.m.get(uid);
@@ -1153,6 +1458,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     renderSide(S.players[2], 2, $('#opp-half'), $('#opp-hand'), S);
     renderSide(S.players[1], 1, $('#you-half'), $('#you-hand'), S);
     layoutHand($('#opp-hand')); layoutHand($('#you-hand'));
+    renderLook(S, !!prev);
     // combattimento: potenze direttamente sulle carte (attacco = base + DON×1000), freccia rossa
     document.querySelectorAll('.card.attacking,.card.defending').forEach(e => { e.classList.remove('attacking', 'defending'); e.querySelector('.pw').classList.remove('show'); });
     let ae = null, de = null;
@@ -1206,7 +1512,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       if (st.kind === 'turnStart') { const h = document.createElement('li'); h.className = 'turn'; h.textContent = 'Turno ' + st.turn + ' — ' + (st.player === 1 ? 'Tu' : 'Avversario'); h.onclick = () => goTo(i); frag.append(h); }
       const li = document.createElement('li'); li.id = 'ev' + i; li.className = 'p' + st.player;
       const k = document.createElement('span'); k.className = 'k';
-      k.textContent = st.kind === 'attack' ? '⚔' : st.kind === 'vs' ? '⚡' : st.kind === 'hit' ? '💔' : st.kind === 'deploy' ? '＋' : st.kind === 'draw' ? '↑' : st.kind === 'destroyed' ? '✗' : st.kind === 'chat' ? '💬' : st.kind === 'endTurn' ? '⏎' : st.kind === 'fail' ? '⛨' : '·';
+      k.textContent = st.kind === 'attack' ? '⚔' : st.kind === 'vs' ? '⚡' : st.kind === 'hit' ? '💔' : st.kind === 'deploy' ? '＋' : st.kind === 'draw' ? '↑' : st.kind === 'destroyed' ? '✗' : st.kind === 'chat' ? '💬' : st.kind === 'endTurn' ? '⏎' : st.kind === 'fail' ? '⛨' : st.kind === 'event' ? '✦' : st.kind === 'look' ? '👁' : '·';
       li.append(k, document.createTextNode(' ' + st.label));
       li.title = 'riga ' + st.line;
       li.onclick = () => goTo(i);
@@ -1275,8 +1581,9 @@ if (typeof module !== 'undefined') module.exports = Core;
   function toggle() { playing ? pause() : play(); }
   function setOppHand(mode) { oppHand = mode; $('#btn-hand').classList.toggle('on', mode !== 'hidden'); $('#btn-hand').textContent = OPP_HAND_LABELS[mode]; try { localStorage.setItem('optcg.oppHand', mode); } catch (e) { } if (snaps.length) render(cur); Menu.refresh(); }
   const nextOppHand = () => setOppHand(OPP_HAND_MODES[(OPP_HAND_MODES.indexOf(oppHand) + 1) % OPP_HAND_MODES.length]);
-  function openDrop() { pause(); $('#drop').classList.remove('hidden'); $('#btn-drop-close').hidden = !snaps.length; if (dirHandle) listLogs(); }
-  function closeDrop() { if (snaps.length) $('#drop').classList.add('hidden'); }
+  function openDrop() { pause(); Home.hide(); $('#drop').classList.remove('hidden'); $('#btn-drop-close').hidden = !snaps.length; if (dirHandle) listLogs(); }
+  // senza una partita aperta non c'è un replay a cui tornare: si torna al menu di benvenuto
+  function closeDrop() { if (snaps.length) $('#drop').classList.add('hidden'); else if (!Home.isOpen()) Home.show(); }
   const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } Menu.refresh(); };
   function showDebug() { const d = $('#debug'); d.classList.toggle('show'); if (d.classList.contains('show') && parsed) { $('#mid').classList.add('show'); runDebug(); } }
 
@@ -1296,27 +1603,28 @@ if (typeof module !== 'undefined') module.exports = Core;
       return [
         { title: 'Partita', items: [
           { type: 'match' },
+          { ic: '🏠', label: 'Menu principale', hint: 'Replay, Stats, Impostazioni, Tutorial', on: () => Home.show() },
           { ic: '📚', label: 'Raccolta e statistiche', hint: 'tutte le partite della cartella, winrate per matchup', on: openDrop },
           { ic: '📂', label: 'Apri un log…', hint: 'scegli un file .log di OPTCGSim', on: () => $('#file').click() },
-          { ic: '📁', label: dirHandle ? 'Cambia cartella dei log' : 'Scegli la cartella dei log', hint: $('#folder-name').textContent || 'i log nuovi compaiono da soli', on: () => { openDrop(); pickFolder(); } },
+          { ic: '📁', label: dirHandle ? 'Cambia cartella dei log' : 'Scegli la cartella dei log', hint: $('#folder-name').textContent || 'i log nuovi compaiono da soli', pref: true, on: () => { openDrop(); pickFolder(); } },
           { type: 'recent' },
         ] },
         { title: 'Condivisione', items: [
           { ic: '🔗', label: curShare ? 'Copia il link di questa partita' : 'Genera link', hint: curShare ? curShare.url : 'pagina pubblica con questo replay, dove chi la apre può lasciare note', on: () => Share.current(), enabled: loaded },
           { ic: '💬', label: 'Note', hint: Notes.active() ? 'commenti ancorati a un momento della partita' : 'disponibili dopo aver generato il link', type: 'toggle', kbd: 'N', get: Notes.visible, set: Notes.show, enabled: Notes.active() },
-          { ic: '🔑', label: 'Server e token', hint: Share.ready() ? 'configurato' : 'servono per generare i link', on: () => Share.settings() },
+          { ic: '🔑', label: 'Server e token', hint: Share.ready() ? 'configurato' : 'servono per generare i link', pref: true, on: () => Share.settings() },
         ] },
         { title: 'Riproduzione', items: [
           { ic: playing ? '❚❚' : '▶', label: playing ? 'Pausa' : 'Play', kbd: 'Spazio', on: toggle, enabled: loaded },
-          { ic: '⏱', label: 'Velocità', type: 'seg', opts: [[0.5, '0.5×'], [1, '1×'], [1.5, '1.5×'], [2, '2×'], [3, '3×']], get: () => speed, set: setSpeed },
+          { ic: '⏱', label: 'Velocità', pref: true, type: 'seg', opts: [[0.5, '0.5×'], [1, '1×'], [1.5, '1.5×'], [2, '2×'], [3, '3×']], get: () => speed, set: setSpeed },
           { ic: '⏮', label: 'Inizio partita', kbd: 'Home', on: () => { pause(); goTo(0); }, enabled: loaded },
           { ic: '⏭', label: 'Fine partita', kbd: 'End', on: () => { pause(); goTo(snaps.length - 1); }, enabled: loaded },
-          { ic: '🔁', label: 'Play automatico all\'apertura', hint: 'altrimenti il replay parte in pausa', type: 'toggle', get: () => Settings.get('autoplay'), set: (v) => Settings.set('autoplay', v) },
-          { ic: '✨', label: 'Animazioni delle carte', hint: 'life → mano, mano → campo, campo → trash…', type: 'toggle', get: () => Settings.get('anim'), set: (v) => Settings.set('anim', v) },
+          { ic: '🔁', label: 'Play automatico all\'apertura', hint: 'altrimenti il replay parte in pausa', pref: true, type: 'toggle', get: () => Settings.get('autoplay'), set: (v) => Settings.set('autoplay', v) },
+          { ic: '✨', label: 'Animazioni delle carte', hint: 'life → mano, mano → campo, campo → trash…', pref: true, type: 'toggle', get: () => Settings.get('anim'), set: (v) => Settings.set('anim', v) },
         ] },
         { title: 'Vista', items: [
-          { ic: '👁', label: 'Mano dell\'avversario', type: 'seg', kbd: 'H', opts: [['all', 'tutte'], ['known', 'note'], ['hidden', 'coperte']], get: () => oppHand, set: setOppHand },
-          { ic: '🔍', label: 'Anteprima carta a destra', hint: 'al passaggio del mouse', type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
+          { ic: '👁', label: 'Mano dell\'avversario', pref: true, type: 'seg', kbd: 'H', opts: [['all', 'tutte'], ['known', 'note'], ['hidden', 'coperte']], get: () => oppHand, set: setOppHand },
+          { ic: '🔍', label: 'Anteprima carta a destra', hint: 'al passaggio del mouse', pref: true, type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
           { ic: '📜', label: 'Log degli eventi', hint: 'pannello con tutte le mosse', type: 'toggle', kbd: 'L', get: () => $('#mid').classList.contains('show'), set: toggleLog },
         ] },
         { title: 'Strumenti', items: [
@@ -1385,7 +1693,63 @@ if (typeof module !== 'undefined') module.exports = Core;
     function setOpen(v) { open = v; el.classList.toggle('show', v); bd.classList.toggle('show', v); btn.classList.toggle('on', v); if (v) render(); }
     const close = () => setOpen(false);
     btn.onclick = () => setOpen(!open); bd.onclick = close; $('#menu-close').onclick = close;
-    return { open: () => setOpen(true), close, toggle: () => setOpen(!open), isOpen: () => open, refresh() { if (open) render(); } };
+    // le voci con pref:true sono le impostazioni: il menu di benvenuto le mostra nella sua schermata Impostazioni
+    const prefs = () => SECTIONS().map((sec) => ({ title: sec.title, items: sec.items.filter((it) => it.pref) })).filter((sec) => sec.items.length);
+    return { open: () => setOpen(true), close, toggle: () => setOpen(!open), isOpen: () => open, refresh() { if (open) render(); Home.refresh(); }, row, keys, prefs };
+  })();
+
+  // ---------- menu di benvenuto ----------
+  // Prima schermata all'apertura, in stile videogioco: titolo in alto e voci grandi, anche da tastiera (↑ ↓ Invio, Esc torna indietro).
+  // Aggiungere una voce = una riga in ITEMS(). Le sotto-schermate (Impostazioni, Tutorial) sono le .hsub dentro #home.
+  const Home = (() => {
+    const el = $('#home'), nav = $('#home-nav'), pages = { main: nav, settings: $('#home-settings'), tutorial: $('#home-tutorial') };
+    let page = 'main', sel = 0;
+    const ITEMS = () => [
+      { label: 'Continua', hint: 'torna alla partita aperta', on: hide, show: !!snaps.length },
+      { label: 'Replay', hint: 'tutte le tue partite, pronte da rivedere', on: () => library('games') },
+      { label: 'Stats', hint: 'winrate per leader e per matchup', on: () => library('stats') },
+      { label: 'Impostazioni', hint: 'cartella dei log, riproduzione, condivisione', on: () => go('settings') },
+      { label: 'Tutorial', hint: 'come funziona, in un minuto', on: () => go('tutorial') },
+      { label: 'Esci', on: () => window.close(), show: !!window.desktop },
+    ].filter((it) => it.show !== false);
+    const isOpen = () => !el.classList.contains('hidden');
+    function library(tab) { Library.setTab(tab); openDrop(); }
+    function renderMain() {
+      nav.replaceChildren();
+      ITEMS().forEach((it, i) => {
+        const b = mk('button', '', it.label); b.style.setProperty('--i', i);
+        if (it.hint) b.append(mk('small', '', it.hint));
+        // una sola voce scelta alla volta: mouse, frecce e Tab muovono la stessa selezione
+        b.onclick = it.on; b.onmouseenter = b.onfocus = () => select(i);
+        nav.append(b);
+      });
+      select(Math.min(sel, nav.children.length - 1));
+    }
+    function select(i) { sel = i; [...nav.children].forEach((b, k) => b.classList.toggle('sel', k === i)); }
+    function renderSettings() {
+      const body = pages.settings.querySelector('.body'); body.replaceChildren();
+      for (const sec of Menu.prefs()) { body.append(mk('h3', '', sec.title)); for (const it of sec.items) body.append(Menu.row(it)); }
+    }
+    function go(p) {
+      page = p;
+      for (const k in pages) pages[k].hidden = k !== p;
+      if (p === 'settings') renderSettings();
+      (p === 'main' ? nav.children[sel] : pages[p].querySelector('.hback')).focus();
+    }
+    function show() { pause(); $('#drop').classList.add('hidden'); el.classList.remove('hidden'); sel = 0; renderMain(); go('main'); }
+    function hide() { el.classList.add('hidden'); }
+    function key(e) {
+      if ($('#share-dlg').open) return;
+      if (e.key === 'Escape') { if (page !== 'main') go('main'); else if (snaps.length) hide(); return; }
+      if (page !== 'main') return;
+      const n = nav.children.length, d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0;
+      if (d) { e.preventDefault(); select((sel + d + n) % n); nav.children[sel].focus(); }
+      else if (e.key === 'Enter' || e.code === 'Space') { e.preventDefault(); nav.children[sel].click(); }
+    }
+    for (const b of el.querySelectorAll('.hback')) b.onclick = () => go('main');
+    pages.tutorial.querySelector('.body').append(Menu.keys());
+    renderMain();
+    return { show, hide, isOpen, key, refresh() { if (isOpen() && page === 'settings') renderSettings(); } };
   })();
 
   $('#btn-prev').onclick = () => { pause(); prev(); };
@@ -1395,11 +1759,12 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#turns').onchange = (e) => { const t = parsed.turns[+e.target.value]; if (t) goTo(t.first); };
   $('#scrub').oninput = (e) => { pause(); goTo(+e.target.value); };
   $('#btn-hand').onclick = nextOppHand;
-  $('#btn-open').onclick = openDrop; $('#btn-drop-close').onclick = closeDrop;
+  $('#btn-open').onclick = openDrop; $('#btn-drop-close').onclick = closeDrop; $('#btn-drop-home').onclick = () => Home.show();
   $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
   $('#btn-debug').onclick = showDebug;
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (Home.isOpen()) { Home.key(e); return; }
     if (e.key === 'Escape') { if (Menu.isOpen()) Menu.close(); else closeDrop(); return; }
     if (e.key === 'm' || e.key === 'M') { Menu.toggle(); return; }
     if (!snaps.length) return;
@@ -1419,7 +1784,8 @@ if (typeof module !== 'undefined') module.exports = Core;
     const r = Core.buildSnapshots(parsed, { debug: true });
     const d = $('#debug');
     d.textContent = 'step: ' + parsed.steps.length + ' · mosse: ' + parsed.moveCount + ' (assegnate ' + parsed.steps.reduce((a, s) => a + s.moves.length, 0) + ') · turni: ' + parsed.turns.length + '\n' +
-      (r.mismatches.length ? r.mismatches.length + ' incoerenze:\n' + r.mismatches.join('\n') : '✓ nessuna incoerenza con i CHK e gli snapshot del log');
+      (r.mismatches.length ? r.mismatches.length + ' incoerenze:\n' + r.mismatches.join('\n') : '✓ nessuna incoerenza con i CHK e gli snapshot del log') + '\n' +
+      (r.doubts.length ? r.doubts.length + ' dubbi (carte riposate o attive che non tornano con le regole del gioco):\n' + r.doubts.join('\n') : '✓ nessun dubbio su carte riposate e attive');
   }
 
   // ---------- loader ----------
@@ -1448,7 +1814,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       if (!total) fin();
       for (const id of ids) { const im = new Image(); const step = () => { done++; prog.textContent = 'Carico le carte… ' + done + ' / ' + total; if (done >= total) { clearTimeout(t); fin(); } }; im.onload = step; setImg(im, id, step); }
     });
-    $('#drop').classList.add('hidden'); prog.textContent = '';
+    $('#drop').classList.add('hidden'); Home.hide(); prog.textContent = '';
     goTo(0);
     if (location.search.includes('debug')) { $('#debug').classList.add('show'); runDebug(); }
     Share.refresh();
@@ -1458,9 +1824,10 @@ if (typeof module !== 'undefined') module.exports = Core;
   async function loadFile(f, lf) { if (!f) return; $('#progress').textContent = 'Leggo ' + f.name + '…'; await loadText(await f.text(), f.name, lf); }
   $('#file').onchange = (e) => loadFile(e.target.files[0]);
   const drop = $('#drop');
-  document.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.remove('hidden'); drop.classList.add('over'); });
-  document.addEventListener('dragleave', (e) => { if (e.relatedTarget === null) { drop.classList.remove('over'); if (snaps.length) drop.classList.add('hidden'); } });
-  document.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) loadFile(f); else if (snaps.length) drop.classList.add('hidden'); });
+  // sul menu di benvenuto il file si lascia cadere direttamente lì: la raccolta compare solo per mostrare il caricamento
+  document.addEventListener('dragover', (e) => { e.preventDefault(); if (Home.isOpen()) return; drop.classList.remove('hidden'); drop.classList.add('over'); });
+  document.addEventListener('dragleave', (e) => { if (e.relatedTarget === null && !Home.isOpen()) { drop.classList.remove('over'); if (snaps.length) drop.classList.add('hidden'); } });
+  document.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) { if (Home.isOpen()) openDrop(); loadFile(f); } else if (snaps.length) drop.classList.add('hidden'); });
   // ?log=<url> carica un log via fetch (serve un server http, es. python -m http.server); ?step=N salta allo step N in pausa
   // ---------- cartella dei log (File System Access API, Chrome/Edge) ----------
   let dirHandle = null, logFiles = [];
@@ -1476,7 +1843,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   // Ogni log viene riassunto una volta (Core.summarize) e il riepilogo resta in IndexedDB sotto 'index',
   // con chiave nome|size|mtime: a ogni apertura si analizzano solo i file nuovi.
   const Library = (() => {
-    const INDEX_V = 1;   // da alzare quando cambia ciò che esce da Core.summarize: la cache viene rifatta
+    const INDEX_V = 2;   // da alzare quando cambia ciò che esce da Core.summarize: la cache viene rifatta
     const RES = { w: 'V', l: 'S', o: '–' };
     let items = null, run = 0, tab = 'games';
     const flt = { me: '', opp: '', res: '' };
@@ -1563,7 +1930,8 @@ if (typeof module !== 'undefined') module.exports = Core;
       for (const g of shown) { const li = gameRow(g.lf, g.i); if (g.i === open) li.classList.add('cur'); ul.append(li); }
       ul.scrollTop = top;
     }
-    function setTab(t) { tab = t; for (const b of document.querySelectorAll('#lib-tabs button')) b.classList.toggle('sel', b.dataset.tab === t); render(); }
+    // dal menu di benvenuto la scheda si sceglie anche prima che la cartella sia stata letta: in quel caso non c'è ancora nulla da disegnare
+    function setTab(t) { tab = t; for (const b of document.querySelectorAll('#lib-tabs button')) b.classList.toggle('sel', b.dataset.tab === t); if (!$('#lib').hidden) render(); }
     // analizza i log non ancora in cache; una chiamata più recente (cartella cambiata, log nuovo) ferma quella in corso
     async function sync() {
       const my = ++run;
@@ -1588,7 +1956,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     document.querySelectorAll('#lib-tabs button').forEach((b) => b.onclick = () => setTab(b.dataset.tab));
     for (const k of ['me', 'opp', 'res']) $('#flt-' + k).onchange = (e) => { flt[k] = e.target.value; render(); };
     return {
-      sync, readText,
+      sync, readText, setTab,
       // etichetta breve per menu e tendina: "V · Mihawk vs Shanks", oppure il nome del file se non è ancora analizzato
       label(lf) { const s = sumOf(lf); if (!s) return lf.name.replace(/\.log$/i, ''); const r = Core.outcome(s); return (r === 'o' ? '' : RES[r] + ' · ') + leaderName(s.me.leader) + ' vs ' + leaderName(s.opp.leader); },
       // il link creato per una partita sta nella sua voce dell'indice: { id, url, base }

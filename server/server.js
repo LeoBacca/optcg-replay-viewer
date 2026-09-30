@@ -1,5 +1,5 @@
 // OPTCG Replay — server dei replay condivisi. Node puro, nessuna dipendenza.
-// Serve la pagina (index.html, cards_meta.js, don.jpg) e una piccola API: carica un log, leggilo, lascia note.
+// Serve la pagina (index.html, cards_meta.js, don.jpg, cardback.jpg) e una piccola API: carica un log, leggilo, lascia note.
 // I dati stanno su file in DATA_DIR:
 //   tokens.json          sha256(token) -> { name, createdAt }   (si gestisce con token.js)
 //   replays/<id>.log     il testo del log, così com'è arrivato
@@ -16,7 +16,7 @@ const MAX_NOTES = 200, MAX_AUTHOR = 30, MAX_TEXT = 500;
 const NOTES_PER_MINUTE = 10;
 const ID_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';   // senza 0/O, 1/l/I
 const ID_RE = /^[A-Za-z0-9]{10}$/;
-const STATIC = { '/': ['index.html', 'text/html; charset=utf-8'], '/index.html': ['index.html', 'text/html; charset=utf-8'], '/cards_meta.js': ['cards_meta.js', 'text/javascript; charset=utf-8'], '/don.jpg': ['don.jpg', 'image/jpeg'] };
+const STATIC = { '/': ['index.html', 'text/html; charset=utf-8'], '/index.html': ['index.html', 'text/html; charset=utf-8'], '/cards_meta.js': ['cards_meta.js', 'text/javascript; charset=utf-8'], '/don.jpg': ['don.jpg', 'image/jpeg'], '/cardback.jpg': ['cardback.jpg', 'image/jpeg'] };
 
 const hashToken = (token) => crypto.createHash('sha256').update(String(token)).digest('hex');
 const sha256 = (text) => crypto.createHash('sha256').update(text).digest('hex');
@@ -167,7 +167,7 @@ function createServer(opts) {
     if (!st || (req.method !== 'GET' && req.method !== 'HEAD')) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); res.end('Non trovato'); return; }
     fs.readFile(path.join(webRoot, st[0]), (err, buf) => {
       if (err) { res.writeHead(404); res.end(); return; }
-      res.writeHead(200, { 'Content-Type': st[1], 'Cache-Control': st[0] === 'don.jpg' ? 'public, max-age=86400' : 'no-cache', 'X-Content-Type-Options': 'nosniff' });
+      res.writeHead(200, { 'Content-Type': st[1], 'Cache-Control': st[1] === 'image/jpeg' ? 'public, max-age=86400' : 'no-cache', 'X-Content-Type-Options': 'nosniff' });
       res.end(req.method === 'HEAD' ? undefined : buf);
     });
   });

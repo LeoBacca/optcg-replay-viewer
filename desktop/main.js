@@ -36,7 +36,7 @@ function watchDir(dir) {
 function createWindow() {
   win = new BrowserWindow({
     width: 1500, height: 900, minWidth: 1100, minHeight: 700,
-    backgroundColor: '#8a4a1c', title: 'OPTCG Replay', autoHideMenuBar: true,
+    backgroundColor: '#1d130b', title: 'OPTCG Replay', autoHideMenuBar: true,
     icon: path.join(__dirname, 'build', 'icon.ico'),
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false }
   });

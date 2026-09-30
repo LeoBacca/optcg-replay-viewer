@@ -140,6 +140,7 @@ test('la pagina e i suoi file sono serviti, il resto no', async () => {
   assert.match(await page.text(), /<title>OPTCG Replay<\/title>/);
   assert.equal((await fetch(base + '/cards_meta.js')).status, 200);
   assert.equal((await fetch(base + '/don.jpg')).status, 200);
+  assert.equal((await fetch(base + '/cardback.jpg')).status, 200);
   assert.equal((await fetch(base + '/server/server.js')).status, 404);
   assert.equal((await fetch(base + '/README.md')).status, 404);
 });
