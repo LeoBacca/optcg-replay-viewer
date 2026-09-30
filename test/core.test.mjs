@@ -9,7 +9,7 @@ const mod = {};
 new Function('module', coreSrc)(mod);
 const Core = mod.exports;
 
-const sampleLog = readFileSync(new URL('Esempio COmbat log/2026-09-23T13.26.58.log', root), 'utf8');
+const sampleLog = readFileSync(new URL('test/esempio.log', root), 'utf8');
 const lines = sampleLog.split('\n');
 
 const replay = (text) => {

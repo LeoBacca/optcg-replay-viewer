@@ -60,12 +60,13 @@ Per generare i link serve un token personale (menu ☰ → Server e token), che 
 - `index.html` — tutto il programma (parser del log, motore di stato, interfaccia).
 - `don.jpg` — immagine della carta DON!! (fornita da Leo).
 - `cardback.jpg` — dorso delle carte (fornito da Leo): mazzo, life, mano coperta dell'avversario.
-- `cards_meta.js` — nome / costo / potenza / counter per ogni carta (tooltip al passaggio del mouse). Se manca, funziona lo stesso.
-- `Esempio COmbat log/` — un log di prova.
+- `cards_meta.js` — nome / costo / potenza / counter per ogni carta (anteprima della carta, potenze in combattimento, nomi dei leader). Se manca, funziona lo stesso.
 - `server/` — server dei replay condivisi (vedi sotto).
-- `test/core.test.mjs` - test di parser ed engine sul log di esempio.
-- `test/server.test.mjs` - test del server su una cartella dati temporanea.
-- `tools/dubbi.mjs` - passa una cartella di log e stampa incoerenze e dubbi (vedi "Regole per carta e dubbi").
+- `desktop/` — app per Windows (vedi in fondo).
+- `test/esempio.log` — un log di prova: è la partita su cui girano i test.
+- `test/core.test.mjs` — test di parser ed engine sul log di esempio.
+- `test/server.test.mjs` — test del server su una cartella dati temporanea.
+- `tools/dubbi.mjs` — passa una cartella di log e stampa incoerenze e dubbi (vedi "Regole per carta e dubbi").
 
 ## Server dei replay condivisi
 `server/server.js` è un server Node senza dipendenze: serve la pagina e una piccola API, e tiene i dati su file.
@@ -89,7 +90,7 @@ git clone https://github.com/LeoBacca/optcg-replay-viewer.git ~/optcg-replay && 
 PUBLIC_URL=https://<ip-con-trattini>.sslip.io bash server/deploy/setup.sh   # senza sudo: Node nella home, servizio utente su 127.0.0.1:8790
 sudo bash server/deploy/caddy.sh <ip-con-trattini>.sslip.io                 # HTTPS con Caddy davanti (porte 80 e 443 aperte)
 ```
-Per aggiornare: `git pull` e di nuovo `setup.sh`. I dati stanno in `~/optcg-replay-data` (basta copiare quella cartella per averne un salvataggio). L'indirizzo predefinito nell'app è `SHARE_SERVER` in `index.html`.
+Per aggiornare: `git pull` e `systemctl --user restart optcg-replay`. `setup.sh` serve di nuovo solo per cambiare porta, cartella dei dati o indirizzo: riscrive il servizio, quindi `PUBLIC_URL` va ripassato. I dati stanno in `~/optcg-replay-data` (basta copiare quella cartella per averne un salvataggio). L'indirizzo predefinito nell'app è `SHARE_SERVER` in `index.html`.
 
 Le note sono ancorate al numero di riga del log e non all'indice dello step: il log non cambia mai, mentre gli step si spostano quando il parser viene corretto. Per questo l'oscuramento di chat e nick sostituisce il testo sul posto senza togliere righe.
 
@@ -98,7 +99,7 @@ Vengono scaricate al volo (e messe in cache dal browser) da dotgg, con fallback 
 
 ## Parametri URL (opzionali, servono se la pagina è servita via http)
 - `?r=<id>` apre un replay condiviso (solo quando la pagina è servita dal server dei replay).
-- `?log=<url del log>` carica un log automaticamente (es. `python -m http.server` nella cartella e poi `http://localhost:8000/index.html?log=Esempio%20COmbat%20log/....log`).
+- `?log=<url del log>` carica un log automaticamente (es. `python -m http.server` nella cartella e poi `http://localhost:8000/index.html?log=test/esempio.log`).
 - `&step=N` salta allo step N in pausa.
 - `?debug` apre subito il pannello delle verifiche.
 

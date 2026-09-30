@@ -146,9 +146,6 @@
   .card.defending{box-shadow:0 0 0 3px var(--accent),0 0 18px var(--accent)}
   .card.flash{animation:flash .7s ease}
   @keyframes flash{0%{filter:brightness(1)}30%{filter:brightness(2.2) saturate(0)}100%{filter:brightness(1)}}
-  .card .tip{display:none}
-  .card:hover .tip{display:block;position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:#000e;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;white-space:nowrap;z-index:20;pointer-events:none;color:#fff}
-  .half.opp .card:hover .tip{transform:translateX(-50%) rotate(180deg);bottom:auto;top:calc(100% + 6px)}
 
   /* dorsi */
   .back{width:var(--cw);height:var(--ch);border-radius:5px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;
@@ -689,7 +686,6 @@
 const Core = (() => {
   'use strict';
   const REF_G = /(.+?) \["([A-Za-z0-9\-_]+)">\2\]/g;          // Name ["ID">ID]
-  const REF_ONE = /([^:\[\]]+?) \["([A-Za-z0-9\-_]+)">\2\]/;
   // i log salvati da soli dal sim (cartella AutoSaved) tengono il markup intero: Name [<mark><link="ID">ID</link></mark>]
   const RICH_REF = /<mark><link=("([A-Za-z0-9\-_]+)">\2)<\/link><\/mark>/g;
   const MOVE = /^RZ1\|(\d+)\|([12])\|([^|]+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([01])\|([01])\|([01])/;
