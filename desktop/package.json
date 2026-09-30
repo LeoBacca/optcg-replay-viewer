@@ -1,7 +1,7 @@
 {
   "name": "optcg-replay",
   "productName": "OPTCG Replay",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Visualizzatore di replay per i combat log di OPTCGSim",
   "main": "main.js",
   "author": "LeoBacca",
