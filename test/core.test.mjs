@@ -314,3 +314,51 @@ test('in combattimento le mosse seguono l\'ordine del log, anche quando arrivano
   assert.deepEqual(r.mismatches, []);
   assert.equal(r.parsed.steps.filter((s) => s.kind === 'event').length, 13);
 });
+
+// ---------- blocker ----------
+
+test('"Blocks" sposta l\'attacco sul blocker: diventa lui il bersaglio, si riposa e prende la sua potenza dalla riga "vs"', () => {
+  // r868: il mio Yasopp attacca lo Yasopp avversario. Faccio bloccare il Trafalgar Law avversario, attivo in campo, prima del counter di r869
+  assert.match(lines[867], /^\[You\] Yasopp .* attacking Yasopp /);
+  const mod = [...lines];
+  mod.splice(868, 0, '[Opponent] Trafalgar Law ["OP13-031">OP13-031] Blocks');
+  assert.match(mod[872], /\[7000\] vs Yasopp .*\[8000\]/);
+  mod[872] = 'Yasopp ["OP17-031">OP17-031][7000] vs Trafalgar Law ["OP13-031">OP13-031][8000]';
+  const r = replay(mod.join('\n'));
+  assert.deepEqual(r.mismatches, []);
+  const i = stepAt(r.parsed, 869);
+  assert.equal(r.parsed.steps[i].kind, 'block');
+  const before = r.snapshots[i - 1], after = r.snapshots[i];
+  const [law, yasopp] = before.players[2].chars;
+  assert.deepEqual([law.id, law.rested, yasopp.id, yasopp.rested], ['OP13-031', false, 'OP17-031', true]);
+  assert.equal(before.combat.defender, yasopp.uid);
+  assert.equal(after.combat.defender, law.uid);
+  assert.equal(after.combat.attacker, before.combat.attacker);
+  assert.equal(after.players[2].chars[0].rested, true);
+  // 8000 alla riga "vs", meno il counter da 2000 arrivato dopo il blocco
+  assert.deepEqual([after.combat.atk, after.combat.def], [7000, 6000]);
+  assert.deepEqual(r.snapshots[i + 1].combat.def, 8000);
+  assert.equal(stateAfter(r, 873).combat.defender, law.uid);   // la riga "vs" non cambia il bersaglio
+});
+
+test('con due copie uguali in campo blocca quella che poi va nel trash, e resta sul tavolo fino all\'esito', () => {
+  // r987: lo Yasopp avversario attacca il mio Law. Ho due Yasopp attivi, ai posti 1 e 3: blocca il secondo, e il log mette subito la sua mossa campo → trash
+  assert.match(lines[986], /^\[Opponent\] Yasopp .* attacking Trafalgar Law /);
+  const mod = [...lines.slice(0, 987),
+    '[You] Yasopp ["OP17-031">OP17-031] Blocks',
+    'RZ1|361|1|OP17-031|2|3|6|6|1|1|0|0|0',
+    'Yasopp ["OP17-031">OP17-031][6000] vs Yasopp ["OP17-031">OP17-031][5000]',
+    '[You] Yasopp ["OP17-031">OP17-031] Destroyed'];
+  const r = replay(mod.join('\n'));
+  assert.deepEqual(r.parsed.steps.slice(-4).map((s) => [s.kind, s.moves.length]), [['attack', 0], ['block', 0], ['vs', 0], ['destroyed', 1]]);
+  const [atk, block, vs, end] = r.snapshots.slice(-4);
+  assert.deepEqual(field(atk, 1), ['OP13-031 R', 'OP17-031', 'OP13-031', 'OP17-031', 'OP12-034']);
+  const twin = atk.players[1].chars[3];
+  assert.equal(block.combat.defender, twin.uid);
+  assert.deepEqual(field(block, 1), ['OP13-031 R', 'OP17-031', 'OP13-031', 'OP17-031 R', 'OP12-034']);
+  assert.deepEqual(field(vs, 1), field(block, 1));
+  assert.equal(vs.combat.defender, twin.uid);
+  assert.deepEqual(end.flash, [twin.uid]);
+  assert.deepEqual(field(end, 1), ['OP13-031 R', 'OP17-031', 'OP13-031', 'OP12-034']);
+  assert.equal(end.players[1].trash.at(-1).uid, twin.uid);
+});
