@@ -47,6 +47,8 @@ In modalità "Mano avv: note" la mano dell'avversario mostra scoperte solo le ca
 ## Raccolta e statistiche
 Scelta la cartella dei log, la voce Replay del menu di benvenuto apre la raccolta: una riga per partita con data, il tuo leader, il leader e il nick dell'avversario, chi ha iniziato, turni ed esito (V, S, oppure V?/S? quando l'esito è solo probabile, – quando il log finisce prima della fine). Si filtra per tuo leader, leader avversario ed esito. La scheda Statistiche mostra, per ogni tuo leader, il winrate contro ogni leader avversario, anche diviso tra partite iniziate da primo e da secondo; un click su un matchup mostra le sue partite. Gli esiti incerti o mancanti sono contati a parte e non entrano nel winrate.
 
+Nel browser la cartella si sceglie con la File System Access API (Chrome ed Edge), che la ricorda tra un'apertura e l'altra. Chrome però non lascia scegliere le cartelle di sistema, e su Mac i log del sim stanno lì (sotto `~/Library`); Safari e Firefox non hanno proprio quella finestra. Per questi casi nella raccolta c'è "apri i log di una cartella": usa la finestra classica dei file, legge tutti i `.log` della cartella scelta e la raccolta funziona uguale, ma la cartella non viene ricordata e va riscelta a ogni apertura. Nell'app per Windows il problema non c'è.
+
 "Tu" sei sempre chi ha scaricato il log (`[You]`). Ogni log viene analizzato una volta sola: il riepilogo resta in cache nel browser (IndexedDB), quindi alle aperture successive si leggono solo i file nuovi.
 
 ## Link condivisi e note
