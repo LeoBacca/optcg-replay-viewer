@@ -30,6 +30,17 @@ Prec / Succ mettono in pausa. Ogni passo è una riga evento del log (deploy, res
 ## Layout
 Riproduce il tavolo di OPTCGSim: mano dell'avversario in alto, mano tua in basso, in mezzo il tappetino con il lato avversario ruotato di 180°, Cost Area (DON), Character Area, leader, stage, deck, life e trash nelle stesse posizioni del simulatore. Le dimensioni delle carte si adattano all'altezza della finestra. Durante un attacco una freccia rossa collega l'attaccante al bersaglio e le potenze (base + DON) compaiono in rosa sulle due carte. I DON attaccati stanno sotto la carta con l'etichetta DON!! ×N, il leader di chi è di turno ha un alone bianco, gli spostamenti (life → mano, deck → mano, mano → campo, campo → trash) sono animati. Un evento giocato dalla mano (anche un counter in combattimento) resta accanto al leader con l'etichetta "in risoluzione" finché i suoi effetti non sono finiti, poi va nel trash. Quando un effetto guarda le prime carte del mazzo (Perona, Otama) compare nella colonna di sinistra, accanto alla mano di chi guarda, un riquadro con tutte le carte viste, nell'ordine in cui stavano in cima: quella scelta va in mano, le altre volano in fondo al mazzo. Quelle dell'avversario in partita non si vedevano: si coprono mettendo "Mano avv" su note o coperte. Passando col mouse su una carta compare ingrandita nella colonna di destra. A fine partita compare YOU WIN / YOU LOSE (concessione, danno letale, oppure abbandono/disconnessione segnalati come esito probabile).
 
+### Sul telefono (layout verticale)
+Quando la finestra è più alta che larga (un telefono in verticale, o comunque sotto i 700px di larghezza) la pagina si dispone in colonna: mano dell'avversario, tappetino, mano tua, barra dei comandi. Le carte si dimensionano per far stare tutto nello schermo senza scorrere; se avanza altezza, va alle mani. La barra tiene solo l'essenziale: testo della mossa, scorrimento, turno, ☰, ◀, Play, ▶ e Note. Velocità, mano dell'avversario, log, link e raccolta restano nel menu ☰.
+
+Cosa cambia rispetto al layout largo:
+- toccando una carta la si vede a tutto schermo, e intanto il replay aspetta; un altro tocco la chiude. Nel trash, che si apre toccandolo, un tocco ingrandisce la carta dentro l'elenco
+- note e log sono pannelli che salgono dalla barra, uno alla volta. Il log si apre anche toccando il testo della mossa. Aprendo un link condiviso le note restano chiuse: le annunciano il conteggio sul pulsante e i fumetti. Toccata una nota, il pannello si chiude e resta il fumetto
+- le carte guardate in cima al mazzo compaiono sopra la riga dei DON di chi guarda, attaccate alla sua mano
+- il pennarello si accende dal menu (mette in pausa da sé) e i suoi strumenti stanno in una riga in alto
+
+Il telefono in orizzontale usa il layout largo, che su uno schermo così basso resta stretto: va tenuto in verticale.
+
 ## Carte note
 In modalità "Mano avv: note" la mano dell'avversario mostra scoperte solo le carte che hai potuto vedere: rivelate da un effetto (Reveal and Draw), tornate in mano dal campo o recuperate dal trash. Le carte pescate o prese dalla Life restano coperte. Una carta smette di essere nota quando esce dalla mano. Le carte note hanno un bordo giallo e un'etichetta con il motivo, anche nella tua mano: così vedi cosa conosce l'avversario.
 

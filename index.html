@@ -67,7 +67,7 @@
   #events li{padding:3px 10px;cursor:pointer;border-left:3px solid transparent;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
   #events li:hover{background:#0003}
   #events li.cur{background:#0006;color:#fff;border-left-color:var(--accent)}
-  #events li.turn{color:#fff;font-weight:700;background:#0005;margin-top:4px;position:sticky;top:0;z-index:1}
+  #events li.turn{color:#fff;font-weight:700;background:#120c07;margin-top:4px;position:sticky;top:0;z-index:1}
   #events li.cur.p1{border-left-color:var(--you)} #events li.cur.p2{border-left-color:var(--opp)}
   #events li .k{display:inline-block;width:14px;opacity:.7}
   #debug{font:12px/1.4 ui-monospace,Consolas,monospace;padding:8px 12px;border-top:1px solid #0004;max-height:35%;overflow:auto;display:none;white-space:pre-wrap;color:#e6d8c3}
@@ -404,7 +404,124 @@
   @media (max-width:900px){#home .deco{display:none}}
   body.noanim .card,body.noanim .dcard,body.noanim .doncard{transition:none!important}
   body.noanim .card.flash,body.noanim .dcard.in{animation:none!important}
-  
+
+  /* ---------- layout verticale: telefoni e finestre più alte che larghe ----------
+     Dall'alto in basso: mano avversario, tappetino, mano tua, barra. Note, log, carte guardate e anteprima della carta
+     diventano pannelli sopra al tavolo. La stessa condizione è in VERT, nello script. */
+  html{touch-action:manipulation}
+  @media (orientation:portrait),(max-width:700px){
+    :root{
+      --vh:100vh; --barh:126px;
+      /* in altezza ci devono stare il tappetino (5.56 carte), due mani (1.1 carte l'una), la barra e 96px di bordi; in larghezza il tappetino è 5.6 carte */
+      --ch:min(calc((100vw - 6px) / 5.6), calc((var(--vh) - var(--barh) - 96px) / 7.76), 240px);
+      /* se lo schermo è più alto del necessario, lo spazio in più va alle mani */
+      --hch:clamp(calc(var(--ch) * 1.1), calc((var(--vh) - var(--barh) - 96px - var(--ch) * 5.56) / 2), calc(var(--ch) * 1.7));
+    }
+    @supports (height:100dvh){:root{--vh:100dvh}}
+    html,body{height:var(--vh);overflow:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%}
+    #app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto auto}
+    #left,#right{display:contents}
+    #opp-hand{grid-row:1} #board{grid-row:2;grid-column:1} #you-hand{grid-row:3} #bar{grid-row:4;grid-column:1}
+    #board,.hand,#bar button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+
+    .hand,#you-hand{padding:5px 6px;height:calc(var(--hch) + 10px)}
+    .hand .card.isknown{box-shadow:0 0 0 2px var(--accent),0 2px 6px #0008}
+    .hand .hcnt{bottom:3px;font-size:12px}
+
+    #board{padding:3px;justify-content:center}
+    #mat{gap:4px;border-radius:8px}
+    .half{padding:4px 6px;gap:4px}
+    .a-chars,.a-stage,.a-cost,.a-trash{border-width:1px;border-radius:7px}
+    .area::before{font-size:calc(var(--ch) * .2)}
+    .a-chars{padding:2px;min-height:calc(var(--ch) + 6px)}
+    .a-chars .card{margin:0 1px}
+    .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 1px)}
+    .a-stage{padding:0;min-height:calc(var(--ch) + 2px)}
+    .a-cost{padding:2px 6px;min-height:calc(var(--ch) * .78 + 6px)}
+    .a-trash{min-height:calc(var(--ch) * .78 + 6px)}
+    .a-trash .card{width:calc(var(--cw) * .78);height:calc(var(--ch) * .78)}
+    .a-resolve{margin-right:3px}
+    .pile{width:calc(var(--cw) + 4px);height:calc(var(--ch) + 2px)}
+    .lifecnt{margin-top:4px}
+    .doncard{width:calc(var(--cw) * .72);height:calc(var(--ch) * .72)}
+    .doncard + .doncard{margin-left:calc(var(--cw) * -.46)}
+    .doncard.r + .doncard.r{margin-left:calc(var(--cw) * -.5)}
+    .doncard.r + .doncard:not(.r){margin-left:calc(var(--ch) * .08)}
+    .doncard.r:first-child{margin-left:calc((var(--ch) - var(--cw)) * .36)}
+    .card .dcard{transform:translate(calc(var(--k) * -4px - 4px), calc(var(--k) * 6px + 6px))}
+    .card .donx{right:-3px;bottom:calc(var(--n) * -6px - 12px);font-size:10px}
+    .card .pw{font-size:calc(var(--ch) * .21)}
+    #result{width:max-content;max-width:96vw}
+    #result .big{font-size:clamp(34px,11vw,120px);padding:8px 22px;white-space:nowrap}
+    #note-bubble{left:3%;right:3%;top:8px;transform:none;max-width:none;width:fit-content;margin:0 auto;padding:6px 10px;font-size:13px}
+
+    /* carte guardate: sopra la riga dei DON di chi le guarda, attaccate alla sua mano */
+    #look{position:fixed;left:6px;right:6px;z-index:8;padding:6px 8px 8px}
+    #look.p1{margin:0;bottom:calc(var(--barh) + var(--hch) + 12px)}
+    #look.p2{margin:0;top:calc(var(--hch) + 12px)}
+    #look .card,#look .back{flex-basis:calc(var(--cw) * 1.15)}
+
+    /* note e log: pannelli che salgono dalla barra; con la tastiera aperta (.kb, lo script misura --kb e --vvh) le note le stanno sopra */
+    #mid,#notes{position:fixed;left:6px;right:6px;top:auto;bottom:calc(var(--barh) + 6px);width:auto;height:min(calc(var(--vh) * .54),480px);z-index:9;background:#1a120bfa}
+    #notes{flex:none;align-self:auto}
+    .kb #notes{z-index:12;bottom:calc(var(--kb) + 6px);max-height:calc(var(--vvh, var(--vh)) - 12px)}
+    #events li{padding:7px 10px;white-space:normal}
+    #notes-list li{padding:8px}
+    #notes-form textarea,#notes-form input,#share-dlg input,#bar select,#lib-bar select{font-size:16px}
+    #mid header button,#notes header button{min-width:40px;min-height:34px}
+
+    /* pennarello: si accende dal menu, gli strumenti stanno in una riga in alto */
+    #marker{position:fixed;top:6px;left:6px;right:6px;align-items:stretch}
+    #btn-marker{display:none}
+    #marker-menu{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;padding:8px}
+    #marker-menu .hint{display:none}
+    #marker-hint{align-self:center}
+    #ink{width:100%;height:100%}
+
+    /* anteprima: a tutto schermo, si apre toccando una carta e si chiude toccando di nuovo */
+    #preview{position:fixed;inset:0;z-index:30;width:auto;justify-content:center;gap:10px;padding:16px;background:#000c}
+    #preview img{width:min(88vw, calc((var(--vh) - 110px) * .716), 460px)}
+    #preview .pinfo{font-size:15px}
+
+    /* barra: cosa sta succedendo, scorrimento e turno, comandi grandi. Il resto (velocità, mano avversario, log, link, raccolta) è nel menu */
+    #bar{display:grid;grid-template-columns:44px 1fr 1.5fr 1fr auto;grid-template-rows:32px 30px 40px;gap:5px 6px;align-content:center;height:var(--barh);padding:6px 8px 8px}
+    #step-text{grid-row:1;grid-column:1/5;align-self:center;min-width:0;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;font-size:13px;line-height:16px}
+    #pos{grid-row:1;grid-column:5;align-self:center;min-width:0;text-align:right;font-size:11px;white-space:nowrap}
+    #scrub-wrap{grid-row:2;grid-column:1/4;min-width:0}
+    #scrub-wrap input{height:30px}
+    #turns{grid-row:2;grid-column:4/6;width:100%;min-width:0;padding:2px 6px}
+    #btn-menu{grid-row:3;grid-column:1} #btn-prev{grid-row:3;grid-column:2} #btn-play{grid-row:3;grid-column:3;min-width:0}
+    #btn-next{grid-row:3;grid-column:4} #btn-notes{grid-row:3;grid-column:5}
+    #bar button{padding:0 8px;font-size:15px;white-space:nowrap}
+    #bar .t,#speed,#btn-share,#btn-hand,#btn-log,#logsel,#btn-open{display:none}
+    #scrub-marks i{top:3px}
+    #toast{bottom:calc(var(--barh) + 12px)}
+
+    #drop{padding:12px 10px calc(var(--barh) + 10px)}
+    #drop .box,#drop .box.wide{padding:44px 14px 16px;max-width:100%}
+    #drop > .kbd{display:none}
+    #loglist li,#loglist li.g,#loglist li.raw{display:flex;flex-wrap:wrap;gap:4px 8px}
+    #loglist .d{flex:0 0 100%}
+    #loglist .ld{flex:1 1 38%}
+    dialog{max-width:94vw;padding:14px}
+    dialog .grid{gap:6px;max-height:calc(var(--vh) - 150px)}
+    dialog .grid .card{width:calc((94vw - 60px) / 4);height:auto;aspect-ratio:.716}
+    dialog .grid .card.zoom{width:100%}
+  }
+  /* schermi bassi (telefono con le barre del browser): il testo della mossa sta su una riga sola e il tavolo guadagna spazio */
+  @media (orientation:portrait) and (max-height:680px),(max-width:700px) and (max-height:680px){
+    :root{--barh:110px}
+    #bar{grid-template-rows:16px 30px 40px}
+    #step-text{-webkit-line-clamp:1}
+  }
+  /* schermi a tocco: niente effetti al passaggio del mouse, niente tasti della tastiera, bersagli più grandi */
+  @media (hover:none){
+    .hand .card:hover,#opp-hand .card:hover{transform:none}
+    :is(#menu,#home) kbd,:is(#menu,#home) .keys,#home > footer,#menu footer span,#home-tutorial h3{display:none}
+    :is(#menu,#home) .row{min-height:46px}
+    :is(#menu,#home) .seg button{padding:8px 9px;font-size:13px}
+    #menu .recent li{padding-top:9px;padding-bottom:9px}
+  }
 </style>
 </head>
 <body>
@@ -492,10 +609,10 @@
 
   <canvas id="ink"></canvas>
   <footer id="bar">
-    <button id="btn-menu" title="Menu (M)">☰ Menu</button>
-    <button id="btn-prev" title="Mossa precedente (←)">◀ Prec</button>
+    <button id="btn-menu" title="Menu (M)">☰<span class="t"> Menu</span></button>
+    <button id="btn-prev" title="Mossa precedente (←)">◀<span class="t"> Prec</span></button>
     <button id="btn-play" class="primary" title="Play/Pausa (spazio)">▶ Play</button>
-    <button id="btn-next" title="Mossa successiva (→)">Succ ▶</button>
+    <button id="btn-next" title="Mossa successiva (→)"><span class="t">Succ </span>▶</button>
     <select id="speed" title="Velocità"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select>
     <select id="turns" title="Vai al turno"></select>
     <span id="scrub-wrap"><input type="range" id="scrub" min="0" max="0" value="0"><span id="scrub-marks"></span></span>
@@ -1268,19 +1385,36 @@ if (typeof module !== 'undefined') module.exports = Core;
   })();
   speed = Settings.get('speed'); $('#speed').value = speed;
   const nameOf = {};   // id -> name dal log
+  // layout verticale (telefoni, finestre più alte che larghe): stessa condizione del blocco @media nello stile
+  const VERT = window.matchMedia('(orientation:portrait),(max-width:700px)');
+  const vert = () => VERT.matches;
+  // tastiera del telefono: copre il fondo della pagina senza ridimensionarla. --kb dice di quanto, così il pannello delle note le sta sopra
+  if (window.visualViewport) {
+    const vv = window.visualViewport, root = document.documentElement;
+    const onVv = () => {
+      const kb = vv.scale > 1.01 ? 0 : Math.max(0, root.clientHeight - vv.height - vv.offsetTop);
+      root.style.setProperty('--kb', kb + 'px'); root.style.setProperty('--vvh', vv.height + 'px'); root.classList.toggle('kb', kb > 80);
+    };
+    vv.addEventListener('resize', onVv); vv.addEventListener('scroll', onVv);
+  }
 
   // ---------- renderer ----------
   const nodes = new Map(); // uid -> element carta
   const backs = new Map(); // uid -> dorso (life)
-  function showPreview(id) {
+  // tap: nel layout verticale l'anteprima copre il tavolo, quindi il replay aspetta finché non la si chiude
+  let previewResume = false;
+  function showPreview(id, tap) {
     if (!Settings.get('preview')) return;
     const pv = $('#preview'); const img = pv.querySelector('img'); const info = pv.querySelector('.pinfo');
-    if (pv.dataset.id === id) return; pv.dataset.id = id;
+    if (tap) { previewResume = playing; pause(); }
+    if (pv.dataset.id === id) { pv.classList.add('show'); return; } pv.dataset.id = id;
+    if (tap) img.removeAttribute('src');
     setImg(img, id, () => { img.removeAttribute('src'); });
     const m = metaOf(id);
     info.textContent = (m ? m.name : (nameOf[id] || id)) + (m && m.cost ? ' · costo ' + m.cost : '') + (m && m.power ? ' · ' + m.power : '') + (m && m.counter ? ' · counter ' + m.counter : '') + ' · ' + id;
     pv.classList.add('show');
   }
+  $('#preview').onclick = () => { if (!vert()) return; $('#preview').classList.remove('show'); if (previewResume) { previewResume = false; play(); } };
   function cardEl(card) {
     let el = nodes.get(card.uid);
     if (!el) {
@@ -1292,7 +1426,9 @@ if (typeof module !== 'undefined') module.exports = Core;
       const pw = document.createElement('span'); pw.className = 'pw';
       const known = document.createElement('span'); known.className = 'known';
       el.append(dons, img, donx, pw, known);
-      el.addEventListener('mouseenter', () => showPreview(card.id));
+      el.addEventListener('mouseenter', () => { if (!vert()) showPreview(card.id); });
+      // il trash al tocco apre l'elenco delle sue carte, non l'anteprima di quella in cima
+      el.addEventListener('click', () => { if (vert() && !el.closest('.a-trash')) showPreview(card.id, true); });
       nodes.set(card.uid, el);
     }
     el.classList.toggle('rested', !!card.rested);
@@ -1413,10 +1549,12 @@ if (typeof module !== 'undefined') module.exports = Core;
     const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
     const stop = Math.min(len - 6, Math.max(r2.width, r2.height) / 2 + 2);
     const ex = x1 + ux * (len - stop), ey = y1 + uy * (len - stop);
-    const hl = 26, hw = 16;
+    // con le carte piccole (telefono) la freccia si assottiglia in proporzione
+    const k = Math.max(0.5, Math.min(1, Math.min(r1.width, r1.height) / 80));
+    const hl = 26 * k, hw = 16 * k;
     const bx = ex - ux * hl, by = ey - uy * hl;
     const ns = 'http://www.w3.org/2000/svg';
-    const path = document.createElementNS(ns, 'path'); path.setAttribute('d', `M${x1},${y1} L${bx},${by}`);
+    const path = document.createElementNS(ns, 'path'); path.setAttribute('d', `M${x1},${y1} L${bx},${by}`); path.style.strokeWidth = 7 * k;
     const head = document.createElementNS(ns, 'polygon'); head.setAttribute('class', 'head');
     head.setAttribute('points', `${ex},${ey} ${bx - uy * hw},${by + ux * hw} ${bx + uy * hw},${by - ux * hw}`);
     svg.append(path, head);
@@ -1500,7 +1638,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   function openTrash(P, p) {
     const dlg = $('#dlg'); $('#dlg-title').textContent = 'Trash ' + (P.name || '').replace(/#\d+$/, '') + ' (' + P.trash.length + ')';
     const g = $('#dlg-grid'); g.replaceChildren();
-    for (const c of P.trash) { const el = document.createElement('div'); el.className = 'card'; const img = document.createElement('img'); setImg(img, c.id, () => { el.classList.add('noimg'); img.remove(); el.textContent = nameOf[c.id] || c.id; }); el.append(img); g.append(el); }
+    // nel layout verticale le carte dell'elenco sono piccole: un tocco ne ingrandisce una (.zoom), un altro la rimpicciolisce
+    for (const c of P.trash) { const el = document.createElement('div'); el.className = 'card'; const img = document.createElement('img'); setImg(img, c.id, () => { el.classList.add('noimg'); img.remove(); el.textContent = nameOf[c.id] || c.id; }); el.append(img); el.onclick = () => { const z = el.classList.toggle('zoom'); for (const o of g.children) if (o !== el) o.classList.remove('zoom'); if (z) el.scrollIntoView({ block: 'nearest' }); }; g.append(el); }
     dlg.showModal();
   }
   $('#dlg-close').onclick = () => $('#dlg').close();
@@ -1584,7 +1723,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   function openDrop() { pause(); Home.hide(); $('#drop').classList.remove('hidden'); $('#btn-drop-close').hidden = !snaps.length; if (dirHandle) listLogs(); }
   // senza una partita aperta non c'è un replay a cui tornare: si torna al menu di benvenuto
   function closeDrop() { if (snaps.length) $('#drop').classList.add('hidden'); else if (!Home.isOpen()) Home.show(); }
-  const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } Menu.refresh(); };
+  // nel layout verticale log e note occupano lo stesso posto sopra la barra: aprirne uno chiude l'altro
+  const toggleLog = () => { const m = $('#mid'); m.classList.toggle('show'); if (m.classList.contains('show')) { if (vert()) Notes.show(false); const li = $('#events li.cur'); if (li) li.scrollIntoView({ block: 'center' }); } Menu.refresh(); };
   function showDebug() { const d = $('#debug'); d.classList.toggle('show'); if (d.classList.contains('show') && parsed) { $('#mid').classList.add('show'); runDebug(); } }
 
   // ---------- menu (☰) ----------
@@ -1624,11 +1764,12 @@ if (typeof module !== 'undefined') module.exports = Core;
         ] },
         { title: 'Vista', items: [
           { ic: '👁', label: 'Mano dell\'avversario', pref: true, type: 'seg', kbd: 'H', opts: [['all', 'tutte'], ['known', 'note'], ['hidden', 'coperte']], get: () => oppHand, set: setOppHand },
-          { ic: '🔍', label: 'Anteprima carta a destra', hint: 'al passaggio del mouse', pref: true, type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
+          { ic: '🔍', label: vert() ? 'Anteprima carta' : 'Anteprima carta a destra', hint: vert() ? 'tocca una carta per ingrandirla' : 'al passaggio del mouse', pref: true, type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
           { ic: '📜', label: 'Log degli eventi', hint: 'pannello con tutte le mosse', type: 'toggle', kbd: 'L', get: () => $('#mid').classList.contains('show'), set: toggleLog },
         ] },
         { title: 'Strumenti', items: [
-          { ic: '🖍', label: 'Pennarello', hint: 'solo in pausa; al Play si cancella', kbd: 'D', on: () => Ink.toggle(), enabled: loaded },
+          // nel layout verticale il pennarello si accende solo da qui (non c'è il suo pulsante sul tavolo): mette in pausa da sé
+          { ic: '🖍', label: 'Pennarello', hint: vert() ? 'disegna sul tavolo col dito; al Play si cancella' : 'solo in pausa; al Play si cancella', kbd: 'D', on: () => { if (vert()) pause(); Ink.toggle(); }, enabled: loaded },
           { ic: '🧪', label: 'Verifiche di coerenza', hint: 'confronta lo stato con i CHK del log', on: showDebug, enabled: !!parsed },
         ] },
         { title: 'Aiuto', items: [
@@ -1761,6 +1902,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#btn-hand').onclick = nextOppHand;
   $('#btn-open').onclick = openDrop; $('#btn-drop-close').onclick = closeDrop; $('#btn-drop-home').onclick = () => Home.show();
   $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
+  // nel layout verticale il pulsante Log non sta nella barra: il log si apre toccando il testo della mossa (oltre che dal menu)
+  $('#step-text').onclick = () => { if (vert() && snaps.length) toggleLog(); };
   $('#btn-debug').onclick = showDebug;
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -2062,7 +2205,8 @@ if (typeof module !== 'undefined') module.exports = Core;
         head.append(mk('b', '', turnLabel(n.step)), mk('span', 'au', n.author));
         if (ctx.mine) { const x = mk('button', 'del', '✕'); x.title = 'Elimina la nota'; x.onclick = (e) => { e.stopPropagation(); remove(n); }; head.append(x); }
         li.append(head, mk('p', '', n.text));
-        li.onclick = () => { pause(); goTo(n.step); };
+        // nel layout verticale il pannello copre mezzo tavolo: scelta la nota si chiude, e il testo resta nel fumetto
+        li.onclick = () => { pause(); goTo(n.step); if (vert()) show(false); };
         ul.append(li);
       }
       $('#notes-n').textContent = list.length ? '(' + list.length + ')' : '';
@@ -2088,7 +2232,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       } else if (i < bubbleAt || i > bubbleAt + 4) bubble.classList.remove('show');   // il fumetto resta per qualche mossa, così si fa in tempo a leggerlo
     }
     function open(share, notes, mine) { ctx = { base: share.base, id: share.id, mine: !!mine }; list = (notes || []).map(place); draw(); }
-    function show(v) { panel.hidden = !(v && ctx); $('#btn-notes').classList.toggle('on', !panel.hidden); Menu.refresh(); }
+    function show(v) { panel.hidden = !(v && ctx); if (!panel.hidden && vert()) $('#mid').classList.remove('show'); $('#btn-notes').classList.toggle('on', !panel.hidden); Menu.refresh(); }
     function reset() { gen++; ctx = null; list = []; bubbleAt = -1; panel.hidden = true; bubble.classList.remove('show'); $('#scrub-marks').replaceChildren(); const b = $('#btn-notes'); b.disabled = true; b.textContent = 'Note'; b.classList.remove('on'); }
     // partita aperta dalla cartella che ha già un link: scarica le note dal server
     async function load(share) {
@@ -2098,7 +2242,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       if (res.status === 404) { if (curRef) Library.setShare(curRef, null); curShare = null; Share.refresh(); toast('Il link di questa partita non esiste più sul server'); return; }
       if (!res.ok) return;
       const j = await res.json(); if (my !== gen) return;
-      open(share, j.notes, j.mine); if (j.notes.length) show(true);
+      open(share, j.notes, j.mine); if (j.notes.length && !vert()) show(true);
     }
     async function remove(n) {
       const c = ctx; let res;
@@ -2184,7 +2328,8 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('#progress').textContent = 'Carico il replay…';
     fetch(share.base + '/api/replays/' + encodeURIComponent(share.id), { headers: Share.headers(share.base) })
       .then(async (r) => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || 'errore ' + r.status); return j; })
-      .then(async (j) => { await loadText(j.log, 'replay ' + share.id); curShare = share; Notes.open(share, j.notes, j.mine); Notes.show(true); Share.refresh(); toStep(); })
+      // nel layout verticale le note restano chiuse (coprirebbero mezzo tavolo): le annunciano il pulsante col conteggio e i fumetti
+      .then(async (j) => { await loadText(j.log, 'replay ' + share.id); curShare = share; Notes.open(share, j.notes, j.mine); Notes.show(!vert()); Share.refresh(); toStep(); })
       .catch((e) => { $('#progress').textContent = 'Non riesco ad aprire il replay: ' + e.message; });
   } else if (qs.get('log')) {
     fetch(qs.get('log')).then(r => r.text()).then(t => loadText(t, qs.get('log')).then(toStep)).catch(e => { $('#progress').textContent = 'Errore caricamento: ' + e.message; });
