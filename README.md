@@ -40,7 +40,7 @@ Scelta la cartella dei log, la schermata iniziale diventa la raccolta: una riga 
 
 Chi apre il link può lasciare note: si ferma su un momento della partita, scrive il testo e il proprio nome. Ogni nota compare nell'elenco a sinistra con il turno, come segnalino sulla barra di scorrimento e come fumetto quando la riproduzione ci passa sopra; un click sulla nota porta a quel momento. Riaprendo la stessa partita nell'app le note vengono scaricate e mostrate allo stesso modo. Chi ha caricato il replay può eliminare le note.
 
-Per generare i link serve un token personale (menu ☰ → Server e token), che dà chi gestisce il server. Leggere un replay e scrivere note non richiede nulla.
+Per generare i link serve un token personale (menu ☰ → Server e token), che dà chi gestisce il server. Leggere un replay e scrivere note non richiede nulla. Nell'app per Windows il token si può preconfigurare, senza incollarlo, aggiungendo `"share": { "base": "https://…", "token": "…" }` al file `%APPDATA%\OPTCG Replay\settings.json`.
 
 ## File
 - `index.html` — tutto il programma (parser del log, motore di stato, interfaccia).

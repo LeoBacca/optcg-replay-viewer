@@ -1612,6 +1612,9 @@ if (typeof module !== 'undefined') module.exports = Core;
   const Share = (() => {
     const cfg = { base: '', token: '' };
     try { Object.assign(cfg, JSON.parse(localStorage.getItem('optcg.share') || '{}')); } catch (e) { }
+    // app desktop: se qui non è stato salvato nulla, vale la voce "share" del file delle impostazioni dell'app (settings.json),
+    // così il token si può preconfigurare senza doverlo incollare
+    if (isDesktop && !cfg.token) window.desktop.getSettings().then((s) => { if (s && s.share && !cfg.token) { Object.assign(cfg, s.share); refresh(); } });
     const base = () => (cfg.base || SHARE_SERVER).replace(/\/+$/, '');
     const dlg = $('#share-dlg');
     function settings() { $('#share-base').value = base(); $('#share-token').value = cfg.token; $('#share-status').textContent = ''; dlg.showModal(); }
