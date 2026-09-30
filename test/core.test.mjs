@@ -99,6 +99,26 @@ test('un log troncato prima della fine non ha esito', () => {
   assert.equal(Core.summarize(cut).result, null);
 });
 
+test('il log oscurato non ha più chat né nick avversario, e si ricostruisce identico riga per riga', () => {
+  const red = Core.redact(sampleLog);
+  assert.doesNotMatch(red, /Theshyopop/);
+  assert.doesNotMatch(red, /ggs|weird one/);
+  assert.match(red, /LeoIlPirata/);
+  assert.equal(red.split('\n').length, lines.length);
+  const before = replay(sampleLog), after = replay(red);
+  assert.deepEqual(after.mismatches, []);
+  assert.equal(after.parsed.players[2].name, 'Avversario');
+  assert.deepEqual(after.parsed.steps.map((s) => [s.kind, s.line]), before.parsed.steps.map((s) => [s.kind, s.line]));
+  assert.deepEqual(after.parsed.steps.filter((s) => s.kind === 'chat').map((s) => s.text), ['…', '…']);
+  assert.deepEqual(Core.summarize(red).result, Core.summarize(sampleLog).result);
+  assert.equal(Core.redact(red), red);
+});
+
+test('ogni step ha la sua riga del log, così una nota può ancorarsi a qualsiasi momento', () => {
+  const { parsed } = replay(sampleLog);
+  assert.deepEqual(parsed.steps.filter((s) => !s.line).map((s) => s.i), []);
+});
+
 test('la data della partita viene dal nome del file', () => {
   assert.equal(Core.gameDate('2026-09-23T13.26.58.log'), new Date(2026, 8, 23, 13, 26, 58).getTime());
   assert.equal(Core.gameDate('partita.log'), null);

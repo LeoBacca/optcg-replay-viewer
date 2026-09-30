@@ -180,9 +180,8 @@
 
   /* barra */
   #bar{grid-column:1/4;background:#1a120bdd;border-top:1px solid #0006;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  #bar input[type=range]{flex:1 1 140px;min-width:100px}
-  #pos{font-variant-numeric:tabular-nums;color:#d8c8b0;min-width:90px;text-align:center}
-  #step-text{color:#fff;flex:1 1 200px;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #pos{font-variant-numeric:tabular-nums;color:#d8c8b0;min-width:72px;text-align:center}
+  #step-text{color:#fff;flex:1 1 110px;min-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .kbd{font-size:11px;color:var(--muted)}
 
   #drop{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#d8c8b0;text-align:center;padding:24px 30px 84px;background:#000a;z-index:10;backdrop-filter:blur(3px)}
@@ -238,6 +237,46 @@
   #lib-stats .wrbar{display:inline-block;width:54px;height:6px;border-radius:3px;background:#ff5f6d66;vertical-align:middle;margin-right:8px;overflow:hidden}
   #lib-stats .wrbar i{display:block;height:100%;background:var(--ok)}
   #lib-stats .empty{color:var(--muted);text-align:center}
+  #loglist li.g{grid-template-columns:112px minmax(0,1fr) 20px minmax(0,1fr) 26px 66px 40px 104px}
+  #loglist .lk{padding:3px 8px;font-size:12px;white-space:nowrap}
+  #loglist .lk.on{border-color:var(--ok);color:var(--ok)}
+
+  /* ---------- condivisione e note ---------- */
+  input[type=text],input[type=password],textarea{font:inherit;color:var(--text);background:#0006;border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
+  input[type=text]:focus,input[type=password]:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  button:disabled{opacity:.45;cursor:default}
+  #share-dlg{width:min(460px,92vw)}
+  #share-dlg label{display:block;margin:10px 0 4px;color:var(--muted);font-size:12px}
+  #share-dlg input{width:100%}
+  #share-status{min-height:1.4em;color:var(--accent);margin:10px 0 0}
+  #toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,20px);background:#120c07f5;color:#fff;border:1px solid var(--accent);border-radius:10px;padding:10px 16px;z-index:40;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:min(640px,90vw);text-align:center;box-shadow:0 6px 24px #000a;overflow-wrap:anywhere}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  #notes{flex:1 1 0;min-height:0;width:min(100%,400px);align-self:center;display:flex;flex-direction:column;background:#1a120bee;border-radius:8px;box-shadow:0 6px 24px #000a;color:#e6d8c3}
+  #notes[hidden]{display:none}
+  #notes header{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #0004}
+  #notes header h1{font-size:14px;margin:0;color:#f7e9d4}
+  #notes-list{list-style:none;margin:0;padding:6px;overflow:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+  #notes-list li{padding:6px 8px;border-radius:6px;cursor:pointer;border-left:3px solid transparent}
+  #notes-list li:hover{background:#fff1}
+  #notes-list li.cur{background:#f5b73a22;border-left-color:var(--accent)}
+  #notes-list li.empty{color:var(--muted);cursor:default;font-size:13px}
+  #notes-list li.empty:hover{background:none}
+  #notes-list .h{display:flex;align-items:center;gap:8px;font-size:12px}
+  #notes-list .h b{color:var(--accent)}
+  #notes-list .h .au{color:#fff;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #notes-list .del{padding:0 6px;font-size:11px;line-height:1.6}
+  #notes-list p{margin:2px 0 0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+  #notes-form{display:flex;flex-direction:column;gap:6px;padding:8px;border-top:1px solid #0004}
+  #notes-form textarea{resize:none;width:100%}
+  #notes-form div{display:flex;gap:6px}
+  #notes-form input{flex:1}
+  #scrub-wrap{position:relative;flex:1 1 90px;min-width:90px;display:flex;align-items:center}
+  #scrub-wrap input{flex:1;width:100%;margin:0}
+  #scrub-marks i{position:absolute;top:-7px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent);border:1px solid #000;cursor:pointer}
+  #note-bubble{position:absolute;left:50%;top:14px;transform:translateX(-50%);display:none;max-width:min(520px,92%);background:#120c07f5;border:2px solid var(--accent);border-radius:12px;padding:8px 14px;z-index:6;color:#fff;box-shadow:0 6px 24px #000a;pointer-events:none}
+  #note-bubble.show{display:block}
+  #note-bubble p{margin:2px 0;overflow-wrap:anywhere}
+  #note-bubble b{color:var(--accent)}
   dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;max-width:80vw}
   dialog::backdrop{background:#0009}
   dialog .grid{display:flex;flex-wrap:wrap;gap:8px;max-height:70vh;overflow:auto;padding:4px}
@@ -313,6 +352,14 @@
 <div id="app">
   <div id="left">
     <div class="hand" id="opp-hand"></div>
+    <section id="notes" hidden>
+      <header><h1>Note <span id="notes-n"></span></h1><button id="notes-close" title="Chiudi le note (N)">✕</button></header>
+      <ul id="notes-list"></ul>
+      <form id="notes-form">
+        <textarea id="note-text" rows="2" maxlength="500" placeholder="Scrivi una nota su questo momento della partita…"></textarea>
+        <div><input type="text" id="note-author" maxlength="30" placeholder="Il tuo nome"><button class="primary" id="note-send">Aggiungi</button></div>
+      </form>
+    </section>
     <div class="hand" id="you-hand"></div>
   </div>
   <main id="board">
@@ -351,6 +398,7 @@
     </div>
     <svg id="arrows"></svg>
     <div id="result"><div class="big"></div><div class="how"></div></div>
+    <div id="note-bubble"></div>
   </main>
   <div id="right">
     <div id="marker">
@@ -389,9 +437,11 @@
     <button id="btn-next" title="Mossa successiva (→)">Succ ▶</button>
     <select id="speed" title="Velocità"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select>
     <select id="turns" title="Vai al turno"></select>
-    <input type="range" id="scrub" min="0" max="0" value="0">
+    <span id="scrub-wrap"><input type="range" id="scrub" min="0" max="0" value="0"><span id="scrub-marks"></span></span>
     <span id="pos">0 / 0</span>
     <span id="step-text"></span>
+    <button id="btn-notes" title="Note sul replay condiviso (N)" disabled>Note</button>
+    <button id="btn-share" title="Crea un link pubblico a questo replay, dove chi lo apre può lasciare note" disabled>Genera link</button>
     <button id="btn-hand" title="Mano avversario: tutte, solo quelle note, coperte (H)">Mano avv: tutte</button>
     <button id="btn-log" title="Mostra/nascondi il log (L)">Log</button>
     <select id="logsel" title="Altri log della cartella" hidden></select>
@@ -411,6 +461,15 @@
 </aside>
 
 <dialog id="dlg"><h3 id="dlg-title"></h3><div class="grid" id="dlg-grid"></div><p style="text-align:right;margin:10px 0 0"><button id="dlg-close">Chiudi</button></p></dialog>
+<dialog id="share-dlg">
+  <h3>Condivisione dei replay</h3>
+  <p class="kbd">Per creare i link serve un token personale: te lo dà chi gestisce il server. Resta salvato solo su questo computer.</p>
+  <label for="share-base">Indirizzo del server</label><input type="text" id="share-base" placeholder="https://…" spellcheck="false">
+  <label for="share-token">Token</label><input type="password" id="share-token" autocomplete="off" spellcheck="false">
+  <p id="share-status"></p>
+  <p style="text-align:right;margin:10px 0 0"><button id="share-cancel">Annulla</button> <button id="share-save" class="primary">Verifica e salva</button></p>
+</dialog>
+<div id="toast" role="status"></div>
 
 <script src="cards_meta.js"></script>
 
@@ -493,7 +552,7 @@ const Core = (() => {
       if (!cur || cur.kind === 'synthetic' && cur.key !== mv.player + ':' + mv.fz + '>' + mv.tz) {
         if (cur && cur.kind === 'synthetic' || !cur) {
           const key = mv.player + ':' + mv.fz + '>' + mv.tz;
-          if (!cur || cur.key !== key) pushStep(newStep('synthetic', mv.player, '', { key, delay: 0.3 }));
+          if (!cur || cur.key !== key) pushStep(newStep('synthetic', mv.player, '', { key, delay: 0.3, line: mv.line }));
         }
       }
       if (cur.kind === 'attack' && inCombat) { cur.parked.push(mv); return; }
@@ -878,7 +937,24 @@ const Core = (() => {
     return { total, leaders: [...leaders.values()].map((L) => Object.assign({}, L, { matchups: [...L.matchups.values()].sort(byGames) })).sort(byGames) };
   }
 
-  return { parseLog, buildSnapshots, clean, refs, summarize, gameDate, outcome, winrate, stats };
+  // ---------------- CONDIVISIONE: copia del log senza chat e senza il nick dell'avversario ----------------
+  // Sostituisce sul posto, senza togliere righe: i numeri di riga restano quelli del file originale,
+  // così una nota ancorata a una riga cade nello stesso punto sul log condiviso e su quello locale.
+  function redact(text) {
+    let out = text.replace(/^(\[[^\]]+\] ?<b><size=\d+>).*(<\/size><\/b>)(?=[ \t]*\r?$)/gm, '$1…$2');
+    const { nameMap } = parseLog(text);
+    const esc = (ch) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    for (const name in nameMap) {
+      if (nameMap[name] !== 2) continue;
+      // nel log il nick ha caratteri invisibili tra le lettere (nameMap li ha già tolti)
+      const loose = name.split('').map(esc).join('[\\u200B-\\u200D\\uFEFF]*');
+      // un nick con #numero è unico e si può cercare ovunque; uno qualsiasi solo come autore della riga
+      out = /#\d+$/.test(name) ? out.replace(new RegExp(loose, 'g'), 'Avversario') : out.replace(new RegExp('^\\[[\\u200B-\\u200D\\uFEFF]*' + loose + '[\\u200B-\\u200D\\uFEFF]*\\]', 'gm'), '[Avversario]');
+    }
+    return out;
+  }
+
+  return { parseLog, buildSnapshots, clean, refs, summarize, gameDate, outcome, winrate, stats, redact };
 })();
 if (typeof module !== 'undefined') module.exports = Core;
 </script>
@@ -1111,6 +1187,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     const prevLi = $('#events li.cur'); if (prevLi) prevLi.classList.remove('cur');
     const li = document.getElementById('ev' + i); if (li) { li.classList.add('cur'); li.scrollIntoView({ block: 'nearest' }); }
     const ts = $('#turns'); const tIdx = parsed.turns.findIndex((t, k) => i >= t.first && (k === parsed.turns.length - 1 || i < parsed.turns[k + 1].first)); ts.value = tIdx >= 0 ? tIdx : '';
+    Notes.onStep(i);
   }
   window.addEventListener('resize', () => { if (snaps.length) render(cur); });
 
@@ -1224,6 +1301,11 @@ if (typeof module !== 'undefined') module.exports = Core;
           { ic: '📁', label: dirHandle ? 'Cambia cartella dei log' : 'Scegli la cartella dei log', hint: $('#folder-name').textContent || 'i log nuovi compaiono da soli', on: () => { openDrop(); pickFolder(); } },
           { type: 'recent' },
         ] },
+        { title: 'Condivisione', items: [
+          { ic: '🔗', label: curShare ? 'Copia il link di questa partita' : 'Genera link', hint: curShare ? curShare.url : 'pagina pubblica con questo replay, dove chi la apre può lasciare note', on: () => Share.current(), enabled: loaded },
+          { ic: '💬', label: 'Note', hint: Notes.active() ? 'commenti ancorati a un momento della partita' : 'disponibili dopo aver generato il link', type: 'toggle', kbd: 'N', get: Notes.visible, set: Notes.show, enabled: Notes.active() },
+          { ic: '🔑', label: 'Server e token', hint: Share.ready() ? 'configurato' : 'servono per generare i link', on: () => Share.settings() },
+        ] },
         { title: 'Riproduzione', items: [
           { ic: playing ? '❚❚' : '▶', label: playing ? 'Pausa' : 'Play', kbd: 'Spazio', on: toggle, enabled: loaded },
           { ic: '⏱', label: 'Velocità', type: 'seg', opts: [[0.5, '0.5×'], [1, '1×'], [1.5, '1.5×'], [2, '2×'], [3, '3×']], get: () => speed, set: setSpeed },
@@ -1247,7 +1329,7 @@ if (typeof module !== 'undefined') module.exports = Core;
         ] },
       ];
     };
-    const KEYS = [['Spazio', 'Play / Pausa'], ['← →', 'Indietro / avanti'], ['Home / End', 'Inizio / fine'], ['H', 'Mano avversario'], ['L', 'Log eventi'], ['D', 'Pennarello'], ['M', 'Menu'], ['Esc', 'Chiudi']];
+    const KEYS = [['Spazio', 'Play / Pausa'], ['← →', 'Indietro / avanti'], ['Home / End', 'Inizio / fine'], ['H', 'Mano avversario'], ['L', 'Log eventi'], ['D', 'Pennarello'], ['N', 'Note'], ['M', 'Menu'], ['Esc', 'Chiudi']];
     function row(it) {
       const r = mk('div', 'row'); if (it.enabled === false) r.classList.add('dis');
       const lbl = mk('span', 'lbl', it.label); if (it.hint) lbl.append(mk('small', '', it.hint));
@@ -1317,10 +1399,11 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#btn-log').onclick = toggleLog; $('#btn-log-close').onclick = toggleLog;
   $('#btn-debug').onclick = showDebug;
   document.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     if (e.key === 'Escape') { if (Menu.isOpen()) Menu.close(); else closeDrop(); return; }
     if (e.key === 'm' || e.key === 'M') { Menu.toggle(); return; }
     if (!snaps.length) return;
+    if ((e.key === 'n' || e.key === 'N') && Notes.active()) { Notes.show(!Notes.visible()); return; }
     if (e.code === 'Space') { e.preventDefault(); toggle(); }
     else if (e.key === 'ArrowRight') { e.preventDefault(); pause(); next(); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); pause(); prev(); }
@@ -1340,8 +1423,11 @@ if (typeof module !== 'undefined') module.exports = Core;
   }
 
   // ---------- loader ----------
-  async function loadText(text, fname) {
-    pause(); nodes.clear();
+  // lf = voce della cartella da cui viene il log (se c'è): serve a ricordare il link già creato per quella partita
+  let curText = '', curRef = null, curShare = null;
+  async function loadText(text, fname, lf) {
+    pause(); nodes.clear(); Notes.reset();
+    curText = text; curRef = lf || null; curShare = lf ? Library.shareOf(lf) : null;
     parsed = Core.parseLog(text);
     for (const st of parsed.steps) for (const c of st.cards) nameOf[c.id] = c.name;
     for (const p of [1, 2]) if (parsed.players[p].leader) nameOf[parsed.players[p].leader.id] = parsed.players[p].leader.name;
@@ -1365,10 +1451,11 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('#drop').classList.add('hidden'); prog.textContent = '';
     goTo(0);
     if (location.search.includes('debug')) { $('#debug').classList.add('show'); runDebug(); }
-    Menu.refresh();
+    Share.refresh();
+    if (curShare) Notes.load(curShare);
     if (Settings.get('autoplay')) play();
   }
-  async function loadFile(f) { if (!f) return; $('#progress').textContent = 'Leggo ' + f.name + '…'; loadText(await f.text(), f.name); }
+  async function loadFile(f, lf) { if (!f) return; $('#progress').textContent = 'Leggo ' + f.name + '…'; await loadText(await f.text(), f.name, lf); }
   $('#file').onchange = (e) => loadFile(e.target.files[0]);
   const drop = $('#drop');
   document.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.remove('hidden'); drop.classList.add('over'); });
@@ -1420,7 +1507,10 @@ if (typeof module !== 'undefined') module.exports = Core;
       const res = mk('span', 'rb ' + r, unsure ? (s.result.winner === 1 ? 'V?' : 'S?') : RES[r]);
       res.title = s.result ? howText(s.result) : 'Partita non conclusa nel log';
       const oppNick = nick(s.opp.name);
-      li.append(mk('span', 'd', dateOf(lf)), leaderEl(s.me.leader, 'you'), mk('span', 'x', 'vs'), leaderEl(s.opp.leader, 'opp', oppNick === 'Opponent' ? '' : oppNick), ord, mk('span', 'tn', s.turns + ' turni'), res);
+      const lk = mk('button', 'lk' + (s.share ? ' on' : ''), s.share ? 'Copia link' : 'Genera link');
+      lk.title = s.share ? s.share.url : 'Crea un link pubblico a questo replay, dove chi lo apre può lasciare note';
+      lk.onclick = (e) => { e.stopPropagation(); Share.forLog(lf); };
+      li.append(mk('span', 'd', dateOf(lf)), leaderEl(s.me.leader, 'you'), mk('span', 'x', 'vs'), leaderEl(s.opp.leader, 'opp', oppNick === 'Opponent' ? '' : oppNick), ord, mk('span', 'tn', s.turns + ' turni'), res, lk);
       li.onclick = () => openLog(i);
       return li;
     }
@@ -1498,10 +1588,173 @@ if (typeof module !== 'undefined') module.exports = Core;
     document.querySelectorAll('#lib-tabs button').forEach((b) => b.onclick = () => setTab(b.dataset.tab));
     for (const k of ['me', 'opp', 'res']) $('#flt-' + k).onchange = (e) => { flt[k] = e.target.value; render(); };
     return {
-      sync,
+      sync, readText,
       // etichetta breve per menu e tendina: "V · Mihawk vs Shanks", oppure il nome del file se non è ancora analizzato
       label(lf) { const s = sumOf(lf); if (!s) return lf.name.replace(/\.log$/i, ''); const r = Core.outcome(s); return (r === 'o' ? '' : RES[r] + ' · ') + leaderName(s.me.leader) + ' vs ' + leaderName(s.opp.leader); },
+      // il link creato per una partita sta nella sua voce dell'indice: { id, url, base }
+      shareOf(lf) { const s = sumOf(lf); return (s && s.share) || null; },
+      setShare(lf, share) { const s = sumOf(lf); if (!s) return; if (share) s.share = share; else delete s.share; save(); if (!$('#lib').hidden) render(); },
     };
+  })();
+
+  // ---------- avvisi brevi e appunti ----------
+  let toastTimer = null;
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 4500); }
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) { }
+    const ta = mk('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.append(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (e) { }
+    ta.remove(); return ok;
+  }
+
+  // ---------- condivisione: carica il log sul server (senza chat né nick avversario) e ne ricava un link pubblico ----------
+  const SHARE_SERVER = '';   // indirizzo predefinito del server dei replay
+  const Share = (() => {
+    const cfg = { base: '', token: '' };
+    try { Object.assign(cfg, JSON.parse(localStorage.getItem('optcg.share') || '{}')); } catch (e) { }
+    const base = () => (cfg.base || SHARE_SERVER).replace(/\/+$/, '');
+    const dlg = $('#share-dlg');
+    function settings() { $('#share-base').value = base(); $('#share-token').value = cfg.token; $('#share-status').textContent = ''; dlg.showModal(); }
+    $('#share-cancel').onclick = () => dlg.close();
+    $('#share-save').onclick = async () => {
+      const b = $('#share-base').value.trim().replace(/\/+$/, ''), t = $('#share-token').value.trim(), st = $('#share-status');
+      if (!/^https?:\/\//.test(b)) { st.textContent = 'L\'indirizzo deve iniziare con http:// o https://'; return; }
+      st.textContent = 'Verifico…';
+      let res; try { res = await fetch(b + '/api/me', { headers: { Authorization: 'Bearer ' + t } }); } catch (e) { st.textContent = 'Server non raggiungibile'; return; }
+      if (!res.ok) { st.textContent = res.status === 401 ? 'Token non valido' : 'Il server ha risposto con un errore (' + res.status + ')'; return; }
+      const who = await res.json().catch(() => ({}));
+      cfg.base = b; cfg.token = t; try { localStorage.setItem('optcg.share', JSON.stringify(cfg)); } catch (e) { }
+      dlg.close(); toast('Token valido: ciao ' + (who.name || '') + '. Ora puoi generare i link.'); refresh();
+    };
+    async function create(text) {
+      if (!cfg.token || !base()) { settings(); return null; }
+      let res;
+      try { res = await fetch(base() + '/api/replays', { method: 'POST', headers: { Authorization: 'Bearer ' + cfg.token, 'Content-Type': 'text/plain; charset=utf-8' }, body: Core.redact(text) }); }
+      catch (e) { toast('Server non raggiungibile: ' + base()); return null; }
+      const j = await res.json().catch(() => ({}));
+      if (res.status === 401) { toast('Il token non è più valido'); settings(); return null; }
+      if (!res.ok) { toast(j.error || 'Il server ha risposto con un errore (' + res.status + ')'); return null; }
+      return { id: j.id, url: j.url, base: base() };
+    }
+    async function copy(share, fresh) { const ok = await copyText(share.url); toast((fresh ? 'Link creato' : 'Link') + (ok ? ' e copiato negli appunti: ' : ': ') + share.url); }
+    // partita aperta: crea il link se manca, poi lo copia e apre le note
+    async function current() {
+      if (!snaps.length) return;
+      if (curShare) return copy(curShare);
+      const ref = curRef, text = curText, share = await create(text);
+      if (!share) return;
+      if (ref) Library.setShare(ref, share);
+      if (text === curText) { curShare = share; Notes.open(share, [], true); Notes.show(true); refresh(); }
+      copy(share, true);
+    }
+    // riga della raccolta
+    async function forLog(lf) {
+      const had = Library.shareOf(lf);
+      if (had) return copy(had);
+      let text; try { text = await Library.readText(lf); } catch (e) { toast('Non riesco a leggere ' + lf.name); return; }
+      const share = await create(text);
+      if (!share) return;
+      Library.setShare(lf, share);
+      if (curRef === lf) { curShare = share; Notes.open(share, [], true); refresh(); }
+      copy(share, true);
+    }
+    function refresh() {
+      const b = $('#btn-share'); b.disabled = !snaps.length; b.textContent = curShare ? 'Copia link' : 'Genera link'; b.classList.toggle('on', !!curShare);
+      Menu.refresh();
+    }
+    $('#btn-share').onclick = current;
+    return {
+      settings, current, forLog, refresh, ready: () => !!(cfg.token && base()),
+      // il token va solo al server per cui è stato configurato, mai a un altro indirizzo
+      headers: (to) => cfg.token && to === base() ? { Authorization: 'Bearer ' + cfg.token } : {},
+    };
+  })();
+
+  // ---------- note sul replay condiviso ----------
+  // Ogni nota è ancorata a una riga del log, non all'indice dello step: il testo del log non cambia mai,
+  // mentre gli step si spostano quando il parser viene corretto.
+  const Notes = (() => {
+    let ctx = null, list = [], bubbleAt = -1, gen = 0;
+    const panel = $('#notes'), bubble = $('#note-bubble');
+    const turnLabel = (i) => parsed.steps[i].turn ? 'T' + parsed.steps[i].turn : 'Inizio';
+    // lo step con la riga più vicina a quella della nota, senza superarla
+    const stepOfLine = (line) => { let best = 0, bl = -1; parsed.steps.forEach((st, i) => { if (st.line && st.line <= line && st.line > bl) { best = i; bl = st.line; } }); return best; };
+    const place = (n) => { n.step = stepOfLine(n.line); return n; };
+    try { $('#note-author').value = localStorage.getItem('optcg.noteAuthor') || ''; } catch (e) { }
+
+    function draw() {
+      list.sort((a, b) => a.step - b.step || (a.createdAt < b.createdAt ? -1 : 1));
+      const ul = $('#notes-list'); ul.replaceChildren();
+      if (!list.length) ul.append(mk('li', 'empty', 'Ancora nessuna nota. Fermati su un momento della partita e scrivi la prima.'));
+      for (const n of list) {
+        const li = mk('li'), head = mk('div', 'h'); li.dataset.step = n.step;
+        head.append(mk('b', '', turnLabel(n.step)), mk('span', 'au', n.author));
+        if (ctx.mine) { const x = mk('button', 'del', '✕'); x.title = 'Elimina la nota'; x.onclick = (e) => { e.stopPropagation(); remove(n); }; head.append(x); }
+        li.append(head, mk('p', '', n.text));
+        li.onclick = () => { pause(); goTo(n.step); };
+        ul.append(li);
+      }
+      $('#notes-n').textContent = list.length ? '(' + list.length + ')' : '';
+      const b = $('#btn-notes'); b.disabled = false; b.textContent = 'Note' + (list.length ? ' (' + list.length + ')' : '');
+      // segnalini sulla barra di scorrimento (il cursore non arriva ai bordi: 8px per lato)
+      const marks = $('#scrub-marks'), max = Math.max(1, snaps.length - 1); marks.replaceChildren();
+      for (const s of new Set(list.map((n) => n.step))) {
+        const m = mk('i'); m.style.left = 'calc(8px + (100% - 16px) * ' + (s / max) + ')';
+        m.title = list.filter((n) => n.step === s).map((n) => n.author + ': ' + n.text).join('\n');
+        m.onclick = () => { pause(); goTo(s); }; marks.append(m);
+      }
+      onStep(cur); Menu.refresh();
+    }
+    function onStep(i) {
+      if (!ctx) return;
+      $('#note-send').textContent = 'Aggiungi a ' + turnLabel(i);
+      for (const li of document.querySelectorAll('#notes-list li[data-step]')) li.classList.toggle('cur', +li.dataset.step === i);
+      const here = list.filter((n) => n.step === i);
+      if (here.length) {
+        bubble.replaceChildren(...here.map((n) => { const p = mk('p'); p.append(mk('b', '', n.author + ': '), n.text); return p; }));
+        bubble.classList.add('show'); bubbleAt = i;
+        const li = $('#notes-list li.cur'); if (li) li.scrollIntoView({ block: 'nearest' });
+      } else if (i < bubbleAt || i > bubbleAt + 4) bubble.classList.remove('show');   // il fumetto resta per qualche mossa, così si fa in tempo a leggerlo
+    }
+    function open(share, notes, mine) { ctx = { base: share.base, id: share.id, mine: !!mine }; list = (notes || []).map(place); draw(); }
+    function show(v) { panel.hidden = !(v && ctx); $('#btn-notes').classList.toggle('on', !panel.hidden); Menu.refresh(); }
+    function reset() { gen++; ctx = null; list = []; bubbleAt = -1; panel.hidden = true; bubble.classList.remove('show'); $('#scrub-marks').replaceChildren(); const b = $('#btn-notes'); b.disabled = true; b.textContent = 'Note'; b.classList.remove('on'); }
+    // partita aperta dalla cartella che ha già un link: scarica le note dal server
+    async function load(share) {
+      const my = gen; let res;
+      try { res = await fetch(share.base + '/api/replays/' + share.id, { headers: Share.headers(share.base) }); } catch (e) { return; }
+      if (my !== gen) return;
+      if (res.status === 404) { if (curRef) Library.setShare(curRef, null); curShare = null; Share.refresh(); toast('Il link di questa partita non esiste più sul server'); return; }
+      if (!res.ok) return;
+      const j = await res.json(); if (my !== gen) return;
+      open(share, j.notes, j.mine); if (j.notes.length) show(true);
+    }
+    async function remove(n) {
+      const c = ctx; let res;
+      try { res = await fetch(c.base + '/api/replays/' + c.id + '/notes/' + n.id, { method: 'DELETE', headers: Share.headers(c.base) }); } catch (e) { toast('Server non raggiungibile'); return; }
+      if (!res.ok && res.status !== 404) { const j = await res.json().catch(() => ({})); toast(j.error || 'Non riesco a eliminare la nota'); return; }
+      if (c !== ctx) return;
+      list = list.filter((x) => x !== n); draw();
+    }
+    $('#notes-form').onsubmit = async (e) => {
+      e.preventDefault(); if (!ctx) return;
+      const c = ctx, text = $('#note-text').value.trim(), author = $('#note-author').value.trim(), btn = $('#note-send');
+      if (!text) { $('#note-text').focus(); return; }
+      if (!author) { $('#note-author').focus(); toast('Scrivi il tuo nome accanto alla nota'); return; }
+      btn.disabled = true;
+      try {
+        const res = await fetch(c.base + '/api/replays/' + c.id + '/notes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ author, text, line: parsed.steps[cur].line }) });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok) { toast(j.error || 'Non riesco a salvare la nota (' + res.status + ')'); return; }
+        try { localStorage.setItem('optcg.noteAuthor', author); } catch (err) { }
+        if (c !== ctx) return;
+        list.push(place(j)); $('#note-text').value = ''; draw();
+      } catch (err) { toast('Server non raggiungibile'); } finally { btn.disabled = false; }
+    };
+    $('#note-text').addEventListener('focus', () => pause());
+    $('#notes-close').onclick = () => show(false);
+    $('#btn-notes').onclick = () => show(panel.hidden);
+    return { open, show, reset, load, onStep, active: () => !!ctx, visible: () => !panel.hidden };
   })();
 
   function renderLogList(dirName) {
@@ -1521,8 +1774,8 @@ if (typeof module !== 'undefined') module.exports = Core;
   }
   async function openLog(i) {
     const lf = logFiles[i]; if (!lf) return; $('#logsel').value = i;
-    if (lf.path) { $('#progress').textContent = 'Leggo ' + lf.name + '…'; await loadText(await window.desktop.readLog(lf.path), lf.name); }
-    else await loadFile(await lf.handle.getFile());
+    if (lf.path) { $('#progress').textContent = 'Leggo ' + lf.name + '…'; await loadText(await window.desktop.readLog(lf.path), lf.name, lf); }
+    else await loadFile(await lf.handle.getFile(), lf);
   }
   async function pickFolder() {
     if (isDesktop) { const d = await window.desktop.pickDir(); if (d) await listLogs(); return; }
@@ -1553,8 +1806,17 @@ if (typeof module !== 'undefined') module.exports = Core;
   });
 
   const qs = new URLSearchParams(location.search);
-  if (qs.get('log')) {
-    fetch(qs.get('log')).then(r => r.text()).then(t => loadText(t, qs.get('log')).then(() => { if (qs.has('step')) { pause(); goTo(+qs.get('step')); } })).catch(e => { $('#progress').textContent = 'Errore caricamento: ' + e.message; });
+  const toStep = () => { if (qs.has('step')) { pause(); goTo(+qs.get('step')); } };
+  if (qs.get('r')) {
+    // ?r=<id>: replay condiviso. La pagina è servita dal server dei replay, che ha il log e le note.
+    const share = { id: qs.get('r'), base: location.origin, url: location.origin + location.pathname + '?r=' + encodeURIComponent(qs.get('r')) };
+    $('#progress').textContent = 'Carico il replay…';
+    fetch(share.base + '/api/replays/' + encodeURIComponent(share.id), { headers: Share.headers(share.base) })
+      .then(async (r) => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || 'errore ' + r.status); return j; })
+      .then(async (j) => { await loadText(j.log, 'replay ' + share.id); curShare = share; Notes.open(share, j.notes, j.mine); Notes.show(true); Share.refresh(); toStep(); })
+      .catch((e) => { $('#progress').textContent = 'Non riesco ad aprire il replay: ' + e.message; });
+  } else if (qs.get('log')) {
+    fetch(qs.get('log')).then(r => r.text()).then(t => loadText(t, qs.get('log')).then(toStep)).catch(e => { $('#progress').textContent = 'Errore caricamento: ' + e.message; });
   }
 })();
 </script>
