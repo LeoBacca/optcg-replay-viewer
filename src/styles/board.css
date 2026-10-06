@@ -18,9 +18,19 @@
 .area::before{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 clamp(14px,2.2vw,30px)/1 Impact,'Arial Black',sans-serif;letter-spacing:.04em;color:#ffffffcc;text-transform:uppercase;text-shadow:0 2px 6px #0008;pointer-events:none}
 .area.small{min-height:auto;padding:4px}
 .area.small::before{font-size:clamp(9px,1vw,13px)}
-.a-chars{grid-area:chars;padding:6px 6px;gap:0;z-index:3}
+.a-chars{grid-area:chars;padding:6px 6px;gap:0;z-index:3;--cm:4px}
 .a-chars .card{margin:0 2px}
 .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 2px)}
+/* Fila dei personaggi: una carta riposata è larga quanto una carta è alta, quindi 5 riposate non ci stanno nell'area
+   (uscivano sopra le life e fuori dal tappetino). Le carte della fila si rimpiccioliscono quel tanto che basta:
+   --nr e --na (riposate e attive) li scrive Side.jsx, --cm è lo spazio tra una carta e l'altra, 100cqw è la larghezza
+   interna dell'area. Finché la fila ci sta, le carte restano della misura normale (--chb, la misura del tappetino). */
+.half{--chb:var(--ch)}
+.a-chars{container-type:inline-size}
+@supports (width:1cqw){
+  .a-chars{--ch:min(var(--chb), calc((100cqw - 2px - (var(--nr,0) + var(--na,0)) * var(--cm)) / max(0.1, var(--nr,0) + var(--na,0) * 0.716)));
+           --cw:calc(var(--ch) * 0.716)}
+}
 .a-leader{grid-area:leader;background:transparent;border:none;min-height:auto;padding:0;z-index:3}
 .a-stage{grid-area:stage}
 .a-deck{grid-area:deck;background:transparent;border:none;padding:0;min-height:auto}
