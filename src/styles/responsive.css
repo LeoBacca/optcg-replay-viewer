@@ -27,7 +27,7 @@ html{touch-action:manipulation}
   .half{padding:4px 6px;gap:4px}
   .a-chars,.a-stage,.a-cost,.a-trash{border-width:1px;border-radius:7px}
   .area::before{font-size:calc(var(--ch) * .2)}
-  .a-chars{padding:2px;min-height:calc(var(--ch) + 6px)}
+  .a-chars{padding:2px;min-height:calc(var(--ch) + 6px);--cm:2px}
   .a-chars .card{margin:0 1px}
   .a-chars .card.rested{margin:0 calc((var(--ch) - var(--cw)) / 2 + 1px)}
   .a-stage{padding:0;min-height:calc(var(--ch) + 2px)}

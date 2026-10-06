@@ -21,6 +21,7 @@ export function Side({ state, p, marks, stepKey }) {
   // i DON riposati stanno per primi
   const donPool = [...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0));
   const topOfTrash = trash[trash.length - 1];
+  const restedChars = P.chars.filter((c) => c.rested).length;
 
   return (
     <div className={cls('half', isOpp ? 'opp' : 'you')} id={(isOpp ? 'opp' : 'you') + '-half'}>
@@ -34,7 +35,12 @@ export function Side({ state, p, marks, stepKey }) {
         </div>
       </div>
 
-      <div className="area a-chars" data-label="Character area">
+      {/* personaggi: il CSS stringe le carte se la fila non ci sta (le riposate sono larghe quanto una carta è alta) */}
+      <div
+        className="area a-chars"
+        data-label="Character area"
+        style={{ '--nr': restedChars, '--na': P.chars.length - restedChars }}
+      >
         {P.chars.map((c) => card(c))}
       </div>
 
