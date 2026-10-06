@@ -1,0 +1,26 @@
+{
+  "name": "optcg-replay-web",
+  "version": "0.3.0",
+  "description": "Visualizzatore di replay per i combat log di OPTCGSim: pagina web (React + Vite)",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:desktop": "vite build --mode desktop --outDir desktop/app --emptyOutDir",
+    "preview": "vite preview",
+    "test": "node --test",
+    "format": "prettier --write src test tools"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "prettier": "^3.9.9",
+    "vite": "^8.3.3"
+  }
+}

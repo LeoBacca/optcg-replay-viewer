@@ -2,12 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
+import * as Core from '../src/core/index.js';
+
 const root = new URL('../', import.meta.url);
-const html = readFileSync(new URL('index.html', root), 'utf8');
-const coreSrc = html.split('<script id="core">')[1].split('</script>')[0];
-const mod = {};
-new Function('module', coreSrc)(mod);
-const Core = mod.exports;
 
 const sampleLog = readFileSync(new URL('test/esempio.log', root), 'utf8');
 const lines = sampleLog.split('\n');

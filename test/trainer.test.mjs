@@ -1,14 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 
+import * as Core from '../src/core/index.js';
+import * as T from '../src/trainer/core.js';
+
 const root = new URL('../', import.meta.url);
-const T = createRequire(import.meta.url)('../desktop/trainer.js');
-const html = readFileSync(new URL('index.html', root), 'utf8');
-const mod = {};
-new Function('module', html.split('<script id="core">')[1].split('</script>')[0])(mod);
-const Core = mod.exports;
+
 const sampleLog = readFileSync(new URL('test/esempio.log', root), 'utf8');
 
 // generatore ripetibile, per avere sempre le stesse mani
