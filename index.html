@@ -139,6 +139,13 @@
   .half.opp .card .pw{transform:rotate(180deg)}
   .card.rested .pw{transform:rotate(-90deg);left:8%;right:8%}
   .half.opp .card.rested .pw{transform:rotate(90deg)}
+  /* carta che salta il prossimo refresh ("will not Activate during next Refresh"): etichetta azzurra finché il blocco dura */
+  .card .frz{position:absolute;left:-8%;right:-8%;top:62%;text-align:center;font:900 clamp(10px,1.1vw,15px)/1.2 Impact,"Arial Black",sans-serif;color:#e8f7ff;text-shadow:0 0 4px #000,0 0 2px #000,1px 1px 0 #013;background:linear-gradient(90deg,#0b4f86aa,#1e8fe0dd,#0b4f86aa);border-radius:4px;padding:2px 0;pointer-events:none;display:none;z-index:4;white-space:nowrap}
+  .card .frz.show{display:block}
+  .half.opp .card .frz{transform:rotate(180deg)}
+  .card.rested .frz{transform:rotate(-90deg);left:8%;right:8%}
+  .half.opp .card.rested .frz{transform:rotate(90deg)}
+  .doncard.f{box-shadow:0 0 0 2px #1e8fe0,0 0 10px #1e8fe0}
   .card.attacking{box-shadow:0 0 0 3px var(--red),0 0 18px var(--red)}
   .card.myturn{animation:turnglow 1.6s ease-in-out infinite alternate}
   .card.myturn.attacking{animation:none}
@@ -448,6 +455,7 @@
     .card .dcard{transform:translate(calc(var(--k) * -4px - 4px), calc(var(--k) * 6px + 6px))}
     .card .donx{right:-3px;bottom:calc(var(--n) * -6px - 12px);font-size:10px}
     .card .pw{font-size:calc(var(--ch) * .21)}
+    .card .frz{font-size:calc(var(--ch) * .11)}
     #result{width:max-content;max-width:96vw}
     #result .big{font-size:clamp(34px,11vw,120px);padding:8px 22px;white-space:nowrap}
     #note-bubble{left:3%;right:3%;top:8px;transform:none;max-width:none;width:fit-content;margin:0 auto;padding:6px 10px;font-size:13px}
@@ -941,6 +949,7 @@ const Core = (() => {
         else if (/^Activate Counter/.test(rest)) { sub = 'counterOn'; delay = 0.7; }
         else if (/^Draw \d+ Card/.test(rest)) { sub = 'drawFx'; delay = 0.5; target = null; }
         else if (/^Can't play/.test(rest)) { sub = 'note'; delay = 0.5; target = null; }
+        else if (/ will not Activate during next Refresh/.test(rest)) { sub = 'freeze'; delay = 0.8; }   // Electrical Luna, Lightning Dragon, "I Know You're Strong...", Law & Bepo; Jewelry Bonney sul DON
         else { sub = 'other'; }
         if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay });
         const key = player + ':' + src.id; if (run.key !== key) run = { key, rests: 0 };
@@ -1117,7 +1126,7 @@ const Core = (() => {
   const mkCard = (id) => ({ uid: ++UID, id, rested: false, don: 0, known: null });
   const mkPlayer = (name, leaderId) => ({
     name, leader: { uid: ++UID, id: leaderId, rested: false, don: 0 },
-    deck: 50, donDeck: 10, hand: [], chars: [], stage: [], life: [], trash: [], donPool: [], flash: []
+    deck: 50, donDeck: 10, hand: [], chars: [], stage: [], life: [], trash: [], donPool: [], flash: [], bottom: []
   });
   const zoneArr = (P, z) => z === 1 ? P.hand : z === 2 ? P.chars : z === 3 ? P.life : z === 6 ? P.trash : z === 7 ? P.stage : null;
   const donTarget = (P, idx) => idx >= 9900 ? P.leader : P.chars[Math.floor(idx / 100)] || null;
@@ -1141,11 +1150,22 @@ const Core = (() => {
     return null;
   }
 
-  function applyMove(state, mv, dbg, st, doubts) {
+  // Fondo del mazzo noto: P.bottom[0] è la carta più in fondo, come gli indici del mazzo nel log (la cima è l'indice più alto).
+  // Ci entrano le carte messe sotto una per una (searchate, "Send to Deck Bottom"); g = riga dello step, per raggrupparle. Una rimescolata lo azzera.
+  function deckOut(P, mv, doubts) {
+    if (mv.fi >= P.bottom.length) return;
+    const c = P.bottom.splice(mv.fi, 1)[0];
+    if (doubts && c.id !== mv.id) doubts.push('r' + mv.line + ' ' + mv.id + ': esce dal fondo del mazzo, ma in quel posto risultava ' + c.id);
+  }
+  function deckIn(P, mv, st) { if (mv.ti === 0 || mv.ti < P.bottom.length) P.bottom.splice(mv.ti, 0, { id: mv.id, g: st ? st.line : 0 }); }
+  // rimescolata: il log riscrive il mazzo carta per carta, con i posti di arrivo 0, 1, 2…
+  const isShuffle = (st) => { const dd = st.moves.filter(mv => mv.fz === 0 && mv.tz === 0); return dd.length > 1 && dd[0].ti === 0 && dd[1].ti === 1; };
+
+  function applyMove(state, mv, dbg, st, doubts, shuf) {
     const P = state.players[mv.player];
     const { fz, tz, fi, ti, id, f3 } = mv;
     try {
-      if (fz === 0 && tz === 0) { /* shuffle / bottom */ }
+      if (fz === 0 && tz === 0) { if (shuf) P.bottom.length = 0; else { deckOut(P, mv, doubts); deckIn(P, mv, st); } }
       else if (fz === 5 && tz === 5) { const d = P.donPool[fi]; if (d) d.rested = f3 === 1; else dbg && dbg.push('DON pool idx ' + fi + ' mancante (r' + mv.line + ')'); }
       else if (fz === 5 && tz === 9) { P.donPool.splice(fi, 1); const t = donTarget(P, ti); if (t) t.don++; else dbg && dbg.push('DON attach target ' + ti + ' mancante (r' + mv.line + ')'); }
       else if (fz === 9 && tz === 5) { const t = donTarget(P, fi); if (t && t.don > 0) t.don--; P.donPool.splice(Math.min(ti, P.donPool.length), 0, { uid: ++UID, rested: f3 === 1 }); }
@@ -1155,7 +1175,7 @@ const Core = (() => {
       else {
         let card = null;
         if (fz === 0) {
-          P.deck--; card = mkCard(id);
+          P.deck--; deckOut(P, mv, doubts); card = mkCard(id);
           // la carta presa tra quelle guardate è la stessa carta: tiene il suo uid, così sul tavolo è lei a spostarsi in mano
           const L = state.look, k = L && L.p === mv.player && tz === 1 ? L.cards.findIndex(c => c.id === id) : -1;
           if (k >= 0) card.uid = L.cards.splice(k, 1)[0].uid;
@@ -1167,8 +1187,8 @@ const Core = (() => {
           if (a) { card = a.splice(fi, 1)[0]; } if (!card) { dbg && dbg.push('carta ' + id + ' non trovata in zona ' + fz + '[' + fi + '] (r' + mv.line + ')'); card = mkCard(id); } if (card.id !== id) card.id = id;
           // quando un personaggio torna in mano, f3 dice se era riposato (nelle mosse verso il trash invece è sempre 0)
           if (doubts && fz === 2 && tz === 1 && card.rested !== (f3 === 1)) doubts.push('r' + mv.line + ' ' + id + ': torna in mano ' + (f3 ? 'riposata' : 'attiva') + ' secondo il log, ma qui risulta ' + (card.rested ? 'riposata' : 'attiva'));
-          if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; } }
-        if (tz === 0) { P.deck++; }
+          if (fz === 2 || fz === 7) { card.rested = false; card.don = 0; delete card.frozen; } }
+        if (tz === 0) { P.deck++; deckIn(P, mv, st); }
         else { const a = zoneArr(P, tz); if (a) a.splice(Math.min(ti, a.length), 0, card); else dbg && dbg.push('zona sconosciuta ' + tz + ' (r' + mv.line + ')'); if (tz === 2 || tz === 7) { card.rested = f3 === 1; card.don = 0; } }   // f3 = la carta entra in campo riposata (es. giocata da un effetto)
         card.known = tz === 1 ? knownReason(mv, st) : null;
       }
@@ -1186,7 +1206,12 @@ const Core = (() => {
 
   function ownerOf(state, uid) { for (const p of [1, 2]) { const P = state.players[p]; if (P.leader.uid === uid) return p; for (const c of P.chars) if (c.uid === uid) return p; } return 0; }
   const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase']);
-  function refresh(P) { P.leader.rested = false; for (const c of P.chars) c.rested = false; for (const c of P.stage) c.rested = false; for (const d of P.donPool) d.rested = false; }
+  // refresh di inizio turno: stappa tutto, tranne le carte bloccate da un "will not Activate during next Refresh" (che saltano solo questo).
+  // frozen: 'pending' = deve ancora saltare il refresh; 'skipped' = l'ha saltato, resta segnata fino al refresh dopo, in cui stappa
+  function refresh(P) {
+    const wake = (c) => { if (c.frozen === 'pending') c.frozen = 'skipped'; else { c.rested = false; delete c.frozen; } };
+    wake(P.leader); P.chars.forEach(wake); P.stage.forEach(wake); P.donPool.forEach(wake);
+  }
 
   const who = (st) => 'r' + st.line + ' ' + st.text;
   // doubts: punti in cui la ricostruzione non torna con le regole del gioco, o ha dovuto scegliere alla cieca. Non sono errori certi.
@@ -1262,6 +1287,18 @@ const Core = (() => {
           let c = findCard(P, t.id, { prefer: 'rested' }) || findCard(O, t.id, { prefer: 'rested' });
           if (doubts && (!c || !c.rested)) doubts.push(who(st) + ': nessuna carta riposata con quel nome');
           if (c) c.rested = false;
+        } else if (st.sub === 'freeze') {
+          // "X: Y will not Activate during next Refresh": Y resta riposato al prossimo refresh del suo proprietario (di norma l'avversario di chi gioca X)
+          if (t.id === 'Don') {
+            const free = (x) => x.frozen !== 'pending';
+            const d = O.donPool.find(x => x.rested && free(x)) || P.donPool.find(x => x.rested && free(x)) || O.donPool.find(free);
+            if (d) d.frozen = 'pending'; else if (doubts) doubts.push(who(st) + ': nessun DON da bloccare');
+          } else {
+            // una riga per bersaglio (Luna ne scrive una per ogni carta): tra le copie uguali vale la prima riposata non ancora bloccata
+            const pick = (side) => { const pool = [side.leader, ...side.chars, ...side.stage].filter(x => x.id === t.id && x.frozen !== 'pending'); return pool.find(x => x.rested) || pool[0] || null; };
+            const c = pick(O) || pick(P);
+            if (c) c.frozen = 'pending'; else if (doubts) doubts.push(who(st) + ': nessuna carta in campo con quel nome');
+          }
         } else if (st.sub === 'buff') {
           if (state.combat) { state.combat.buffs.push(st.text.replace(/^.*?: /, '')); if (st.side && state.combat[st.side] != null) state.combat[st.side] += st.amt; }
         } else if (st.sub === 'destroy') {
@@ -1308,7 +1345,8 @@ const Core = (() => {
       state.flash = [];
       if (st.kind === 'leader' && st.player) state.players[st.player].leader.id = st.cards[0].id;
       applyText(state, st, dbg, doubts);
-      for (const mv of st.moves) applyMove(state, mv, dbg, st, doubts);
+      const shuf = isShuffle(st);
+      for (const mv of st.moves) applyMove(state, mv, dbg, st, doubts, shuf);
       if (dbg) checkAssertions(state, st, dbg);
       // lastOnly: solo lo stato finale (basta per l'esito, evita una copia per step)
       if (!opts.lastOnly || st === lastStep) snapshots.push(typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)));
@@ -1408,7 +1446,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   try { const saved = localStorage.getItem('optcg.oppHand'); if (OPP_HAND_MODES.includes(saved)) oppHand = saved; } catch (e) { }
   // impostazioni persistenti (localStorage): ogni chiave ha un default in DEF e il suo effetto immediato in apply()
   const Settings = (() => {
-    const DEF = { autoplay: true, anim: true, preview: true, speed: 1 };
+    const DEF = { autoplay: true, anim: true, preview: true, speed: 1, lab: false };
     const s = { ...DEF };
     try { Object.assign(s, JSON.parse(localStorage.getItem('optcg.settings') || '{}')); } catch (e) { }
     if (![0.5, 1, 1.5, 2, 3].includes(s.speed)) s.speed = 1;
@@ -1461,13 +1499,15 @@ if (typeof module !== 'undefined') module.exports = Core;
       const donx = document.createElement('span'); donx.className = 'donx';
       const pw = document.createElement('span'); pw.className = 'pw';
       const known = document.createElement('span'); known.className = 'known';
-      el.append(dons, img, donx, pw, known);
+      const frz = document.createElement('span'); frz.className = 'frz'; frz.textContent = '❄ non stappa';
+      el.append(dons, img, donx, pw, known, frz);
       el.addEventListener('mouseenter', () => { if (!vert()) showPreview(card.id); });
       // il trash al tocco apre l'elenco delle sue carte, non l'anteprima di quella in cima
       el.addEventListener('click', () => { if (vert() && !el.closest('.a-trash')) showPreview(card.id, true); });
       nodes.set(card.uid, el);
     }
     el.classList.toggle('rested', !!card.rested);
+    el.querySelector('.frz').classList.toggle('show', !!card.frozen);
     const dons = el.querySelector('.dons');
     while (dons.children.length > card.don) dons.lastChild.remove();
     while (dons.children.length < card.don) { const d = document.createElement('span'); d.className = 'dcard in'; d.style.setProperty('--k', dons.children.length); d.textContent = 'DON!!'; d.addEventListener('animationend', () => d.classList.remove('in'), { once: true }); dons.append(d); }
@@ -1522,7 +1562,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     A.stage.dataset.label = P.stage.length ? '' : 'Stage'; setKids(A.stage, P.stage.map((c) => tag(cardEl(c))));
     A.deck.replaceChildren(pile(P.deck));
     // cost area (DON) + DON deck + trash
-    A.cost.replaceChildren(...[...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0)).map((d) => mk('div', 'doncard' + (d.rested ? ' r' : ''), 'DON!!')));
+    A.cost.replaceChildren(...[...P.donPool].sort((a, b) => (b.rested ? 1 : 0) - (a.rested ? 1 : 0)).map((d) => mk('div', 'doncard' + (d.rested ? ' r' : '') + (d.frozen ? ' f' : ''), 'DON!!')));
     const dd = mk('div', 'dond'); dd.append(mk('span', 'n', P.donDeck)); A.dond.replaceChildren(dd);
     A.trash.dataset.label = inTrash.length ? '' : 'Trash'; A.trashcnt.textContent = inTrash.length;
     setKids(A.trash, inTrash.length ? [tag(cardEl(inTrash[inTrash.length - 1])), A.trashcnt] : []);
@@ -1668,6 +1708,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     const li = document.getElementById('ev' + i); if (li) { li.classList.add('cur'); li.scrollIntoView({ block: 'nearest' }); }
     const ts = $('#turns'); const tIdx = parsed.turns.findIndex((t, k) => i >= t.first && (k === parsed.turns.length - 1 || i < parsed.turns[k + 1].first)); ts.value = tIdx >= 0 ? tIdx : '';
     Notes.onStep(i);
+    if (window.Trainer) Trainer.onStep(S);
   }
   window.addEventListener('resize', () => { if (snaps.length) render(cur); });
 
@@ -1802,11 +1843,14 @@ if (typeof module !== 'undefined') module.exports = Core;
           { ic: '👁', label: 'Mano dell\'avversario', pref: true, type: 'seg', kbd: 'H', opts: [['all', 'tutte'], ['known', 'note'], ['hidden', 'coperte']], get: () => oppHand, set: setOppHand },
           { ic: '🔍', label: vert() ? 'Anteprima carta' : 'Anteprima carta a destra', hint: vert() ? 'tocca una carta per ingrandirla' : 'al passaggio del mouse', pref: true, type: 'toggle', get: () => Settings.get('preview'), set: (v) => Settings.set('preview', v) },
           { ic: '📜', label: 'Log degli eventi', hint: 'pannello con tutte le mosse', type: 'toggle', kbd: 'L', get: () => $('#mid').classList.contains('show'), set: toggleLog },
+          ...(window.Trainer && Trainer.lab() ? [{ ic: '🧠', label: 'Fondo del mazzo', hint: 'le carte che hai mandato sotto fin qui, coperte: B le scopre', type: 'toggle', get: Trainer.panelOn, set: Trainer.setPanel }] : []),
         ] },
         { title: 'Strumenti', items: [
           // nel layout verticale il pennarello si accende solo da qui (non c'è il suo pulsante sul tavolo): mette in pausa da sé
           { ic: '🖍', label: 'Pennarello', hint: vert() ? 'disegna sul tavolo col dito; al Play si cancella' : 'solo in pausa; al Play si cancella', kbd: 'D', on: () => { if (vert()) pause(); Ink.toggle(); }, enabled: loaded },
           { ic: '🧪', label: 'Verifiche di coerenza', hint: 'confronta lo stato con i CHK del log', on: showDebug, enabled: !!parsed },
+          // solo nell'app: accende le funzioni ancora da provare (per ora il Memory Trainer, che compare nel menu principale)
+          ...(window.desktop ? [{ ic: '🧠', label: 'Funzioni in prova', hint: 'Memory Trainer: allena la memoria sul fondo del mazzo', pref: true, type: 'toggle', get: () => Settings.get('lab'), set: (v) => { Settings.set('lab', v); Home.rebuild(); } }] : []),
         ] },
         { title: 'Aiuto', items: [
           { type: 'keys' },
@@ -1885,6 +1929,7 @@ if (typeof module !== 'undefined') module.exports = Core;
       { label: 'Continua', hint: 'torna alla partita aperta', on: hide, show: !!snaps.length },
       { label: 'Replay', hint: 'tutte le tue partite, pronte da rivedere', on: () => library('games') },
       { label: 'Stats', hint: 'winrate per leader e per matchup', on: () => library('stats') },
+      { label: 'Memory Trainer', hint: 'ricorda le carte in fondo al mazzo', on: () => Trainer.open(), show: !!window.Trainer && Trainer.lab() },
       { label: 'Impostazioni', hint: 'cartella dei log, riproduzione, condivisione', on: () => go('settings') },
       { label: 'Tutorial', hint: 'come funziona, in un minuto', on: () => go('tutorial') },
       { label: 'Esci', on: () => window.close(), show: !!window.desktop },
@@ -1926,7 +1971,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     for (const b of el.querySelectorAll('.hback')) b.onclick = () => go('main');
     pages.tutorial.querySelector('.body').append(Menu.keys());
     renderMain();
-    return { show, hide, isOpen, key, refresh() { if (isOpen() && page === 'settings') renderSettings(); } };
+    return { show, hide, isOpen, key, rebuild: renderMain, refresh() { if (isOpen() && page === 'settings') renderSettings(); } };
   })();
 
   $('#btn-prev').onclick = () => { pause(); prev(); };
@@ -1943,6 +1988,7 @@ if (typeof module !== 'undefined') module.exports = Core;
   $('#btn-debug').onclick = showDebug;
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (window.Trainer && Trainer.isOpen()) { Trainer.key(e); return; }
     if (Home.isOpen()) { Home.key(e); return; }
     if (e.key === 'Escape') { if (Menu.isOpen()) Menu.close(); else closeDrop(); return; }
     if (e.key === 'm' || e.key === 'M') { Menu.toggle(); return; }
@@ -1956,6 +2002,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     else if (e.key === 'h' || e.key === 'H') nextOppHand();
     else if (e.key === 'l' || e.key === 'L') toggleLog();
     else if (e.key === 'd' || e.key === 'D') Ink.toggle();
+    else if ((e.key === 'b' || e.key === 'B') && window.Trainer) Trainer.toggleBottom();
   });
   setOppHand(oppHand);
 
@@ -2135,7 +2182,7 @@ if (typeof module !== 'undefined') module.exports = Core;
     document.querySelectorAll('#lib-tabs button').forEach((b) => b.onclick = () => setTab(b.dataset.tab));
     for (const k of ['me', 'opp', 'res']) $('#flt-' + k).onchange = (e) => { flt[k] = e.target.value; render(); };
     return {
-      sync, readText, setTab,
+      sync, readText, setTab, sumOf, dateOf,
       // etichetta breve per menu e tendina: "V · Mihawk vs Shanks", oppure il nome del file se non è ancora analizzato
       label(lf) { const s = sumOf(lf); if (!s) return lf.name.replace(/\.log$/i, ''); const r = Core.outcome(s); return (r === 'o' ? '' : RES[r] + ' · ') + leaderName(s.me.leader) + ' vs ' + leaderName(s.opp.leader); },
       // il link creato per una partita sta nella sua voce dell'indice: { id, url, base }
@@ -2367,6 +2414,13 @@ if (typeof module !== 'undefined') module.exports = Core;
     $('#folder-name').textContent = h.name; $('#btn-refolder').hidden = false;
     try { if (await h.queryPermission({ mode: 'read' }) === 'granted') { dirHandle = h; await listLogs(); } } catch (e) { }
   });
+
+  // Memory Trainer: solo nell'app. Il codice sta in trainer.js (cartella desktop/), che usa questi pezzi della pagina.
+  if (isDesktop) {
+    window.App = { $, mk, setImg, metaOf, Settings, Home, Library, openLog, pause, toast, copyText, state: () => snaps[cur] || null, logs: () => logFiles };
+    const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'trainer.css'; document.head.append(css);
+    const js = document.createElement('script'); js.src = 'trainer.js'; document.body.append(js);
+  }
 
   const qs = new URLSearchParams(location.search);
   const toStep = () => { if (qs.has('step')) { pause(); goTo(+qs.get('step')); } };

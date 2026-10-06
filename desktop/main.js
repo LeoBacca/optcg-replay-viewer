@@ -40,7 +40,11 @@ function createWindow() {
     icon: path.join(__dirname, 'build', 'icon.ico'),
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false }
   });
-  win.loadFile(path.join(__dirname, 'app', 'index.html'), { query: process.argv.includes('--open-latest') ? { open: 'latest' } : {} });
+  // --trainer[=schermata] : apre il Memory Trainer all'avvio (per i test)
+  const query = process.argv.includes('--open-latest') ? { open: 'latest' } : {};
+  const tr = process.argv.find(a => a === '--trainer' || a.startsWith('--trainer='));
+  if (tr) query.trainer = tr.slice(10);
+  win.loadFile(path.join(__dirname, 'app', 'index.html'), { query });
   win.webContents.setWindowOpenHandler(({ url }) => { shell.openExternal(url); return { action: 'deny' }; });
   // --screenshot=<file> : cattura la finestra dopo 8 s ed esce (per i test)
   const shot = process.argv.find(a => a.startsWith('--screenshot='));
