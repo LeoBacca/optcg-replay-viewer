@@ -1,0 +1,42 @@
+/* Condivisione e note sul replay. */
+/* ---------- condivisione e note ---------- */
+input[type=text],input[type=password],textarea{font:inherit;color:var(--text);background:#0006;border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
+input[type=text]:focus,input[type=password]:focus,textarea:focus{outline:none;border-color:var(--accent)}
+button:disabled{opacity:.45;cursor:default}
+#share-dlg{width:min(460px,92vw)}
+#share-dlg label{display:block;margin:10px 0 4px;color:var(--muted);font-size:12px}
+#share-dlg input{width:100%}
+#share-status{min-height:1.4em;color:var(--accent);margin:10px 0 0}
+#toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,20px);background:#120c07f5;color:#fff;border:1px solid var(--accent);border-radius:10px;padding:10px 16px;z-index:40;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:min(640px,90vw);text-align:center;box-shadow:0 6px 24px #000a;overflow-wrap:anywhere}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#notes{flex:1 1 0;min-height:0;width:min(100%,400px);align-self:center;display:flex;flex-direction:column;background:#1a120bee;border-radius:8px;box-shadow:0 6px 24px #000a;color:#e6d8c3}
+#notes[hidden]{display:none}
+#notes header{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid #0004}
+#notes header h1{font-size:14px;margin:0;color:#f7e9d4}
+#notes-list{list-style:none;margin:0;padding:6px;overflow:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+#notes-list li{padding:6px 8px;border-radius:6px;cursor:pointer;border-left:3px solid transparent}
+#notes-list li:hover{background:#fff1}
+#notes-list li.cur{background:#f5b73a22;border-left-color:var(--accent)}
+#notes-list li.empty{color:var(--muted);cursor:default;font-size:13px}
+#notes-list li.empty:hover{background:none}
+#notes-list .h{display:flex;align-items:center;gap:8px;font-size:12px}
+#notes-list .h b{color:var(--accent)}
+#notes-list .h .au{color:#fff;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#notes-list .del{padding:0 6px;font-size:11px;line-height:1.6}
+#notes-list p{margin:2px 0 0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+#notes-form{display:flex;flex-direction:column;gap:6px;padding:8px;border-top:1px solid #0004}
+#notes-form textarea{resize:none;width:100%}
+#notes-form div{display:flex;gap:6px}
+#notes-form input{flex:1}
+#scrub-wrap{position:relative;flex:1 1 90px;min-width:90px;display:flex;align-items:center}
+#scrub-wrap input{flex:1;width:100%;margin:0}
+#scrub-marks i{position:absolute;top:-7px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent);border:1px solid #000;cursor:pointer}
+#note-bubble{position:absolute;left:50%;top:14px;transform:translateX(-50%);display:none;max-width:min(520px,92%);background:#120c07f5;border:2px solid var(--accent);border-radius:12px;padding:8px 14px;z-index:6;color:#fff;box-shadow:0 6px 24px #000a;pointer-events:none}
+#note-bubble.show{display:block}
+#note-bubble p{margin:2px 0;overflow-wrap:anywhere}
+#note-bubble b{color:var(--accent)}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;max-width:80vw}
+dialog::backdrop{background:#0009}
+dialog .grid{display:flex;flex-wrap:wrap;gap:8px;max-height:70vh;overflow:auto;padding:4px}
+dialog .grid .card{width:var(--hcw);height:var(--hch)}
+dialog h3{margin:0 0 10px}

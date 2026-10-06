@@ -1,0 +1,10 @@
+/* Gli stili della pagina, divisi per zona. L'ordine conta: i file dopo possono correggere quelli prima. */
+@import './base.css';
+@import './hands.css';
+@import './board.css';
+@import './library.css';
+@import './notes.css';
+@import './menu.css';
+@import './home.css';
+@import './responsive.css';
+#root { display: contents; }

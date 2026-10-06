@@ -1,0 +1,62 @@
+/* Menu laterale (☰). */
+/* ---------- menu (☰) ---------- */
+#btn-menu{font-weight:700}
+#btn-menu.on{border-color:var(--accent);color:var(--accent)}
+#menu-backdrop{position:fixed;inset:0;background:#0007;z-index:20;display:none;backdrop-filter:blur(2px)}
+#menu-backdrop.show{display:block}
+#menu{position:fixed;left:0;top:0;bottom:0;width:min(350px,92vw);z-index:21;background:#1a120bf8;border-right:1px solid #0008;box-shadow:8px 0 30px #000a;
+      display:flex;flex-direction:column;transform:translateX(-105%);transition:transform .25s ease;color:#e6d8c3}
+#menu.show{transform:none}
+#menu header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #0006;background:#120c07}
+#menu header .logo{width:38px;height:38px;border-radius:9px;background:var(--accent);color:#1a1200;font:900 17px/38px Impact,'Arial Black',sans-serif;text-align:center;box-shadow:0 2px 8px #000a;flex:none;letter-spacing:.02em}
+#menu header h2{margin:0;font-size:16px;color:#fff;line-height:1.15}
+#menu header h2 small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+#menu header button{margin-left:auto}
+#menu .body{flex:1;overflow:auto;padding:4px 0 12px;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+#menu section{padding:10px 8px 6px}
+#menu section + section{border-top:1px solid #0005}
+#menu h3{margin:0 0 4px 10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800}
+:is(#menu,#home) .row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:8px;min-height:38px}
+:is(#menu,#home) .row.act{cursor:pointer}
+:is(#menu,#home) .row.act:hover{background:#fff1}
+:is(#menu,#home) .row .ic{width:24px;text-align:center;flex:none;font-size:15px}
+:is(#menu,#home) .row .lbl{flex:1;min-width:0;color:#f7e9d4}
+:is(#menu,#home) .row .lbl small{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:is(#menu,#home) .row.dis{opacity:.4;pointer-events:none}
+:is(#menu,#home) kbd{font:11px/1 ui-monospace,Consolas,monospace;color:#f7e9d4;background:#0006;border:1px solid #fff2;border-bottom-width:2px;border-radius:4px;padding:3px 5px;flex:none;white-space:nowrap}
+.sw{width:40px;height:22px;border-radius:11px;background:#0008;border:1px solid #fff3;position:relative;flex:none;cursor:pointer;padding:0;transition:background .2s}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#aaa;transition:transform .2s,background .2s}
+.sw.on{background:var(--ok);border-color:var(--ok)}
+.sw.on::after{transform:translateX(18px);background:#fff}
+:is(#menu,#home) .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
+:is(#menu,#home) .seg button{border:0;border-radius:0;padding:4px 7px;font-size:12px;background:#0004}
+:is(#menu,#home) .seg button.sel{background:var(--accent);color:#1a1200;font-weight:700}
+#menu .sub{margin:6px 10px 2px 44px;font-size:11px;color:var(--muted)}
+#menu .recent{list-style:none;margin:0;padding:0}
+#menu .recent li{padding:5px 10px 5px 44px;cursor:pointer;border-radius:8px;display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#f7e9d4}
+#menu .recent li:hover{background:#fff1}
+#menu .recent li.cur{color:var(--accent);font-weight:700}
+#menu .recent li span{color:var(--muted);font-size:11px;white-space:nowrap;font-weight:400}
+#menu .match{margin:2px 10px 8px;padding:10px 12px;border-radius:10px;background:#0005;border:1px solid #fff1;font-size:13px}
+#menu .match.empty{color:var(--muted);text-align:center}
+#menu .match .vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;text-align:center}
+#menu .match .vs img{width:46px;aspect-ratio:.716;border-radius:4px;display:block;margin:0 auto 4px;box-shadow:0 2px 6px #000a;background:#2b3040}
+#menu .match .vs b{display:block;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#menu .match .vs small{color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#menu .match .vs .you b{color:var(--you)}
+#menu .match .vs .opp b{color:var(--opp)}
+#menu .match .vs .x{font:900 14px Impact,'Arial Black',sans-serif;color:#fff8}
+#menu .match .stats{display:flex;justify-content:space-around;margin-top:8px;color:var(--muted);font-size:11px;text-align:center}
+#menu .match .stats b{display:block;color:#fff;font-size:14px}
+#menu .match .res{margin-top:8px;text-align:center;font:900 15px Impact,'Arial Black',sans-serif;letter-spacing:.08em}
+#menu .match .res.win{color:#ffd24a}
+#menu .match .res.lose{color:var(--opp)}
+:is(#menu,#home) .keys{list-style:none;margin:0 10px 6px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;font-size:12px}
+:is(#menu,#home) .keys li{display:flex;align-items:center;gap:6px;color:#e6d8c3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:is(#menu,#home) .keys kbd{min-width:34px;text-align:center}
+#menu footer{padding:8px 14px;border-top:1px solid #0006;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+#menu footer a{color:var(--accent);text-decoration:none}
+#menu footer a:hover{text-decoration:underline}
+#drop .box{position:relative}
+#btn-drop-close{position:absolute;top:8px;right:8px;padding:4px 8px;font-size:12px}
+#btn-drop-home{position:absolute;top:8px;left:8px;padding:4px 8px;font-size:12px}

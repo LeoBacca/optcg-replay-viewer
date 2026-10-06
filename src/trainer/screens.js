@@ -3,6 +3,7 @@
 // La pagina gli passa in "app" i pezzi che gli servono (vedi src/trainer/index.js).
 import * as Core from '../core/index.js';
 import * as T from './core.js';
+import './trainer.css';
 
 /**
  * Crea il trainer e lo aggancia alla pagina.

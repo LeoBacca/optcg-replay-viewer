@@ -1,6 +1,6 @@
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import server from '../server/server.js';
@@ -9,16 +9,23 @@ const root = new URL('../', import.meta.url);
 const sampleLog = readFileSync(new URL('test/esempio.log', root), 'utf8');
 const lineCount = sampleLog.split(/\r?\n/).length;
 
-let dataDir, srv, base;
+let dataDir, webRoot, srv, base;
 const LEO = 'token-di-leo', AMICO = 'token-di-un-amico';
 before(async () => {
   dataDir = mkdtempSync(join(tmpdir(), 'optcg-server-'));
   writeFileSync(join(dataDir, 'tokens.json'), JSON.stringify({ [server.hashToken(LEO)]: { name: 'Leo' }, [server.hashToken(AMICO)]: { name: 'Amico' } }));
-  srv = server.createServer({ dataDir });
+  // una pagina compilata finta: il server serve quello che trova in webRoot, i test non dipendono da 'npm run build'
+  webRoot = mkdtempSync(join(tmpdir(), 'optcg-web-'));
+  mkdirSync(join(webRoot, 'assets'));
+  writeFileSync(join(webRoot, 'index.html'), '<title>OPTCG Replay</title>');
+  writeFileSync(join(webRoot, 'cards_meta.js'), 'window.CARDS_META={}');
+  writeFileSync(join(webRoot, 'assets', 'index-abc123.js'), '// pagina');
+  writeFileSync(join(webRoot, 'segreto.txt'), 'non va servito');
+  srv = server.createServer({ dataDir, webRoot });
   await new Promise((r) => srv.listen(0, '127.0.0.1', r));
   base = 'http://127.0.0.1:' + srv.address().port;
 });
-after(() => { srv.close(); srv.closeAllConnections(); rmSync(dataDir, { recursive: true, force: true }); });
+after(() => { srv.close(); srv.closeAllConnections(); rmSync(dataDir, { recursive: true, force: true }); rmSync(webRoot, { recursive: true, force: true }); });
 
 const call = async (method, path, { token, body, ip } = {}) => {
   const headers = {};
@@ -123,7 +130,7 @@ test('solo chi ha caricato il replay cancella le note e il replay', async () => 
 
 test('i replay caricati sopravvivono al riavvio del server', async () => {
   const { json: { id } } = await upload(LEO);
-  const again = server.createServer({ dataDir });
+  const again = server.createServer({ dataDir, webRoot });
   await new Promise((r) => again.listen(0, '127.0.0.1', r));
   try {
     const url = 'http://127.0.0.1:' + again.address().port;
@@ -139,8 +146,12 @@ test('la pagina e i suoi file sono serviti, il resto no', async () => {
   assert.match(page.headers.get('content-type'), /text\/html/);
   assert.match(await page.text(), /<title>OPTCG Replay<\/title>/);
   assert.equal((await fetch(base + '/cards_meta.js')).status, 200);
-  assert.equal((await fetch(base + '/don.jpg')).status, 200);
-  assert.equal((await fetch(base + '/cardback.jpg')).status, 200);
+  const asset = await fetch(base + '/assets/index-abc123.js');
+  assert.equal(asset.status, 200);
+  assert.match(asset.headers.get('cache-control'), /immutable/);
+  assert.equal((await fetch(base + '/assets/manca.js')).status, 404);
+  assert.equal((await fetch(base + '/segreto.txt')).status, 404);          // tipo di file non previsto
   assert.equal((await fetch(base + '/server/server.js')).status, 404);
-  assert.equal((await fetch(base + '/README.md')).status, 404);
+  assert.equal((await fetch(base + '/%2e%2e/server/server.js')).status, 404);   // fuori dalla cartella della pagina
+  assert.equal((await fetch(base + '/..%2fpackage.json')).status, 404);
 });

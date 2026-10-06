@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Installa (o aggiorna) il server dei replay per l'utente corrente, senza sudo:
-# Node LTS in ~/.local/opt, dati in ~/optcg-replay-data, servizio systemd utente "optcg-replay".
+# Node LTS in ~/.local/opt, pagina compilata in dist/, dati in ~/optcg-replay-data, servizio systemd utente "optcg-replay".
 # Uso, dalla radice del repo sulla macchina:   bash server/deploy/setup.sh
-# Si può rilanciare dopo ogni aggiornamento del codice: riscrive il servizio e lo riavvia.
+# Si può rilanciare dopo ogni aggiornamento del codice: ricompila la pagina, riscrive il servizio e lo riavvia.
 # Variabili: PORT (8790), DATA_DIR, PUBLIC_URL (indirizzo pubblico da mettere nei link).
 # Il servizio ascolta solo su 127.0.0.1: per renderlo pubblico serve un reverse proxy o un tunnel davanti.
 set -euo pipefail
@@ -27,6 +27,10 @@ if [ ! -x "$NODE_HOME/bin/node" ]; then
   rm -rf "$tmp"
 fi
 echo "Node: $("$NODE_HOME/bin/node" --version)"
+
+# La pagina va compilata (React + Vite): il server serve la cartella dist/
+echo "Compilo la pagina…"
+(cd "$APP_DIR" && PATH="$NODE_HOME/bin:$PATH" npm ci --no-audit --no-fund && PATH="$NODE_HOME/bin:$PATH" npm run build)
 
 mkdir -p "$DATA_DIR" "$(dirname "$UNIT")"
 chmod 700 "$DATA_DIR"
