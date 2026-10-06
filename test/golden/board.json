@@ -1,0 +1,9036 @@
+{
+ "0": {
+  "carte": [
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "786,579,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 50 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "50"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "433,16,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,575,237,125",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 50 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,638,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,575,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "893,575,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,575,84,125",
+    "dentro": "div.pile",
+    "testo": "50"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "983,707,84,125",
+    "dentro": ""
+   }
+  ],
+  "donCostArea": [],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 0,
+    "sovrapposizione": "0px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 0,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "1 / 536",
+   "mossa": "Tu: Leader is Dracule Mihawk",
+   "turno": ""
+  }
+ },
+ "3": {
+  "carte": [
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "786,579,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 50 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "50"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "433,16,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,575,237,125",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 50 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,638,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,575,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "893,575,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,575,84,125",
+    "dentro": "div.pile",
+    "testo": "50"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "983,707,84,125",
+    "dentro": ""
+   }
+  ],
+  "donCostArea": [],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 0,
+    "sovrapposizione": "0px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 0,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "4 / 536",
+   "mossa": "Tu: mescola il deck",
+   "turno": ""
+  }
+ },
+ "8": {
+  "carte": [
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "310,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "786,579,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 50 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "50"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "433,16,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,575,237,125",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 45 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,638,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,575,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "893,575,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,575,84,125",
+    "dentro": "div.pile",
+    "testo": "45"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "983,707,84,125",
+    "dentro": ""
+   }
+  ],
+  "donCostArea": [],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 0,
+    "sovrapposizione": "0px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "9 / 536",
+   "mossa": "Tu: pesca Kouzuki Oden",
+   "turno": ""
+  }
+ },
+ "21": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "19,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "310,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "310,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "786,579,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 45 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "45"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "433,16,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,134",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,575,237,125",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 45 · DON 0/0"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,638,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,575,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "893,575,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,575,84,125",
+    "dentro": "div.pile",
+    "testo": "45"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "10"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "983,707,84,125",
+    "dentro": ""
+   }
+  ],
+  "donCostArea": [],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "22 / 536",
+   "mossa": "Tu: pesca Kin'emon",
+   "turno": ""
+  }
+ },
+ "34": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "19,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "310,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "310,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,346,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,307,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,230,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,191,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "662,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,443,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,598,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "5"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 39 · DON 0/1"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "39"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "9"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "433,16,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "5"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": ""
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 39 · DON 1/2● turno 2"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "39"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "8"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "Trash",
+    "posto": "983,707,84,125",
+    "dentro": ""
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @540,732,106,76",
+   "doncard @643,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "35 / 536",
+   "mossa": "T2 · Tu: Deploy Coffin Boat",
+   "turno": "1"
+  }
+ },
+ "55": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "19,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "310,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "77,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "135,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "193,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "251,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,346,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,307,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,230,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,191,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "722,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "601,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-resolve area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "743,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,443,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,598,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "754,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "5"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg rested"
+   },
+   {
+    "classi": "a-name res",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 36 · DON 0/3● turno 3"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,151,84,117",
+    "dentro": "div.card noimg | span.rtag"
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "36"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "7"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "5"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 36 · DON 1/2"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "36"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "8"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @540,732,106,76",
+   "doncard @643,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 5,
+    "sovrapposizione": "24px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 6,
+    "sovrapposizione": "38.6px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "56 / 536",
+   "mossa": "T3 · Avv: You Can Be My Samurai!!!: Rest Kin'emon",
+   "turno": "2"
+  }
+ },
+ "71": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "68,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "116,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "213,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "261,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "56,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "128,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "201,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "273,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,346,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,307,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,230,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,191,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "706,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "584,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "613,168,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,463,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,502,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,540,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,579,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "710,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "798,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "5"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 34 · DON 0/3"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "34"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "7"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 33 · DON 2/4● turno 4"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "33"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "6"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard @666,717,76,106",
+   "doncard @693,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 7,
+    "sovrapposizione": "48.333333333333336px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "72 / 536",
+   "mossa": "T4 · Tu: pesca Billion-fold World Trichiliocosm",
+   "turno": "3"
+  }
+ },
+ "89": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "56,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "128,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "201,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "273,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "61,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "102,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "144,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "185,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "226,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "268,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "783,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "662,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "540,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,463,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,502,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,540,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,579,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "738,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 32 · DON 1/5● turno 5"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "32"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "5"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 33 · DON 2/4"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "33"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "6"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard @711,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard @666,717,76,106",
+   "doncard @693,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "90 / 536",
+   "mossa": "T5 · Avv: Dracule Mihawk: Activate 1 Don",
+   "turno": "4"
+  }
+ },
+ "107": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "56,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "128,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "201,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "273,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "56,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "128,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "201,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "273,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "706,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "618,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "613,168,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "694,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "782,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 32 · DON 1/3"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "32"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "5"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 32 · DON 0/6● turno 6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "32"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "4"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard @758,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard r @658,732,106,76"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "108 / 536",
+   "mossa": "T6 · Tu: Trafalgar Law: Deploy Yasopp",
+   "turno": "5"
+  }
+ },
+ "142": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "52,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "84,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "116,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "148,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "180,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "213,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "245,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "277,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "52,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "84,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "116,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "148,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "180,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "213,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "245,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "277,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "783,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "662,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "540,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "694,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "782,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 29 · DON 3/7● turno 7"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "29"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "3"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 30 · DON 1/4"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "30"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "4"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard @711,26,76,106",
+   "doncard @684,26,76,106",
+   "doncard @658,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard @690,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 10,
+    "sovrapposizione": "64.55555555555556px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 10,
+    "sovrapposizione": "64.55555555555556px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "143 / 536",
+   "mossa": "T7 · Avv: Dracule Mihawk: Activate 1 Don",
+   "turno": "6"
+  }
+ },
+ "178": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "52,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "84,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "116,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "148,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "180,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "213,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "245,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "277,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "56,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "128,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "201,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "273,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "783,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "662,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "540,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "613,168,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "562,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "650,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "738,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "826,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "947,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 29 · DON 1/5"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "29"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "3"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg | div.card noimg | div.card noimg rested | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 26 · DON 2/7● turno 8"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "26"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "2"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard @711,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard @737,717,76,106",
+   "doncard @764,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 10,
+    "sovrapposizione": "64.55555555555556px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "179 / 536",
+   "mossa": "T8 · Tu: Attach 1 Don to Yasopp (1 Total)",
+   "turno": "7"
+  }
+ },
+ "214": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "61,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "102,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "144,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "185,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "226,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "268,14,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "56,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "92,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "128,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "201,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "237,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "273,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "854,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "766,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "678,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "590,287,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "469,304,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,151,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "562,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "683,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "771,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "859,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "947,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,279,540,134",
+    "dentro": "div.card noimg | div.card noimg | div.card noimg | div.card noimg | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,125",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 26 · DON 2/9● turno 9"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,210,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,125",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "Stage",
+    "posto": "523,147,84,125",
+    "dentro": ""
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,125",
+    "dentro": "div.pile",
+    "testo": "26"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "1"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg rested | div.card noimg | div.card noimg | div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 26 · DON 1/5"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "26"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "2"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard r @760,41,106,76",
+   "doncard r @737,41,106,76",
+   "doncard r @713,41,106,76",
+   "doncard @641,26,76,106",
+   "doncard @614,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard @713,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "215 / 536",
+   "mossa": "T9 · Avv: Kouzuki Oden: Yasopp can't be rested until next turn ends",
+   "turno": "8"
+  }
+ },
+ "250": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "61,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "102,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "144,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "185,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "226,14,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "268,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Jewelry Bonney"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "61,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "102,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "144,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "185,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "226,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "268,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "871,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "783,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "662,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "540,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "419,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "613,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "507,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "666,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "754,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "842,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg rested | div.card noimg | div.card noimg rested | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 24 · DON 1/6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "24"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "1"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 26 · DON 8/8● turno 10"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "26"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "2"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard r @760,41,106,76",
+   "doncard @688,26,76,106",
+   "doncard @540,717,76,106",
+   "doncard @567,717,76,106",
+   "doncard @594,717,76,106",
+   "doncard @621,717,76,106",
+   "doncard @648,717,76,106",
+   "doncard @675,717,76,106",
+   "doncard @701,717,76,106",
+   "doncard @728,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "251 / 536",
+   "mossa": "T10 · Tu: Draw 1 Card",
+   "turno": "9"
+  }
+ },
+ "285": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "68,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "116,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "213,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "261,14,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "20,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "61,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "102,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "144,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "185,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "226,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "268,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "722,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "attacking card noimg rested",
+    "posto": "601,306,117,84",
+    "potenza": "6000",
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "523,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "650,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "738,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "859,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card defending noimg",
+    "posto": "983,711,84,117",
+    "potenza": "6000 💥",
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg | div.attacking card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 23 · DON 10/10● turno 11"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "23"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg rested | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 25 · DON 3/9"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "25"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card defending noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard @884,26,76,106",
+   "doncard @857,26,76,106",
+   "doncard @830,26,76,106",
+   "doncard @804,26,76,106",
+   "doncard @777,26,76,106",
+   "doncard @750,26,76,106",
+   "doncard @723,26,76,106",
+   "doncard @696,26,76,106",
+   "doncard @669,26,76,106",
+   "doncard @642,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard r @658,732,106,76",
+   "doncard @760,717,76,106",
+   "doncard @787,717,76,106",
+   "doncard @814,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 7,
+    "sovrapposizione": "48.333333333333336px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "<path d=\"M242,348 L550,704\" style=\"stroke-width: 7;\"></path><polygon class=\"head\" points=\"567,723 538,714 563,693\"></polygon>",
+  "esito": " · ",
+  "barra": {
+   "posizione": "286 / 536",
+   "mossa": "T11 · Tu: Trafalgar Law Destroyed",
+   "turno": "10"
+  }
+ },
+ "321": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "68,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "116,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "213,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "261,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "77,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "135,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "193,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "251,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,326,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,210,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "attacking card noimg rested",
+    "posto": "871,306,117,84",
+    "potenza": "8000",
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "750,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "662,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "540,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "419,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg rested",
+    "posto": "613,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "507,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card defending noimg rested",
+    "posto": "616,458,117,84",
+    "potenza": "10000",
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Yasopp"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "738,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "859,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-resolve area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "673,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "4"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.attacking card noimg rested | div.card noimg rested | div.card noimg | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 19 · DON 0/8● turno 11"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card myturn noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "19"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card defending noimg rested | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name res",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 25 · DON 2/9"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "673,577,84,117",
+    "dentro": "div.card noimg | span.rtag"
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "25"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard r @760,41,106,76",
+   "doncard r @737,41,106,76",
+   "doncard r @713,41,106,76",
+   "doncard r @690,41,106,76",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard r @658,732,106,76",
+   "doncard r @681,732,106,76",
+   "doncard @784,717,76,106",
+   "doncard @811,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 7,
+    "sovrapposizione": "48.333333333333336px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 6,
+    "sovrapposizione": "38.6px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "<path d=\"M512,348 L332,456\" style=\"stroke-width: 7;\"></path><polygon class=\"head\" points=\"310,469 324,442 340,469\"></polygon>",
+  "esito": " · ",
+  "barra": {
+   "posizione": "322 / 536",
+   "mossa": "T11 · Tu: Billion-fold World Trichiliocosm: Buff Yasopp 2000 for the Combat",
+   "turno": "10"
+  }
+ },
+ "356": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "56,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "128,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "201,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "273,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Demonic Aura Nine-Sword Style Asura Dead Man's Game"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "116,699,97,135",
+    "potenza": null,
+    "nota": "tornata in mano",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "213,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,307,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,230,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "706,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "618,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "523,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,482,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,521,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,560,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "589,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "677,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "798,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "920,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 1,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 18 · DON 10/10● turno 13"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "18"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.back life | div.lifecnt",
+    "testo": "3"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg | div.card noimg rested | div.card noimg rested | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 24 · DON 3/9"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "24"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard @884,26,76,106",
+   "doncard @857,26,76,106",
+   "doncard @830,26,76,106",
+   "doncard @804,26,76,106",
+   "doncard @777,26,76,106",
+   "doncard @750,26,76,106",
+   "doncard @723,26,76,106",
+   "doncard @696,26,76,106",
+   "doncard @669,26,76,106",
+   "doncard @642,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard r @658,732,106,76",
+   "doncard @760,717,76,106",
+   "doncard @787,717,76,106",
+   "doncard @814,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 4,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "357 / 536",
+   "mossa": "T13 · Avv: pesca Demonic Aura Nine-Sword Style Asura Dead Man's Game",
+   "turno": "12"
+  }
+ },
+ "392": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "56,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "128,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "201,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "273,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Demonic Aura Nine-Sword Style Asura Dead Man's Game"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "19,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "77,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "135,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "193,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "251,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "309,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "722,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "601,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 4,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "613,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "507,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card defending noimg",
+    "posto": "433,20,84,117",
+    "potenza": "2000 💥",
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,502,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,540,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "attacking card noimg rested",
+    "posto": "633,458,117,84",
+    "potenza": "2000",
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "754,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "876,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card myturn noimg",
+    "posto": "786,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "893,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.lifecnt",
+    "testo": "2"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small.",
+    "testo": "TheshyopopDeck 18 · DON 2/6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "18"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card defending noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.lifecnt",
+    "testo": "2"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.attacking card noimg rested | div.card noimg rested | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "LeoIlPirataDeck 21 · DON 8/10● turno 14"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "21"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard @711,26,76,106",
+   "doncard @684,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard @666,717,76,106",
+   "doncard @693,717,76,106",
+   "doncard @720,717,76,106",
+   "doncard @747,717,76,106",
+   "doncard @774,717,76,106",
+   "doncard @800,717,76,106",
+   "doncard @827,717,76,106",
+   "doncard @854,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 6,
+    "sovrapposizione": "38.6px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "<path d=\"M274,500 L98,156\" style=\"stroke-width: 7;\"></path><polygon class=\"head\" points=\"86,133 112,148 83,163\"></polygon>",
+  "esito": " · ",
+  "barra": {
+   "posizione": "393 / 536",
+   "mossa": "T14 · Avv: Perona Destroyed",
+   "turno": "13"
+  }
+ },
+ "445": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "56,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "92,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "128,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "164,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card isknown noimg",
+    "posto": "201,14,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "237,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "273,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Jewelry Bonney"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "68,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "261,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,288,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,249,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "810,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Otama"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "722,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "601,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "480,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "attacking card myturn noimg rested",
+    "posto": "613,170,117,84",
+    "potenza": "8000",
+    "nota": null,
+    "don": 2,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "507,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "You Can Be My Samurai!!!"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,502,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,540,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "545,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "666,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "788,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "876,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "964,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-resolve area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "673,577,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Never Bother to Remember the Faces of Trash"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card defending noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": "6000",
+    "nota": null,
+    "don": 4,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.back life | div.lifecnt",
+    "testo": "2"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg rested | div.card noimg | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 12 · DON 2/8● turno 15"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.attacking card myturn noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "12"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.lifecnt",
+    "testo": "2"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg rested | div.card noimg rested | div.card noimg | div.card noimg | div.card noimg"
+   },
+   {
+    "classi": "a-name res",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 20 · DON 2/6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "673,577,84,117",
+    "dentro": "div.card noimg | span.rtag"
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card defending noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "20"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard r @760,41,106,76",
+   "doncard r @737,41,106,76",
+   "doncard @664,26,76,106",
+   "doncard @637,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard @713,717,76,106",
+   "doncard @740,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 9,
+    "sovrapposizione": "60.5px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 3,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "<path d=\"M255,212 L381,555\" style=\"stroke-width: 7;\"></path><polygon class=\"head\" points=\"390,579 366,560 396,549\"></polygon>",
+  "esito": " · ",
+  "barra": {
+   "posizione": "446 / 536",
+   "mossa": "T15 · Tu: I Never Bother to Remember the Faces of Trash: Activate Counter",
+   "turno": "14"
+  }
+ },
+ "499": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "61,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "102,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "144,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "185,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "226,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "268,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Jewelry Bonney"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "68,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "164,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card isknown noimg",
+    "posto": "261,699,97,135",
+    "potenza": null,
+    "nota": "rivelata",
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "662,289,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg",
+    "posto": "630,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "523,153,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,502,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "1",
+    "classi": "back life",
+    "posto": "436,540,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "528,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "650,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "771,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "859,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "980,441,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 4,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.lifecnt",
+    "testo": "1"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 12 · DON 10/10● turno 17"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card myturn noimg"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "12"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.back life | div.back life | div.lifecnt",
+    "testo": "2"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg rested | div.card noimg rested | div.card noimg | div.card noimg rested | div.card noimg"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 18 · DON 1/6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "18"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard @884,26,76,106",
+   "doncard @857,26,76,106",
+   "doncard @830,26,76,106",
+   "doncard @804,26,76,106",
+   "doncard @777,26,76,106",
+   "doncard @750,26,76,106",
+   "doncard @723,26,76,106",
+   "doncard @696,26,76,106",
+   "doncard @669,26,76,106",
+   "doncard @642,26,76,106",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard @737,717,76,106"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 3,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": " · ",
+  "barra": {
+   "posizione": "500 / 536",
+   "mossa": "T17 · Avv: Draw 1 Card",
+   "turno": "16"
+  }
+ },
+ "535": {
+  "carte": [
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "20,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "61,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Electrical Luna"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "102,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Billion-fold World Trichiliocosm"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "144,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "185,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "226,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kin'emon"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "268,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Jewelry Bonney"
+   },
+   {
+    "dove": "opp-hand.hand",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "309,14,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Trafalgar Law"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "116,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": "you-hand.hand",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "213,699,97,135",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kawamatsu"
+   },
+   {
+    "dove": ".a-life area",
+    "giocatore": "2",
+    "classi": "back life",
+    "posto": "982,268,82,59",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": null
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "706,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "584,306,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "2",
+    "classi": "card myturn noimg rested",
+    "posto": "613,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 5,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "2",
+    "classi": "card noimg rested",
+    "posto": "507,170,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "2",
+    "classi": "card noimg",
+    "posto": "433,20,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "I Know You're Strong... So I'll Go All Out"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "495,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "616,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "738,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Vander Decken IX"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "859,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Shanks"
+   },
+   {
+    "dove": ".a-chars area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "980,458,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Perona"
+   },
+   {
+    "dove": ".a-leader area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "769,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 4,
+    "bloccata": null,
+    "nome": "Dracule Mihawk"
+   },
+   {
+    "dove": ".a-stage area",
+    "giocatore": "1",
+    "classi": "card noimg rested",
+    "posto": "876,594,117,84",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Coffin Boat"
+   },
+   {
+    "dove": ".a-trash area",
+    "giocatore": "1",
+    "classi": "card noimg",
+    "posto": "983,711,84,117",
+    "potenza": null,
+    "nota": null,
+    "don": 0,
+    "bloccata": null,
+    "nome": "Kouzuki Oden"
+   }
+  ],
+  "aree": [
+   {
+    "classi": "a-life area",
+    "posto": "980,147,87,266",
+    "dentro": "div.back life | div.lifecnt",
+    "testo": "1"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "433,283,540,130",
+    "dentro": "div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "737,147,237,129",
+    "dentro": "div. | small. | div.turn",
+    "testo": "TheshyopopDeck 11 · DON 0/5● turno 17"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "743,212,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "613,147,117,129",
+    "dentro": "div.card myturn noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "523,147,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "433,147,84,129",
+    "dentro": "div.pile",
+    "testo": "11"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "980,16,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "523,16,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "433,16,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   },
+   {
+    "classi": "a-life area",
+    "posto": "433,435,87,266",
+    "dentro": "div.lifecnt",
+    "testo": "0"
+   },
+   {
+    "classi": "a-chars area",
+    "etichetta": "Character area",
+    "posto": "526,435,540,130",
+    "dentro": "div.card noimg rested | div.card noimg rested | div.card noimg rested | div.card noimg rested | div.card noimg rested"
+   },
+   {
+    "classi": "a-name",
+    "posto": "526,571,237,129",
+    "dentro": "div. | small.",
+    "testo": "LeoIlPirataDeck 18 · DON 0/6"
+   },
+   {
+    "classi": "a-resolve area",
+    "posto": "757,636,0,0",
+    "dentro": ""
+   },
+   {
+    "classi": "a-leader area",
+    "posto": "769,571,117,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-stage area",
+    "etichetta": "",
+    "posto": "893,571,84,129",
+    "dentro": "div.card noimg rested"
+   },
+   {
+    "classi": "a-deck area",
+    "posto": "983,571,84,129",
+    "dentro": "div.pile",
+    "testo": "18"
+   },
+   {
+    "classi": "a-dond area",
+    "posto": "433,707,87,125",
+    "dentro": "div.dond",
+    "testo": "0"
+   },
+   {
+    "classi": "a-cost area",
+    "etichetta": "Cost area",
+    "posto": "526,707,450,125",
+    "dentro": "div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r | div.doncard r"
+   },
+   {
+    "classi": "a-trash area",
+    "etichetta": "",
+    "posto": "983,707,84,125",
+    "dentro": "div.card noimg | span.cnt"
+   }
+  ],
+  "donCostArea": [
+   "doncard r @854,41,106,76",
+   "doncard r @831,41,106,76",
+   "doncard r @807,41,106,76",
+   "doncard r @784,41,106,76",
+   "doncard r @760,41,106,76",
+   "doncard r @540,732,106,76",
+   "doncard r @564,732,106,76",
+   "doncard r @587,732,106,76",
+   "doncard r @611,732,106,76",
+   "doncard r @634,732,106,76",
+   "doncard r @658,732,106,76"
+  ],
+  "mani": [
+   {
+    "id": "opp-hand",
+    "carte": 8,
+    "sovrapposizione": "55.285714285714285px"
+   },
+   {
+    "id": "you-hand",
+    "carte": 2,
+    "sovrapposizione": "0px"
+   }
+  ],
+  "carteGuardate": "",
+  "freccia": "",
+  "esito": "show win · YOU WINL'avversario concede",
+  "barra": {
+   "posizione": "536 / 536",
+   "mossa": "T17 · GameOver",
+   "turno": "16"
+  }
+ }
+}

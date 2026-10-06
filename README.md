@@ -76,6 +76,7 @@ Per generare i link serve un token personale (menu ☰ → Server e token), che 
 - `test/server.test.mjs` — test del server su una cartella dati temporanea.
 - `test/trainer.test.mjs` — test del Memory Trainer e del fondo del mazzo nel motore.
 - `tools/dubbi.mjs` — passa una cartella di log e stampa incoerenze e dubbi (vedi "Regole per carta e dubbi").
+- `tools/ui-check.mjs`, `test/golden/board.json` — l'allarme sul tappetino e la sua foto di riferimento (vedi "Per chi collabora").
 
 ## Server dei replay condivisi
 `server/server.js` è un server Node senza dipendenze: serve la pagina compilata (la cartella `dist/`, quindi prima va lanciato `npm run build`) e una piccola API, e tiene i dati su file.
@@ -190,11 +191,13 @@ Serve Node 20 o successivo.
 npm install        # una volta
 npm run dev        # la pagina su http://localhost:5173, si aggiorna da sola a ogni modifica
 npm test           # i test di parser, motore, server e trainer
+npm run test:ui    # allarme sul tappetino: confronta il tavolo con la foto salvata (serve Chrome o Edge)
 npm run build      # compila la pagina in dist/
 npm run format     # rimette in ordine il codice (Prettier)
 ```
 Per lavorare in due: ognuno su un branch, poi pull request su `main`. Prima di aprire la PR:
 - `npm test`;
+- `npm run test:ui`: apre la pagina compilata in un browser senza finestra, scorre 20 momenti della partita di esempio e confronta carte, aree e posizioni con `test/golden/board.json`. Se il tavolo è cambiato lo elenca. Quando il cambiamento è voluto, la foto si rifà con `npm run test:ui -- --update`;
 - provare il log di esempio (`http://localhost:5173/?log=test/esempio.log`) con il pannello Debug (tasto L → Debug): deve dire "nessuna incoerenza" e "nessun dubbio".
 
 ## App per Windows (eseguibile)

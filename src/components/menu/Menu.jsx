@@ -3,6 +3,7 @@ import { useStore, get } from '../../store.js';
 import * as Core from '../../core/index.js';
 import { metaOf, logName } from '../../lib/cards.js';
 import { cls, nick, fmtDate } from '../../lib/format.js';
+import { useVertical } from '../../lib/platform.js';
 import { pause } from '../../game/playback.js';
 import { openLog } from '../../game/folder.js';
 import { labelOf, currentLogIndex } from '../../game/library.js';
@@ -43,6 +44,8 @@ export function Menu() {
 function MenuBody() {
   // le voci dipendono da quasi tutto lo stato (partita, riproduzione, impostazioni…): si ridisegnano a ogni cambiamento
   useStore();
+  // alcune voci cambiano testo tra layout largo e verticale
+  useVertical();
   return (
     <div className="body" id="menu-body">
       {menuSections().map((section) => (
