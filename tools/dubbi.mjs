@@ -4,11 +4,9 @@
 // In fondo elenca le carte per cui manca una regola in CARD_RULES, dalla più frequente.
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import * as Core from '../src/core/index.js';
 
-const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-const mod = {};
-new Function('module', html.split('<script id="core">')[1].split('</script>')[0])(mod);
-const Core = mod.exports;
+
 
 const dir = process.argv[2];
 if (!dir) { console.error('Uso: node tools/dubbi.mjs <cartella dei log>'); process.exit(1); }

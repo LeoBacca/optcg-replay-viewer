@@ -1,0 +1,19 @@
+/* Colori, misure delle carte, pulsanti e la griglia della pagina. */
+
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1f232c; --line:#2a2f3a; --text:#e6e8ee; --muted:#8b93a5;
+  --accent:#f5b73a; --you:#4aa3ff; --opp:#ff5f6d; --ok:#48d28c; --red:#e5322d;
+  --ch:clamp(54px, calc((100vh - 190px) / 6.05), 240px); --cw:calc(var(--ch) * 0.716);
+  --hch:calc(var(--ch) * 1.15); --hcw:calc(var(--hch) * 0.716);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,Segoe UI,Roboto,sans-serif}
+button,select{font:inherit;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#1a1200;border-color:var(--accent);font-weight:600;min-width:96px}
+button.on{border-color:var(--ok);color:var(--ok)}
+#app{display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:1fr auto;height:100%;min-height:0;
+     background:
+       radial-gradient(ellipse at 30% 20%, #c8823e 0%, transparent 55%),
+       radial-gradient(ellipse at 80% 80%, #8a4a1c 0%, transparent 55%),
+       repeating-linear-gradient(100deg, #a9642a 0 18px, #9a5a26 18px 40px, #b06d30 40px 58px);}

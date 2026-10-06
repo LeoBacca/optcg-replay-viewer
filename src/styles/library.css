@@ -1,0 +1,50 @@
+/* Raccolta: elenco delle partite della cartella e statistiche. */
+/* ---------- raccolta: partite della cartella + statistiche ---------- */
+#drop .box.wide{max-width:min(1020px,94vw);width:100%;padding:24px 28px}
+#lib-bar{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+#lib-bar select{max-width:230px}
+#lib-tabs{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+#lib-tabs button{border:0;border-radius:0;background:#0004}
+#lib-tabs button.sel{background:var(--accent);color:#1a1200;font-weight:700}
+#lib-sum{margin:10px 0 0;color:#fff}
+#lib-sum b{color:var(--accent)}
+#loglist,#lib-stats{margin:12px 0;padding:0;max-height:46vh;overflow:auto;text-align:left;scrollbar-width:thin;scrollbar-color:#fff3 transparent}
+#loglist{list-style:none}
+#loglist li{padding:6px 10px;border-radius:6px;cursor:pointer;display:grid;grid-template-columns:112px minmax(0,1fr) 20px minmax(0,1fr) 26px 66px 40px;align-items:center;gap:10px;color:#fff}
+#loglist li:hover{background:#fff2}
+#loglist li.cur{background:#f5b73a22;box-shadow:inset 3px 0 0 var(--accent)}
+#loglist li.raw{grid-template-columns:112px minmax(0,1fr) auto}
+#loglist li.empty{display:block;color:var(--muted);cursor:default;text-align:center}
+#loglist li.empty:hover{background:none}
+#loglist .d,#loglist .tn,#loglist .st,#loglist .x,#loglist .ord{color:#d8c8b0;font-size:12px;white-space:nowrap}
+#loglist .x,#loglist .ord{text-align:center}
+#loglist .tn{text-align:right}
+#loglist .fn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld{display:flex;align-items:center;gap:8px;min-width:0}
+.ld img{width:26px;aspect-ratio:.716;border-radius:3px;background:#2b3040;flex:none;object-fit:cover}
+.ld .nm{min-width:0;line-height:1.2}
+.ld .nm b,.ld .nm small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld .nm b{font-weight:600;color:#fff}
+.ld .nm small{color:var(--muted);font-size:11px}
+.rb{font-weight:800;text-align:center;border-radius:6px;padding:2px 0;font-size:13px}
+.rb.w{background:#48d28c33;color:var(--ok)}
+.rb.l{background:#ff5f6d33;color:var(--opp)}
+.rb.o{color:var(--muted)}
+#lib-stats .lead{display:flex;align-items:center;gap:10px;margin:18px 0 6px;color:#fff}
+#lib-stats .lead:first-child{margin-top:0}
+#lib-stats .lead img{width:34px;aspect-ratio:.716;border-radius:4px;background:#2b3040;object-fit:cover}
+#lib-stats .lead b{font-size:15px}
+#lib-stats .lead small{color:#d8c8b0;margin-left:auto;white-space:nowrap}
+#lib-stats table{width:100%;border-collapse:collapse;font-size:13px}
+#lib-stats th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;text-align:right;padding:4px 8px;border-bottom:1px solid #fff2;white-space:nowrap}
+#lib-stats td{padding:5px 8px;text-align:right;color:#f7e9d4;border-bottom:1px solid #fff1;font-variant-numeric:tabular-nums;white-space:nowrap}
+#lib-stats th:first-child,#lib-stats td:first-child{text-align:left;width:34%}
+#lib-stats tr.mu{cursor:pointer}
+#lib-stats tr.mu:hover td{background:#fff1}
+#lib-stats .wr{font-weight:700;color:#fff}
+#lib-stats .wrbar{display:inline-block;width:54px;height:6px;border-radius:3px;background:#ff5f6d66;vertical-align:middle;margin-right:8px;overflow:hidden}
+#lib-stats .wrbar i{display:block;height:100%;background:var(--ok)}
+#lib-stats .empty{color:var(--muted);text-align:center}
+#loglist li.g{grid-template-columns:112px minmax(0,1fr) 20px minmax(0,1fr) 26px 66px 40px 104px}
+#loglist .lk{padding:3px 8px;font-size:12px;white-space:nowrap}
+#loglist .lk.on{border-color:var(--ok);color:var(--ok)}

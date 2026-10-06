@@ -2,12 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
+import * as Core from '../src/core/index.js';
+
 const root = new URL('../', import.meta.url);
-const html = readFileSync(new URL('index.html', root), 'utf8');
-const coreSrc = html.split('<script id="core">')[1].split('</script>')[0];
-const mod = {};
-new Function('module', coreSrc)(mod);
-const Core = mod.exports;
 
 const sampleLog = readFileSync(new URL('test/esempio.log', root), 'utf8');
 const lines = sampleLog.split('\n');
@@ -170,6 +167,35 @@ test('regola OP14-038: i primi due riposi sono carte proprie, il terzo è dell\'
   assert.deepEqual(field(stateAfter(r, 989), 1), ['OP17-031', 'OP13-031', 'OP17-031', 'OP12-034']);
   assert.deepEqual(field(stateAfter(r, 1005), 1), ['OP17-031 R', 'OP13-031', 'OP17-031', 'OP12-034']);
   assert.deepEqual(field(stateAfter(r, 1005), 2), ['OP13-031 R', 'OP17-031 R', 'OP12-034 R', 'OP13-031', 'ST32-002 R']);
+});
+
+test('"will not Activate during next Refresh": la carta salta il refresh successivo del suo proprietario, poi torna normale', () => {
+  // durante il mio turno (r1054) gioco una Electrical Luna sull'Oden avversario, riposato dal turno prima (r1005); il suo Law, anche lui riposato, stappa
+  const cut = [...lines];
+  cut[1053] += '\n[You] Electrical Luna ["OP08-036">OP08-036]: Kouzuki Oden ["ST32-002">ST32-002] will not Activate during next Refresh';
+  const r = replay(cut.join('\n'));
+  assert.deepEqual(r.mismatches, []);
+  assert.deepEqual(r.parsed.steps.filter((s) => s.kind === 'unknown'), []);
+  assert.deepEqual(field(stateAfter(r, 1005), 2), ['OP13-031 R', 'OP17-031 R', 'OP12-034 R', 'OP13-031', 'ST32-002 R']);
+  assert.deepEqual(field(stateAfter(r, 1143), 2), ['OP13-031', 'ST32-002 R']);   // inizio turno avversario (r1143, la riga inserita sposta tutto di uno): Oden resta riposato
+  assert.equal(stateAfter(r, 1143).players[2].chars[1].frozen, 'skipped');        // il segno resta per questo turno, poi al refresh dopo la carta stappa
+  // nel log vero Oden attaccava (r1150 dopo l'inserimento): con il blocco non potrebbe, e il reader lo segnala
+  assert.deepEqual(r.doubts, ['r1150 Kouzuki Oden attacking Trafalgar Law: attacca ma risulta già riposato']);
+});
+
+test('"will not Activate" sul DON (Jewelry Bonney) tiene riposato un DON avversario al refresh', () => {
+  const cut = [...lines];
+  cut[1053] += '\n[You] Jewelry Bonney ["OP07-026">OP07-026]: Don ["Don">Don] will not Activate during next Refresh';
+  const r = replay(cut.join('\n'));
+  assert.deepEqual(r.mismatches, []);
+  const fx = r.parsed.steps.find((s) => s.line === 1055 && s.kind === 'effect');
+  assert.equal(fx.sub, 'freeze'); assert.equal(fx.target.id, 'Don');
+  const before = stateAfter(r, 1136).players[2].donPool.filter((d) => d.rested).length;
+  assert.ok(before >= 1);
+  assert.equal(stateAfter(r, 1143).players[2].donPool.filter((d) => d.rested).length, 1);
+  assert.equal(stateAfter(r, 1143).players[2].donPool.filter((d) => d.frozen === 'skipped').length, 1);
+  assert.equal(stateAfter(r, 1378).players[2].donPool.filter((d) => d.frozen || d.rested).length, 0);   // al refresh dopo (r1377+1) stappa e il segno sparisce
+  assert.equal(stateAfter(replay(sampleLog), 1142).players[2].donPool.filter((d) => d.rested).length, 0);   // senza Bonney stappano tutti
 });
 
 test('il log di esempio non lascia dubbi su carte riposate e attive', () => {
