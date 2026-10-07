@@ -224,6 +224,9 @@ export function readSteps(text) {
       s = newStep('hit', 0, text, { cards, delay: 1.2, dmg: +/hit for (\d+)/.exec(body)[1] });
     } else if (!actor && /^Attack Fails/.test(body)) {
       s = newStep('fail', 0, text, { delay: 1.1 });
+    } else if (!actor && cards.length && / cost restored$/.test(body)) {
+      // "Enel cost restored": è finito un cambio di costo (vedi gli effetti 'cost')
+      s = newStep('costRestored', 0, text, { cards, delay: 0.5 });
     } else if (/ Destroyed$/.test(body) && !/: /.test(body)) {
       s = newStep('destroyed', player, text, { cards, delay: 1.1 });
     } else if (/^Discard .* for Counter \d+/.test(body)) {
@@ -244,6 +247,7 @@ export function readSteps(text) {
       let sub = 'effect',
         target = tcards[0] || null,
         delay = 1;
+      const extra = {};
       if (/^Rest \d+ Don/.test(rest) || /^Rest Don \[/.test(rest)) {
         s = newStep('restDon', player, text, { cards, src, delay: 0.7 });
       } else if (/^Activate \d+ Don/.test(rest)) {
@@ -263,8 +267,29 @@ export function readSteps(text) {
       } else if (/^Deploy /.test(rest)) {
         s = newStep('deploy', player, text, { cards: tcards, src, delay: 1 });
       } else if (/^Buff /.test(rest)) {
+        // "Buff X -2000" vale fino a fine turno, "Buff X 2000 for the Combat" fino a fine combattimento; "Buff Self" è la sorgente stessa
         sub = 'buff';
         delay = 0.8;
+        const bm = /(-?\d+)( for the Combat)?$/.exec(rest);
+        if (bm) {
+          extra.pw = +bm[1];
+          extra.until = bm[2] ? 'combat' : 'turn';
+        }
+        if (/^Buff Self\b/.test(rest)) target = src;
+      } else if (/^Set .* Base Power to -?\d+$/.test(rest)) {
+        // "Charlotte Linlin: Set Shanks Base Power to -12000": il numero è la variazione (Shanks 12000 → 0), non il valore finale
+        sub = 'buff';
+        delay = 0.8;
+        extra.pw = +/(-?\d+)$/.exec(rest)[1];
+        extra.until = 'turn';
+      } else if (tcards.length && / Cost [-+]?\d+( until Opponent's Turn End)?$/.test(rest)) {
+        // "Rob Lucci: Mr. 1 Cost -1" fino a fine turno; "Varie: Enel Cost 2 until Opponent's Turn End" fino a fine del turno avversario.
+        // Quando finisce il log scrive "Enel cost restored".
+        const cm = / Cost ([-+]?\d+)( until Opponent's Turn End)?$/.exec(rest);
+        sub = 'cost';
+        delay = 0.8;
+        extra.cost = +cm[1];
+        extra.until = cm[2] ? 'oppTurn' : 'turn';
       } else if (/^Activate Counter/.test(rest)) {
         sub = 'counterOn';
         delay = 0.7;
@@ -283,7 +308,7 @@ export function readSteps(text) {
       else {
         sub = 'other';
       }
-      if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay });
+      if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay, ...extra });
       const key = player + ':' + src.id;
       if (run.key !== key) run = { key, rests: 0 };
       if (s.sub === 'rest') s.nth = run.rests++;

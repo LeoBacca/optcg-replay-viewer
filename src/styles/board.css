@@ -75,11 +75,21 @@
 .card.rested .pw{transform:rotate(-90deg);left:8%;right:8%}
 .half.opp .card.rested .pw{transform:rotate(90deg)}
 /* carta che salta il prossimo refresh ("will not Activate during next Refresh"): etichetta azzurra finché il blocco dura */
-.card .frz{position:absolute;left:-8%;right:-8%;top:62%;text-align:center;font:900 clamp(10px,1.1vw,15px)/1.2 Impact,"Arial Black",sans-serif;color:#e8f7ff;text-shadow:0 0 4px #000,0 0 2px #000,1px 1px 0 #013;background:linear-gradient(90deg,#0b4f86aa,#1e8fe0dd,#0b4f86aa);border-radius:4px;padding:2px 0;pointer-events:none;display:none;z-index:4;white-space:nowrap}
+.card .frz{position:absolute;left:-8%;right:-8%;top:84%;text-align:center;font:900 clamp(10px,1.1vw,15px)/1.2 Impact,"Arial Black",sans-serif;color:#e8f7ff;text-shadow:0 0 4px #000,0 0 2px #000,1px 1px 0 #013;background:linear-gradient(90deg,#0b4f86aa,#1e8fe0dd,#0b4f86aa);border-radius:4px;padding:2px 0;pointer-events:none;display:none;z-index:4;white-space:nowrap}
 .card .frz.show{display:block}
 .half.opp .card .frz{transform:rotate(180deg)}
 .card.rested .frz{transform:rotate(-90deg);left:8%;right:8%}
 .half.opp .card.rested .frz{transform:rotate(90deg)}
+/* segni di potenza e di costo, come nel sim: verde se sale, rosso se scende, costo in arancione */
+.card .pwm,.card .cst{position:absolute;left:-10%;right:-10%;text-align:center;font:900 clamp(15px,1.8vw,28px)/1 Impact,"Arial Black",sans-serif;text-shadow:0 0 3px #000,0 0 2px #000,2px 2px 0 #000,-1px -1px 0 #000;pointer-events:none;display:none;z-index:4;white-space:nowrap}
+.card .pwm{top:62%}
+.card .pwm.up{color:#3dff6a}
+.card .pwm.down{color:#ff3b3b}
+.card .cst{top:14%;color:#ff9a1f;font-size:clamp(12px,1.4vw,22px)}
+.card .pwm.show,.card .cst.show{display:block}
+.half.opp .card .pwm,.half.opp .card .cst{transform:rotate(180deg)}
+.card.rested .pwm,.card.rested .cst{transform:rotate(-90deg);left:8%;right:8%}
+.half.opp .card.rested .pwm,.half.opp .card.rested .cst{transform:rotate(90deg)}
 .doncard.f{box-shadow:0 0 0 2px #1e8fe0,0 0 10px #1e8fe0}
 .card.attacking{box-shadow:0 0 0 3px var(--red),0 0 18px var(--red)}
 .card.myturn{animation:turnglow 1.6s ease-in-out infinite alternate}

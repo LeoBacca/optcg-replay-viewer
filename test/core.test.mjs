@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 import * as Core from '../src/core/index.js';
+import * as Effects from '../src/core/engine/effects.js';
 
 const root = new URL('../', import.meta.url);
 
@@ -405,4 +406,60 @@ test('con due copie uguali in campo blocca quella che poi va nel trash, e resta 
   assert.deepEqual(end.flash, [twin.uid]);
   assert.deepEqual(field(end, 1), ['OP13-031 R', 'OP17-031', 'OP13-031', 'OP12-034']);
   assert.equal(end.players[1].trash.at(-1).uid, twin.uid);
+});
+
+// ---- segni di potenza e di costo sulle carte (come nel sim) ----
+const mods = (S, p, id) => {
+  const P = S.players[p];
+  const c = [P.leader, ...P.chars].find((x) => x.id === id);
+  return c && c.mods ? c.mods.map((m) => (m.pw != null ? 'pw ' + m.pw : 'cost ' + m.cost) + ' ' + m.until) : [];
+};
+
+test('un buff "for the Combat" resta sulla carta fino alla fine del combattimento', () => {
+  const r = replay(sampleLog);
+  assert.deepEqual(mods(stateAfter(r, 1028), 1, 'OP14-020'), ['pw 3000 combat']); // I Never Bother… sul mio Mihawk che difende
+  assert.deepEqual(mods(stateAfter(r, 1030), 1, 'OP14-020'), ['pw 3000 combat']); // Attack Fails: si vede ancora l'esito del combattimento
+  assert.deepEqual(mods(stateAfter(r, 1031), 1, 'OP14-020'), []); // dal passo dopo il segno sparisce
+});
+
+test('un debuff senza "for the Combat" dura fino a fine turno, sulla carta avversaria', () => {
+  const cut = [...lines];
+  cut[1053] += '\n[You] Gamma Knife ["OP05-077">OP05-077]: Buff Kouzuki Oden ["ST32-002">ST32-002] -5000';
+  const r = replay(cut.join('\n'));
+  assert.deepEqual(r.mismatches, []);
+  assert.deepEqual(mods(stateAfter(r, 1055), 2, 'ST32-002'), ['pw -5000 turn']);
+  assert.deepEqual(mods(stateAfter(r, 1136), 2, 'ST32-002'), []); // [You] End Turn (r1135, spostata di uno)
+});
+
+test('un cambio di costo resta finché il log non scrive "cost restored"', () => {
+  const cut = [...lines];
+  cut[1053] += '\n[You] Rob Lucci ["OP07-079">OP07-079]: Kouzuki Oden ["ST32-002">ST32-002] Cost -1';
+  cut[1053] += '\nKouzuki Oden ["ST32-002">ST32-002] cost restored';
+  const r = replay(cut.join('\n'));
+  assert.deepEqual(r.mismatches, []);
+  assert.equal(r.parsed.steps.find((s) => s.line === 1055).sub, 'cost');
+  assert.deepEqual(mods(stateAfter(r, 1055), 2, 'ST32-002'), ['cost -1 turn']);
+  assert.deepEqual(mods(stateAfter(r, 1056), 2, 'ST32-002'), []);
+});
+
+test('effetti continui: Saul ha +12 di costo e con lui in campo Zoro prende +3000, anche dall\'altro lato', () => {
+  const { applyAuras, powerNow, costNow } = Effects;
+  const card = (id) => ({ uid: Math.random(), id, rested: false, don: 0 });
+  const side = (leader, chars) => ({ leader: card(leader), chars: chars.map(card), stage: [], hand: [], life: [], donPool: [] });
+  const state = { active: 1, players: { 1: side('OP17-079', ['OP17-095']), 2: side('OP17-058', []) } };
+  const saved = globalThis.CARDS_META;
+  globalThis.CARDS_META = { 'OP17-095': ['Roronoa Zoro', 2, 2000, 2000, 0], 'OP17-089': ['Jaguar D. Saul', 4, 6000, 0, 0] };
+  try {
+    applyAuras(state);
+    assert.equal(powerNow(state, state.players[1].chars[0], 1), 2000); // senza un costo 12 Zoro resta 2000
+    state.players[2].chars.push(card('OP17-089'));
+    applyAuras(state);
+    assert.equal(costNow(state.players[2].chars[0]), 16);
+    assert.equal(powerNow(state, state.players[1].chars[0], 1), 5000);
+    state.players[2].chars.pop(); // Saul lascia il campo: il bonus sparisce
+    applyAuras(state);
+    assert.equal(powerNow(state, state.players[1].chars[0], 1), 2000);
+  } finally {
+    globalThis.CARDS_META = saved;
+  }
 });

@@ -92,6 +92,7 @@ export function applyMove(state, mv, dbg, st, doubts, shuf) {
           card.rested = false;
           card.don = 0;
           delete card.frozen;
+          delete card.mods;
         }
       }
       if (tz === 0) {

@@ -46,6 +46,8 @@ html{touch-action:manipulation}
   .card .donx{right:-3px;bottom:calc(var(--n) * -6px - 12px);font-size:10px}
   .card .pw{font-size:calc(var(--ch) * .21)}
   .card .frz{font-size:calc(var(--ch) * .11)}
+  .card .pwm{font-size:calc(var(--ch) * .18)}
+  .card .cst{font-size:calc(var(--ch) * .13)}
   #result{width:max-content;max-width:96vw}
   #result .big{font-size:clamp(34px,11vw,120px);padding:8px 22px;white-space:nowrap}
   #note-bubble{left:3%;right:3%;top:8px;transform:none;max-width:none;width:fit-content;margin:0 auto;padding:6px 10px;font-size:13px}
