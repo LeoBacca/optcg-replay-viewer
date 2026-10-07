@@ -5,7 +5,7 @@
 //   - se arriva prima della riga a cui si riferisce, lo step nuovo se la riprende dalla coda del precedente (lookAhead);
 //   - durante un combattimento le mosse restano "parcheggiate" finché non arriva l'esito (colpito, fallito, distrutto),
 //     perché il log le scrive prima del risultato ma sul tavolo devono vedersi dopo.
-import { MOVE, CHK, ACTOR, TAGS, RICH_REF } from '../log-format.js';
+import { MOVE, CHK, PLY, ACTOR, TAGS, RICH_REF } from '../log-format.js';
 import { refs, clean, stripName } from '../text.js';
 import { lastGame } from '../last-game.js';
 import { makeStep } from './step.js';
@@ -94,6 +94,12 @@ export function readSteps(text) {
     const raw = lines[li].replace(RICH_REF, '$1');
     if (!raw.trim()) continue;
     let m;
+    // "RZ1|PLY|1|Nome#1234|OP14-020": chi è il giocatore 1 e chi il 2, prima ancora della prima pescata
+    if ((m = PLY.exec(raw))) {
+      const name = stripName(m[2]);
+      if (!(name in nameMap)) nameMap[name] = +m[1];
+      continue;
+    }
     if ((m = MOVE.exec(raw))) {
       const mv = {
         seq: +m[1],
@@ -150,6 +156,7 @@ export function readSteps(text) {
       else if (actor === 'Opponent') player = 2;
       else {
         player = nameMap[actor] || 0;
+        if (player) players[player].name = actor;
       }
     }
     const text = clean(body);
@@ -157,7 +164,7 @@ export function readSteps(text) {
 
     // drop / assertions
     if (
-      /^(Waiting for a Connection|Attempting to connect|Your Client Has Connected|Version is|Opponent Has Connected|Opponent is Ready for Rematch|Will select turn order|Downloaded the Combat Log|RZ1\|)/.test(
+      /^(Waiting for a Connection|Attempting to connect|.+ Has Connected$|Version is|Opponent is Ready for Rematch|Will select turn order|Downloaded the Combat Log|RZ1\|)/.test(
         clean(body),
       ) ||
       /Downloaded the Combat Log/.test(raw)
@@ -217,6 +224,9 @@ export function readSteps(text) {
       s = newStep('hit', 0, text, { cards, delay: 1.2, dmg: +/hit for (\d+)/.exec(body)[1] });
     } else if (!actor && /^Attack Fails/.test(body)) {
       s = newStep('fail', 0, text, { delay: 1.1 });
+    } else if (!actor && cards.length && / cost restored$/.test(body)) {
+      // "Enel cost restored": è finito un cambio di costo (vedi gli effetti 'cost')
+      s = newStep('costRestored', 0, text, { cards, delay: 0.5 });
     } else if (/ Destroyed$/.test(body) && !/: /.test(body)) {
       s = newStep('destroyed', player, text, { cards, delay: 1.1 });
     } else if (/^Discard .* for Counter \d+/.test(body)) {
@@ -237,6 +247,7 @@ export function readSteps(text) {
       let sub = 'effect',
         target = tcards[0] || null,
         delay = 1;
+      const extra = {};
       if (/^Rest \d+ Don/.test(rest) || /^Rest Don \[/.test(rest)) {
         s = newStep('restDon', player, text, { cards, src, delay: 0.7 });
       } else if (/^Activate \d+ Don/.test(rest)) {
@@ -256,8 +267,29 @@ export function readSteps(text) {
       } else if (/^Deploy /.test(rest)) {
         s = newStep('deploy', player, text, { cards: tcards, src, delay: 1 });
       } else if (/^Buff /.test(rest)) {
+        // "Buff X -2000" vale fino a fine turno, "Buff X 2000 for the Combat" fino a fine combattimento; "Buff Self" è la sorgente stessa
         sub = 'buff';
         delay = 0.8;
+        const bm = /(-?\d+)( for the Combat)?$/.exec(rest);
+        if (bm) {
+          extra.pw = +bm[1];
+          extra.until = bm[2] ? 'combat' : 'turn';
+        }
+        if (/^Buff Self\b/.test(rest)) target = src;
+      } else if (/^Set .* Base Power to -?\d+$/.test(rest)) {
+        // "Charlotte Linlin: Set Shanks Base Power to -12000": il numero è la variazione (Shanks 12000 → 0), non il valore finale
+        sub = 'buff';
+        delay = 0.8;
+        extra.pw = +/(-?\d+)$/.exec(rest)[1];
+        extra.until = 'turn';
+      } else if (tcards.length && / Cost [-+]?\d+( until Opponent's Turn End)?$/.test(rest)) {
+        // "Rob Lucci: Mr. 1 Cost -1" fino a fine turno; "Varie: Enel Cost 2 until Opponent's Turn End" fino a fine del turno avversario.
+        // Quando finisce il log scrive "Enel cost restored".
+        const cm = / Cost ([-+]?\d+)( until Opponent's Turn End)?$/.exec(rest);
+        sub = 'cost';
+        delay = 0.8;
+        extra.cost = +cm[1];
+        extra.until = cm[2] ? 'oppTurn' : 'turn';
       } else if (/^Activate Counter/.test(rest)) {
         sub = 'counterOn';
         delay = 0.7;
@@ -276,7 +308,7 @@ export function readSteps(text) {
       else {
         sub = 'other';
       }
-      if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay });
+      if (!s) s = newStep('effect', player, text, { cards, src, target, sub, delay, ...extra });
       const key = player + ':' + src.id;
       if (run.key !== key) run = { key, rests: 0 };
       if (s.sub === 'rest') s.nth = run.rests++;
@@ -311,6 +343,12 @@ export function readSteps(text) {
     if (st.parked.length) {
       st.moves.push(...st.parked);
       st.parked = [];
+    }
+  // log con i nomi al posto di [You]/[Opponent]: le righe "Leader is" arrivano prima che si sappia chi è chi
+  for (const st of steps)
+    if (st.kind === 'leader' && !st.player && st.actor in nameMap) {
+      st.player = nameMap[st.actor];
+      if (!players[st.player].leader) players[st.player].leader = st.cards[0];
     }
   return { players, nameMap, steps, moveCount, warnings };
 }

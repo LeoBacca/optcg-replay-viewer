@@ -1,6 +1,6 @@
 // Applica il testo di uno step allo stato del tavolo: tutto quello che NON è uno spostamento di carte
 // (chi è di turno, carte che si riposano o si riattivano, combattimento, esito della partita).
-import { ruleOf } from '../card-rules.js';
+import { ruleOf, AURAS } from '../card-rules.js';
 import { nextUid, findCard } from './state.js';
 
 function ownerOf(state, uid) {
@@ -11,7 +11,55 @@ function ownerOf(state, uid) {
   }
   return 0;
 }
-const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase']);
+const cardByUid = (state, uid) => {
+  for (const p of [1, 2]) {
+    const P = state.players[p];
+    const c = [P.leader, ...P.chars, ...P.stage].find((x) => x.uid === uid);
+    if (c) return c;
+  }
+  return null;
+};
+
+// Segni di potenza e di costo sulle carte in campo, come nel sim: card.mods = [{ pw | cost, until, by }]
+//   until: 'combat' fino a fine combattimento, 'turn' fino a fine turno, 'oppTurn' fino a fine del turno avversario di chi l'ha giocato (by)
+const addMod = (c, mod) => (c.mods = [...(c.mods || []), mod]);
+const fieldCards = (state) => [1, 2].flatMap((p) => [state.players[p].leader, ...state.players[p].chars, ...state.players[p].stage]);
+const dropMods = (state, gone) => {
+  for (const c of fieldCards(state)) {
+    if (!c.mods) continue;
+    c.mods = c.mods.filter((m) => !gone(m, c));
+    if (!c.mods.length) delete c.mods;
+  }
+};
+/**
+ * Toglie i segni che scadono. 'combat': a fine combattimento. 'turn': a fine del turno di ender
+ * (con quelli del combattimento e gli 'oppTurn' giocati dall'altro giocatore).
+ */
+export function clearMods(state, until, ender) {
+  if (until === 'combat') dropMods(state, (m) => m.until === 'combat');
+  else dropMods(state, (m) => m.until !== 'oppTurn' || m.by !== ender);
+}
+// La carta che riceve un buff o un cambio di costo. Il log dice solo il nome: se è una delle due carte del combattimento è lei,
+// altrimenti un valore negativo va di norma all'avversario di chi gioca, uno positivo alle sue carte.
+function modTarget(state, st, P, O, amt, doubts) {
+  const id = st.target.id;
+  const C = state.combat;
+  if (C) {
+    const inCombat = [C.attacker, C.defender].map((uid) => cardByUid(state, uid)).filter((c) => c && c.id === id);
+    if (inCombat.length === 1) return inCombat[0];
+  }
+  const sides = st.target === st.src ? [P] : amt < 0 ? [O, P] : [P, O];
+  for (const side of sides) {
+    const pool = [side.leader, ...side.chars, ...side.stage].filter((c) => c.id === id);
+    if (!pool.length) continue;
+    if (doubts && pool.length > 1) doubts.push(who(st) + ': ci sono ' + pool.length + ' copie, il segno va sulla prima');
+    return pool[0];
+  }
+  if (doubts) doubts.push(who(st) + ': nessuna carta in campo con quel nome');
+  return null;
+}
+
+const PLAYERLESS_KINDS = new Set(['vs', 'hit', 'fail', 'phase', 'costRestored']);
 // refresh di inizio turno: stappa tutto, tranne le carte bloccate da un "will not Activate during next Refresh" (che saltano solo questo).
 // frozen: 'pending' = deve ancora saltare il refresh; 'skipped' = l'ha saltato, resta segnata fino al refresh dopo, in cui stappa
 function refresh(P) {
@@ -36,6 +84,7 @@ export function applyText(state, st, dbg, doubts) {
   if (!P && !PLAYERLESS_KINDS.has(st.kind)) return;
   switch (st.kind) {
     case 'turnStart':
+      if (state.active) clearMods(state, 'turn', state.active);
       state.turn = st.turn;
       state.active = st.player;
       refresh(P);
@@ -101,8 +150,32 @@ export function applyText(state, st, dbg, doubts) {
     }
     case 'counter':
       if (state.combat && st.side && state.combat[st.side] != null) state.combat[st.side] += st.amt;
+      if (state.combat && st.amt) {
+        const d = cardByUid(state, state.combat.defender);
+        if (d) addMod(d, { pw: st.amt, until: 'combat', by: st.player });
+      }
       break;
+    case 'endTurn':
+      clearMods(state, 'turn', st.player);
+      break;
+    case 'costRestored': {
+      const id = st.cards[0].id;
+      const c = fieldCards(state).find((x) => x.id === id && x.mods && x.mods.some((m) => m.cost));
+      if (c) dropMods(state, (m, x) => x === c && m.cost != null);
+      break;
+    }
     case 'vs':
+      // la riga "A[8000] vs B[9000]" dice la potenza vera: se non torna col calcolo c'è un effetto che il log non scrive (manca in AURAS)
+      if (doubts && state.combat)
+        for (const [uid, real] of [
+          [state.combat.attacker, st.atk],
+          [state.combat.defender, st.def],
+        ]) {
+          const c = cardByUid(state, uid),
+            calc = c && real != null ? powerNow(state, c, ownerOf(state, uid)) : null;
+          if (calc != null && calc !== real)
+            doubts.push(who(st) + ': ' + c.id + ' qui fa ' + calc + ' (stampata + DON + segni), il log dice ' + real);
+        }
       if (state.combat) {
         state.combat.atk = st.atk;
         state.combat.def = st.def;
@@ -207,6 +280,11 @@ export function applyText(state, st, dbg, doubts) {
           state.combat.buffs.push(st.text.replace(/^.*?: /, ''));
           if (st.side && state.combat[st.side] != null) state.combat[st.side] += st.amt;
         }
+        const c = st.pw != null && modTarget(state, st, P, O, st.pw, doubts);
+        if (c) addMod(c, { pw: st.pw, until: st.until, by: st.player });
+      } else if (st.sub === 'cost') {
+        const c = modTarget(state, st, P, O, st.cost, doubts);
+        if (c) addMod(c, { cost: st.cost, until: st.until, by: st.player });
       } else if (st.sub === 'destroy') {
         const c = findCard(O, t.id, { prefer: 'rested' }) || findCard(P, t.id);
         if (c) state.flash.push(c.uid);
@@ -222,5 +300,51 @@ export function applyText(state, st, dbg, doubts) {
         state.result = { winner: st.player === 1 ? 2 : 1, how: 'quit', uncertain: true };
       break;
     }
+  }
+}
+
+// Costo e potenza stampati, da public/cards_meta.js (nel browser lo carica la pagina; nei test e negli strumenti va messo in globalThis).
+const metaOf = (id) => (globalThis.CARDS_META || {})[id] || null;
+const sumOf = (list, k) => (list || []).reduce((n, m) => n + (m[k] || 0), 0);
+/** Costo di una carta in campo adesso: quello stampato più i segni. */
+export const costNow = (c) => {
+  const m = metaOf(c.id);
+  return m ? m[1] + sumOf(c.mods, 'cost') + sumOf(c.auto, 'cost') : null;
+};
+/** Potenza di una carta in campo adesso: stampata + segni + DON attaccati (che contano solo nel turno del proprietario). */
+export function powerNow(state, c, owner) {
+  const m = metaOf(c.id);
+  if (!m) return null;
+  return m[2] + sumOf(c.mods, 'pw') + sumOf(c.auto, 'pw') + (state.active === owner ? c.don * 1000 : 0);
+}
+
+/** Ricalcola i segni degli effetti continui (card.auto) dopo ogni step: vedi AURAS in card-rules.js. */
+export function applyAuras(state) {
+  const all = fieldCards(state);
+  for (const c of all) delete c.auto;
+  const chars = [1, 2].flatMap((p) => state.players[p].chars);
+  // due giri: il costo cambiato da un effetto continuo (Saul +12) può accendere quello di un'altra carta (Zoro)
+  for (let round = 0; round < 2; round++) {
+    const found = [];
+    for (const p of [1, 2]) {
+      const P = state.players[p];
+      for (const me of [P.leader, ...P.chars, ...P.stage]) {
+        const aura = AURAS[me.id];
+        if (!aura) continue;
+        const ctx = {
+          state,
+          me,
+          P,
+          O: state.players[p === 1 ? 2 : 1],
+          mine: state.active === p,
+          meta: metaOf,
+          cost: costNow,
+          anyChar: (fn) => chars.some(fn),
+        };
+        for (const { card, ...mod } of aura(ctx)) found.push([card, { ...mod, src: me.id }]);
+      }
+    }
+    for (const c of all) delete c.auto;
+    for (const [card, mod] of found) card.auto = [...(card.auto || []), mod];
   }
 }

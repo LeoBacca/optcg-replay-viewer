@@ -14,6 +14,8 @@ export const REF_G = /(.+?) \["([A-Za-z0-9\-_]+)">\2\]/g; // Name ["ID">ID]
 export const RICH_REF = /<mark><link=("([A-Za-z0-9\-_]+)">\2)<\/link><\/mark>/g;
 export const MOVE = /^RZ1\|(\d+)\|([12])\|([^|]+)\|(\d+)\|(\d+)\|(\d+)\|(\d+)\|([01])\|([01])\|([01])/;
 export const CHK = /^RZ1\|CHK\|(\d+)\|([12])\|(.*)$/;
+// RZ1|PLY|1|Nome#1234|OP14-020: il nome e il leader di ciascun giocatore, all'inizio di ogni partita
+export const PLY = /^RZ1\|PLY\|([12])\|([^|]+)\|/;
 export const ACTOR = /^\[([^\]]+)\] ?(.*)$/;
 export const TAGS = /<\/?[a-z][^>]*>/gi;
 export const ZWSP = /[​-‍﻿]/g;

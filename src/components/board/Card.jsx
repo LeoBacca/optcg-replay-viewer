@@ -7,6 +7,10 @@ import { showPreview } from '../../game/view.js';
 import { useCardImage } from '../useCardImage.js';
 import { useT } from '../../i18n/useT.js';
 
+// somma dei segni di potenza o di costo: quelli scritti nel log (mods) e quelli degli effetti continui (auto)
+const sumMods = (card, k) => [...(card.mods || []), ...(card.auto || [])].reduce((n, m) => n + (m[k] || 0), 0);
+const signed = (n) => (n > 0 ? '+' : '') + n;
+
 // perché conosciamo una carta nella mano dell'avversario
 const knownLabel = (t, known) =>
   known === 'field'
@@ -18,7 +22,7 @@ const knownLabel = (t, known) =>
         : '';
 
 /**
- * @param {object} card     la carta nello stato del tavolo: { uid, id, rested, don, known, frozen }
+ * @param {object} card     la carta nello stato del tavolo: { uid, id, rested, don, known, frozen, mods, auto }
  * @param {number} player   1 o 2: di chi è (serve alle animazioni per sapere da quale mazzo esce)
  * @param {string} [role]   'attacking' | 'defending' se è in combattimento
  * @param {string|number} [power]  la potenza da scrivere sulla carta durante il combattimento
@@ -29,6 +33,8 @@ export function Card({ card, player, role, power, myTurn, inTrash }) {
   const t = useT();
   const image = useCardImage(card.id);
   const don = card.don || 0;
+  const pwMod = sumMods(card, 'pw'),
+    costMod = sumMods(card, 'cost');
 
   return (
     <div
@@ -63,6 +69,8 @@ export function Card({ card, player, role, power, myTurn, inTrash }) {
         {'DON!! ×' + don}
       </span>
       <span className={cls('pw', power != null && 'show')}>{power}</span>
+      <span className={cls('pwm', pwMod > 0 ? 'up' : 'down', pwMod !== 0 && 'show')}>{signed(pwMod)}</span>
+      <span className={cls('cst', costMod !== 0 && 'show')}>{'Cost ' + signed(costMod)}</span>
       <span className={cls('known', card.known && 'show')}>{knownLabel(t, card.known)}</span>
       <span className={cls('frz', card.frozen && 'show')}>❄ {t('non stappa')}</span>
     </div>

@@ -4,6 +4,7 @@
 //   stats    riepiloghi e statistiche · redact  copia del log da condividere
 export { parseLog } from './parser/index.js';
 export { buildSnapshots } from './engine/index.js';
+export { costNow, powerNow } from './engine/effects.js';
 export { clean, refs } from './text.js';
 export { summarize, gameDate, outcome, winrate, stats } from './stats.js';
 export { redact } from './redact.js';

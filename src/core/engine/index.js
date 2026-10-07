@@ -2,7 +2,7 @@
 import { mkPlayer } from './state.js';
 import { isShuffle } from './deck-bottom.js';
 import { applyMove } from './moves.js';
-import { applyText } from './effects.js';
+import { applyText, clearMods, applyAuras } from './effects.js';
 import { checkAssertions } from './assertions.js';
 
 /**
@@ -38,13 +38,17 @@ export function buildSnapshots(parsed, opts) {
     applyText(state, st, dbg, doubts);
     const shuf = isShuffle(st);
     for (const mv of st.moves) applyMove(state, mv, dbg, st, doubts, shuf);
+    applyAuras(state);
     if (dbg) checkAssertions(state, st, dbg);
     // lastOnly: solo lo stato finale (basta per l'esito, evita una copia per step)
     if (!opts.lastOnly || st === lastStep)
       snapshots.push(
         typeof structuredClone === 'function' ? structuredClone(state) : JSON.parse(JSON.stringify(state)),
       );
-    if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) state.combat = null;
+    if (st.kind === 'hit' || st.kind === 'fail' || (st.kind === 'destroyed' && state.combat)) {
+      state.combat = null;
+      clearMods(state, 'combat');
+    }
   }
   return { snapshots, mismatches: dbg || [], doubts: doubts || [] };
 }
