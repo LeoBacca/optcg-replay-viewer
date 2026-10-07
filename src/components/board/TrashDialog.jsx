@@ -4,8 +4,10 @@ import { useStore, set } from '../../store.js';
 import { nick, cls } from '../../lib/format.js';
 import { logName } from '../../lib/cards.js';
 import { useCardImage } from '../useCardImage.js';
+import { useT } from '../../i18n/useT.js';
 
 export function TrashDialog() {
+  const t = useT();
   const state = useStore((s) => s.snaps[s.cur]);
   const trashOf = useStore((s) => s.trashOf);
   const ref = useRef(null);
@@ -41,7 +43,7 @@ export function TrashDialog() {
       </div>
       <p style={{ textAlign: 'right', margin: '10px 0 0' }}>
         <button id="dlg-close" onClick={() => set({ trashOf: 0 })}>
-          Chiudi
+          {t('Chiudi')}
         </button>
       </p>
     </dialog>

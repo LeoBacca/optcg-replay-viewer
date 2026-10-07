@@ -3,8 +3,19 @@ import { Fragment } from 'react';
 import * as Core from '../../core/index.js';
 import { leaderName, recordText } from '../../game/library.js';
 import { Leader, LeaderImage } from './Leader.jsx';
+import { useT } from '../../i18n/useT.js';
 
-const COLUMNS = ['Contro', 'Partite', 'V', 'S', 'Incerte', 'Winrate', 'Da primo', 'Da secondo'];
+// le intestazioni della tabella (una funzione, così seguono la lingua scelta)
+const columns = (t) => [
+  t('Contro'),
+  t('Partite'),
+  t('V'),
+  t('S'),
+  t('Incerte'),
+  'Winrate',
+  t('Da primo'),
+  t('Da secondo'),
+];
 
 // "3–1 (75%)", oppure un puntino se non ci sono partite concluse
 function split(bucket) {
@@ -17,7 +28,8 @@ function split(bucket) {
  * @param {Function} onPick  chiamata con (id del mio leader, id del leader avversario) quando si clicca un matchup
  */
 export function StatsView({ stats, onPick }) {
-  if (!stats.leaders.length) return <p className="empty">Nessuna partita analizzata con questi filtri</p>;
+  const t = useT();
+  if (!stats.leaders.length) return <p className="empty">{t('Nessuna partita analizzata con questi filtri')}</p>;
 
   return stats.leaders.map((mine) => {
     const winrate = Core.winrate(mine);
@@ -28,8 +40,8 @@ export function StatsView({ stats, onPick }) {
           <LeaderImage id={mine.id} />
           <b>{leaderName(mine)}</b>
           <small>
-            {mine.games +
-              (mine.games === 1 ? ' partita · ' : ' partite · ') +
+            {t(mine.games === 1 ? '{n} partita' : '{n} partite', { n: mine.games }) +
+              ' · ' +
               recordText(mine) +
               (winrate != null ? ' · winrate ' + winrate + '%' : '')}
           </small>
@@ -37,7 +49,7 @@ export function StatsView({ stats, onPick }) {
         <table>
           <tbody>
             <tr>
-              {COLUMNS.map((title) => (
+              {columns(t).map((title) => (
                 <th key={title}>{title}</th>
               ))}
             </tr>
@@ -48,7 +60,7 @@ export function StatsView({ stats, onPick }) {
                 <tr
                   key={matchup.id}
                   className="mu"
-                  title="Mostra queste partite"
+                  title={t('Mostra queste partite')}
                   onClick={() => onPick(mine.id, unknown ? '' : matchup.id)}
                 >
                   <td>

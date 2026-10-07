@@ -197,6 +197,30 @@ const SOUNDS = {
   GL: 'aglio',
 };
 const NAMES = { K: 'C dura', G: 'G dura', CI: 'C dolce', GI: 'G dolce' };
+// In inglese le sigle restano le stesse (sono quelle salvate nelle associazioni), cambiano le parole che fanno sentire il suono
+// e i nomi: "CI" a un inglese non dice niente, "CH come in cheese" sì.
+const SOUNDS_EN = {
+  P: 'pan',
+  B: 'boat',
+  T: 'table',
+  D: 'dice',
+  F: 'fire, phone',
+  V: 'van',
+  K: 'cat, key',
+  G: 'goat, ghost',
+  CI: 'cheese, chair',
+  GI: 'jam, giant',
+  S: 'sun, city',
+  Z: 'zoo, rose',
+  SC: 'ship, shoe',
+  M: 'moon',
+  N: 'nose',
+  GN: 'onion, canyon',
+  L: 'lion',
+  R: 'rabbit',
+  GL: 'million',
+};
+const NAMES_EN = { K: 'hard C', G: 'hard G', CI: 'CH', GI: 'J', SC: 'SH', GN: 'NY', GL: 'LY' };
 const FAMILIES = [
   ['P', 'B'],
   ['T', 'D'],
@@ -221,10 +245,18 @@ const ALIAS = {
   SH: 'SC',
   GLI: 'GL',
 };
-// "C dura · come in casa, chiave"
-const soundName = (k) => (NAMES[k] ? NAMES[k] + ' · ' : '') + 'come in ' + SOUNDS[k];
+// In inglese "ch" è il suono di cheese, non la C dura: chi scrive in inglese (o il suo LLM) va letto all'inglese.
+const ALIAS_EN = Object.assign({}, ALIAS, { CH: 'CI', TCH: 'CI', NY: 'GN', LY: 'GL' });
+// lang: 'it' (predefinita, quella dei test) o 'en'
+const wordsOf = (lang) => (lang === 'en' ? SOUNDS_EN : SOUNDS);
+const namesOf = (lang) => (lang === 'en' ? NAMES_EN : NAMES);
+// "C dura · come in casa, chiave" / "hard C · as in cat, key"
+const soundName = (k, lang) =>
+  (namesOf(lang)[k] ? namesOf(lang)[k] + ' · ' : '') + (lang === 'en' ? 'as in ' : 'come in ') + wordsOf(lang)[k];
+// I due pezzi di soundName senza "come in", per i pulsanti della tavolozza: ['C dura', 'casa, chiave'] o ['pane']
+const soundBits = (k, lang) => [namesOf(lang)[k], wordsOf(lang)[k]].filter(Boolean);
 // Un testo scritto a mano o da un LLM ("p, b", "C dolce", "ch") → le sigle dei suoni, al massimo due: ['P', 'B'], ['CI'], ['K']
-const sounds = (text) =>
+const sounds = (text, lang) =>
   [
     ...new Set(
       String(text || '')
@@ -233,7 +265,7 @@ const sounds = (text) =>
         .replace(/\bC\s+DURA\b/g, 'K')
         .replace(/\bG\s+DURA\b/g, 'G')
         .split(/[^A-Z]+/)
-        .map((t) => ALIAS[t] || t)
+        .map((t) => (lang === 'en' ? ALIAS_EN : ALIAS)[t] || t)
         .filter((t) => t in SOUNDS),
     ),
   ].slice(0, 2);
@@ -265,7 +297,8 @@ const tableOf = (deck) =>
     .map((id) => id + ' | ' + soundOf(deck, id) + ' | ' + ((deck.assoc[id] || {}).why || ''))
     .join('\n');
 // Legge quel formato da un testo incollato: tiene le righe che cominciano con una carta del mazzo, il resto (intestazioni, ```, chiacchiere) lo salta.
-function parseTable(text, deck) {
+// Le intestazioni non si guardano, quindi va bene sia "CODICE | SUONI | MOTIVO" sia "CODE | SOUNDS | REASON". lang serve solo a leggere i suoni scritti a parole.
+function parseTable(text, deck, lang) {
   const rows = {};
   let skipped = 0;
   for (const line of String(text || '').split(/\r?\n/)) {
@@ -275,7 +308,7 @@ function parseTable(text, deck) {
       .map((c) => c.trim());
     if (cells.length < 2) continue;
     const id = cells[0].replace(/[`*]/g, '').trim().toUpperCase(),
-      s = sounds(cells[1].replace(/[`*]/g, ''));
+      s = sounds(cells[1].replace(/[`*]/g, ''), lang);
     if (!(id in deck.cards) || !s.length) {
       if (/^[A-Z0-9]+-\d+/.test(id)) skipped++;
       continue;
@@ -285,26 +318,63 @@ function parseTable(text, deck) {
   return { rows, skipped };
 }
 // Il prompt da copiare nel proprio LLM. nameOf e metaOf arrivano dalla pagina (nomi e numeri delle carte).
-function promptFor(deck, nameOf, metaOf) {
+// lang 'en' lo scrive in inglese e chiede parole inglesi: sigle e formato della tabella restano gli stessi, così parseTable legge tutte e due.
+function promptFor(deck, nameOf, metaOf, lang) {
+  const en = lang === 'en';
   const ids = Object.keys(deck.cards).sort();
   const line = (id) => {
     const m = (metaOf && metaOf(id)) || {},
       bits = [];
-    if (m.cost != null) bits.push('costo ' + m.cost);
-    if (m.power) bits.push(m.power + ' di potenza');
+    if (m.cost != null) bits.push((en ? 'cost ' : 'costo ') + m.cost);
+    if (m.power) bits.push(en ? 'power ' + m.power : m.power + ' di potenza');
     if (m.counter) bits.push('counter ' + m.counter);
+    const copies = deck.cards[id] === 1 ? (en ? ' copy' : ' copia') : en ? ' copies' : ' copie';
     return (
-      '- ' +
-      id +
-      ' · ' +
-      nameOf(id) +
-      (bits.length ? ' · ' + bits.join(', ') : '') +
-      ' · ' +
-      deck.cards[id] +
-      (deck.cards[id] === 1 ? ' copia' : ' copie')
+      '- ' + id + ' · ' + nameOf(id) + (bits.length ? ' · ' + bits.join(', ') : '') + ' · ' + deck.cards[id] + copies
     );
   };
   const done = assigned(deck);
+  const families = FAMILIES.map(
+    (f) => '   ' + f.map((k) => k + ' = ' + soundName(k, lang).replace(' · ', ', ')).join('  ·  '),
+  );
+  const cards = ids.map(line);
+  const already = done.map((id) => id + ' | ' + soundOf(deck, id) + ' | ' + (deck.assoc[id].why || ''));
+  const nSounds = Object.keys(SOUNDS).length;
+  if (en)
+    return [
+      'Help me build a PHONETIC CONVERSION for my One Piece Card Game deck (leader: ' + deck.name + ').',
+      '',
+      'WHAT IT IS FOR',
+      'In a game, when I search by looking at the top cards of my deck, the ones I don\'t take go to the bottom of the deck in a precise order (4 or 5 cards at a time, several times per game). I want to remember that order. The method: every unique card in the deck becomes a consonant sound; a row of cards becomes a row of consonants, which I fill with vowels to make concrete English words. Examples: P L K N → "PeLiCaN"; T B L K V → "TaBLe CaVe" (five cards in two words).',
+      '',
+      'RULES',
+      '1. Each unique card gets 1 or 2 consonant SOUNDS (sounds, not letters), chosen only from this list. Each sound has a code:',
+      ...families,
+      '   Each line is a family of sounds made almost the same way in the mouth: if a card gets 2, they must come from the same line (P B, K G, CI GI…).',
+      '2. No sound on two different cards. There are ' +
+        ids.length +
+        ' unique cards and ' +
+        nSounds +
+        ' sounds: when the pairs run out, split them (M to one card, N to another).',
+      '3. The sound counts, not the letter: "cat" starts with K, "city" with S, "cheese" with CI, "jam" and "giant" with GI, "ship" is SC. A double letter counts once, silent letters don\'t count ("knife" is N F). Vowels are free, and so are W, H and Y.',
+      '4. Every association needs a REASON that is easy to remember: the initial of the name or nickname, something you can see in the artwork, what the card does. The sillier and more visual, the better.',
+      '5. The sounds that make English words most easily (T, D, N, M, R, L, S, K, P, B) and whole pairs go to the cards I run more copies of, because those are the ones I will see most often.',
+      '',
+      'THE CARDS IN THE DECK',
+      ...cards,
+      ...(done.length ? ['', 'ASSOCIATIONS I ALREADY HAVE (keep them, unless they cause problems)', ...already] : []),
+      '',
+      'HOW TO PROCEED',
+      '1. If you don\'t know a card well, look it up by its code. Then ask me what I call my cards: nicknames, and above all how I tell apart cards with the same character (for example "the one that searches" and "the one that blocks").',
+      '2. Propose a complete assignment, with the reason for each one, and check that no sound is repeated.',
+      "3. Let's discuss it: I'll change whatever doesn't click until every association feels natural.",
+      "4. When I tell you it's good, finish with the final table inside a code block, one line per card and nothing else, in exactly this format:",
+      '',
+      'CODE | SOUNDS | REASON',
+      'Example: ' + ids[0] + ' | P B | reason in a few words',
+      '',
+      'In the SOUNDS column only the codes from the list, separated by a space (P B, K, CI GI), with no brackets or comments. I paste the table as is into my program.',
+    ].join('\n');
   return [
     'Aiutami a costruire una CONVERSIONE FONETICA per il mio mazzo di One Piece Card Game (leader: ' + deck.name + ').',
     '',
@@ -313,28 +383,20 @@ function promptFor(deck, nameOf, metaOf) {
     '',
     'REGOLE',
     '1. A ogni carta unica vanno 1 o 2 SUONI consonantici (suoni, non lettere), scelti solo da questo elenco. Ogni suono ha una sigla:',
-    ...FAMILIES.map(
-      (f) => '   ' + f.map((k) => k + ' = ' + (NAMES[k] ? NAMES[k] + ', ' : '') + 'come in ' + SOUNDS[k]).join('  ·  '),
-    ),
+    ...families,
     '   Ogni riga è una famiglia di suoni simili in bocca: se a una carta ne dai 2, devono stare sulla stessa riga (P B, K G, CI GI…).',
     '2. Nessun suono su due carte diverse. Le carte uniche sono ' +
       ids.length +
       ' e i suoni ' +
-      Object.keys(SOUNDS).length +
+      nSounds +
       ": quando le coppie non bastano, si spezzano (M a una carta, N a un'altra).",
     '3. Vale il suono, non la lettera: "chiave" comincia con K, "cena" con CI, "sci" è SC, "gnomo" è GN. La doppia conta una volta sola; le vocali sono libere.',
     "4. Ogni associazione deve avere un MOTIVO facile da ricordare: l'iniziale del nome o del soprannome, qualcosa che si vede nell'illustrazione, quello che la carta fa. Più è sciocco e visivo, meglio è.",
     '5. I suoni più comodi per fare parole in italiano (T, L, R, N, K, P, S, M) e le coppie intere vanno alle carte che ho in più copie, perché sono quelle che vedrò più spesso.',
     '',
     'LE CARTE DEL MAZZO',
-    ...ids.map(line),
-    ...(done.length
-      ? [
-          '',
-          'ASSOCIAZIONI CHE HO GIÀ (tienile, a meno che non creino problemi)',
-          ...done.map((id) => id + ' | ' + soundOf(deck, id) + ' | ' + (deck.assoc[id].why || '')),
-        ]
-      : []),
+    ...cards,
+    ...(done.length ? ['', 'ASSOCIAZIONI CHE HO GIÀ (tienile, a meno che non creino problemi)', ...already] : []),
     '',
     'COME PROCEDERE',
     '1. Se non conosci bene una carta, cercala dal codice. Poi chiedimi come chiamo io le carte: soprannomi, e soprattutto come distinguo le carte che hanno lo stesso personaggio (per esempio "quella che cerca" e "quella che blocca").',
@@ -422,6 +484,7 @@ export {
   SOUNDS,
   FAMILIES,
   soundName,
+  soundBits,
   sounds,
   soundOf,
   assigned,

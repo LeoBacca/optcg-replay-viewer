@@ -8,9 +8,11 @@ import { pause } from '../../game/playback.js';
 import { openLog } from '../../game/folder.js';
 import { labelOf, currentLogIndex } from '../../game/library.js';
 import { LeaderImage } from '../library/Leader.jsx';
-import { menuSections, setMenuOpen, KEYS, GITHUB_URL } from './sections.js';
+import { menuSections, setMenuOpen, keyList, GITHUB_URL } from './sections.js';
+import { useT } from '../../i18n/useT.js';
 
 export function Menu() {
+  const t = useT();
   const open = useStore((s) => s.menuOpen);
   const close = () => setMenuOpen(false);
 
@@ -21,16 +23,16 @@ export function Menu() {
         <header>
           <div className="logo">OP</div>
           <h2>
-            OPTCG Replay<small>Visualizzatore di replay per OPTCGSim</small>
+            OPTCG Replay<small>{t('Visualizzatore di replay per OPTCGSim')}</small>
           </h2>
-          <button id="menu-close" title="Chiudi (Esc)" onClick={close}>
+          <button id="menu-close" title={t('Chiudi (Esc)')} onClick={close}>
             ✕
           </button>
         </header>
         <MenuBody />
         <footer>
           <span>
-            <kbd>M</kbd> apre e chiude il menu
+            <kbd>M</kbd> {t('apre e chiude il menu')}
           </span>
           <a href={GITHUB_URL} target="_blank" rel="noopener">
             GitHub ↗
@@ -120,15 +122,16 @@ export function MenuRow({ item }) {
 
 // La scheda della partita aperta: i due giocatori con i loro leader, qualche numero e l'esito.
 function MatchCard() {
+  const t = useT();
   const { parsed, snaps, cur } = get();
-  if (!parsed) return <div className="match empty">Nessuna partita aperta</div>;
+  if (!parsed) return <div className="match empty">{t('Nessuna partita aperta')}</div>;
 
   const last = snaps[snaps.length - 1];
   const result = last && last.result;
   const numbers = [
-    ['turni', parsed.turns.length],
-    ['mosse', snaps.length],
-    ['posizione', cur + 1],
+    [t('turni'), parsed.turns.length],
+    [t('mosse'), snaps.length],
+    [t('posizione'), cur + 1],
   ];
   const player = (p) => {
     const P = parsed.players[p];
@@ -136,7 +139,7 @@ function MatchCard() {
     return (
       <div className={p === 1 ? 'you' : 'opp'}>
         {leader && <LeaderImage id={leader.id} />}
-        <b>{nick(P.name) || (p === 1 ? 'Tu' : 'Avversario')}</b>
+        <b>{nick(P.name) || (p === 1 ? t('Tu') : t('Avversario'))}</b>
         <small>{leader ? (metaOf(leader.id) || {}).name || logName(leader.id) : ''}</small>
       </div>
     );
@@ -168,12 +171,13 @@ function MatchCard() {
 
 // Gli ultimi sei log della cartella, per passare in fretta da una partita all'altra.
 function RecentLogs() {
+  const t = useT();
   const { logFiles } = get();
   if (!logFiles.length) return null;
   const openIndex = currentLogIndex();
   return (
     <>
-      <div className="sub">Log recenti nella cartella</div>
+      <div className="sub">{t('Log recenti nella cartella')}</div>
       <ul className="recent">
         {logFiles.slice(0, 6).map((logFile, i) => (
           <li
@@ -196,9 +200,10 @@ function RecentLogs() {
 
 /** L'elenco dei tasti. Usato anche nel Tutorial (menu di benvenuto). */
 export function KeyList() {
+  useT();
   return (
     <ul className="keys">
-      {KEYS.map(([key, what]) => (
+      {keyList().map(([key, what]) => (
         <li key={key}>
           <kbd>{key}</kbd>
           {what}

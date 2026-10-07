@@ -61,8 +61,8 @@ app.on('window-all-closed', () => app.quit());
 ipcMain.handle('settings:get', () => loadSettings());
 ipcMain.handle('logs:list', () => listLogs(loadSettings().logDir));
 ipcMain.handle('logs:read', (e, p) => fs.readFileSync(p, 'utf8'));
-ipcMain.handle('logs:pickDir', async () => {
-  const r = await dialog.showOpenDialog(win, { title: 'Scegli la cartella dei combat log di OPTCGSim', properties: ['openDirectory'] });
+ipcMain.handle('logs:pickDir', async (e, title) => {
+  const r = await dialog.showOpenDialog(win, { title: title || 'Choose the OPTCGSim combat log folder', properties: ['openDirectory'] });
   if (r.canceled || !r.filePaths[0]) return null;
   const s = loadSettings(); s.logDir = r.filePaths[0]; saveSettings(s); watchDir(s.logDir);
   return s.logDir;

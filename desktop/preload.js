@@ -6,7 +6,8 @@ contextBridge.exposeInMainWorld('desktop', {
   getSettings: () => ipcRenderer.invoke('settings:get'),
   listLogs: () => ipcRenderer.invoke('logs:list'),
   readLog: (p) => ipcRenderer.invoke('logs:read', p),
-  pickDir: () => ipcRenderer.invoke('logs:pickDir'),
+  // il titolo della finestra lo passa la pagina, nella lingua scelta
+  pickDir: (title) => ipcRenderer.invoke('logs:pickDir', title),
   openDir: () => ipcRenderer.invoke('logs:openDir'),
   onLogsChanged: (cb) => ipcRenderer.on('logs-changed', (e, list) => cb(list)),
 });

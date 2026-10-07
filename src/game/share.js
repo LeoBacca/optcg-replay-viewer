@@ -9,6 +9,7 @@ import { toast, copyText } from '../lib/toast.js';
 import { readText, shareOf, setShare, keyOf } from './library.js';
 import { openNotes } from './notes.js';
 import { setNotesVisible } from './view.js';
+import { t } from '../i18n/index.js';
 
 // indirizzo predefinito del server dei replay
 const SHARE_SERVER = 'https://178-104-213-148.sslip.io';
@@ -57,17 +58,17 @@ export const closeShareSettings = () => set({ shareDlgOpen: false });
 export async function saveShareSettings(baseInput, tokenInput) {
   const base = trimSlashes(baseInput.trim());
   const token = tokenInput.trim();
-  if (!/^https?:\/\//.test(base)) return "L'indirizzo deve iniziare con http:// o https://";
+  if (!/^https?:\/\//.test(base)) return t("L'indirizzo deve iniziare con http:// o https://");
   let response;
   try {
     response = await fetch(base + '/api/me', { headers: { Authorization: 'Bearer ' + token } });
   } catch (e) {
-    return 'Server non raggiungibile';
+    return t('Server non raggiungibile');
   }
   if (!response.ok) {
     return response.status === 401
-      ? 'Token non valido'
-      : 'Il server ha risposto con un errore (' + response.status + ')';
+      ? t('Token non valido')
+      : t('Il server ha risposto con un errore ({status})', { status: response.status });
   }
   const who = await response.json().catch(() => ({}));
   const shareCfg = { base, token };
@@ -77,7 +78,7 @@ export async function saveShareSettings(baseInput, tokenInput) {
   } catch (e) {
     // vale solo per questa visita
   }
-  toast('Token valido: ciao ' + (who.name || '') + '. Ora puoi generare i link.');
+  toast(t('Token valido: ciao {name}. Ora puoi generare i link.', { name: who.name || '' }));
   return null;
 }
 
@@ -96,17 +97,19 @@ async function createLink(text) {
       body: Core.redact(text),
     });
   } catch (e) {
-    toast('Server non raggiungibile: ' + base);
+    toast(t('Server non raggiungibile: {base}', { base }));
     return null;
   }
   const body = await response.json().catch(() => ({}));
   if (response.status === 401) {
-    toast('Il token non è più valido');
+    toast(t('Il token non è più valido'));
     openShareSettings();
     return null;
   }
   if (!response.ok) {
-    toast(body.error || 'Il server ha risposto con un errore (' + response.status + ')');
+    toast(
+      body.error ? t(body.error) : t('Il server ha risposto con un errore ({status})', { status: response.status }),
+    );
     return null;
   }
   return { id: body.id, url: body.url, base };
@@ -114,7 +117,10 @@ async function createLink(text) {
 
 async function copyLink(share, justCreated) {
   const copied = await copyText(share.url);
-  toast((justCreated ? 'Link creato' : 'Link') + (copied ? ' e copiato negli appunti: ' : ': ') + share.url);
+  const vars = { url: share.url };
+  if (justCreated)
+    toast(copied ? t('Link creato e copiato negli appunti: {url}', vars) : t('Link creato: {url}', vars));
+  else toast(copied ? t('Link copiato negli appunti: {url}', vars) : t('Link: {url}', vars));
 }
 
 /** Pulsante "Genera link" della partita aperta: crea il link se manca, lo copia e apre le note. */
@@ -142,7 +148,7 @@ export async function shareLog(logFile) {
   try {
     text = await readText(logFile);
   } catch (e) {
-    toast('Non riesco a leggere ' + logFile.name);
+    toast(t('Non riesco a leggere {name}', { name: logFile.name }));
     return;
   }
   const created = await createLink(text);

@@ -13,6 +13,7 @@ import { kvGet, kvSet } from '../lib/storage.js';
 import { desktop, isDesktop } from '../lib/platform.js';
 import { loadText, loadFile } from './loader.js';
 import { syncLibrary } from './library.js';
+import { t } from '../i18n/index.js';
 
 const LOG_FILE = /\.(log|txt)$/i;
 const newestFirst = (a, b) => b.mtime - a.mtime;
@@ -49,7 +50,7 @@ export async function openLog(i) {
   const logFile = get().logFiles[i];
   if (!logFile) return;
   if (logFile.path) {
-    set({ progress: 'Leggo ' + logFile.name + '…' });
+    set({ progress: t('Leggo {name}…', { name: logFile.name }) });
     await loadText(await desktop.readLog(logFile.path), logFile.name, logFile);
   } else {
     await loadFile(logFile.file || (await logFile.handle.getFile()), logFile);
@@ -63,7 +64,7 @@ export async function openLog(i) {
 export function takeFolderFiles(files) {
   const list = [...files].filter((f) => LOG_FILE.test(f.name) && (f.webkitRelativePath || '').split('/').length <= 2);
   if (!list.length) {
-    alert('Nessun file .log in questa cartella');
+    alert(t('Nessun file .log in questa cartella'));
     return;
   }
   dirHandle = null;
@@ -76,7 +77,7 @@ export function takeFolderFiles(files) {
 /** L'utente vuole scegliere (o cambiare) la cartella dei log. */
 export async function pickFolder() {
   if (isDesktop) {
-    const dir = await desktop.pickDir();
+    const dir = await desktop.pickDir(t('Scegli la cartella dei combat log di OPTCGSim'));
     if (dir) await listLogs();
     return;
   }

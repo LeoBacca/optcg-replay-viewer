@@ -7,14 +7,16 @@ import { cls } from '../lib/format.js';
 import { isVertical } from '../lib/platform.js';
 import { toggleInk, closePreview } from '../game/view.js';
 import { useCardImage } from './useCardImage.js';
+import { useT } from '../i18n/useT.js';
 
 const COLORS = ['#e5322d', '#2b7bff', '#f5d000', '#2ecc71', '#ffffff', '#111111'];
-// [spessore del tratto, diametro del pallino sul pulsante, nome]
+// [spessore del tratto, diametro del pallino sul pulsante, nome (in italiano: lo traduce t() al momento di mostrarlo)]
 const SIZES = [
   [3, 6, 'Fine'],
   [6, 11, 'Medio'],
   [12, 18, 'Grosso'],
 ];
+const sizeName = (t, name) => (name === 'Fine' ? t('Fine') : name === 'Medio' ? t('Medio') : t('Grosso'));
 
 export function RightColumn() {
   return (
@@ -27,6 +29,7 @@ export function RightColumn() {
 
 // Il pennarello si usa solo in pausa; il disegno vero e proprio lo fa Ink.jsx, qui ci sono solo i comandi.
 function Marker() {
+  const t = useT();
   const inkOn = useStore((s) => s.inkOn);
   const playing = useStore((s) => s.playing);
   const tool = useStore((s) => s.inkTool);
@@ -46,7 +49,7 @@ function Marker() {
     <div id="marker">
       <button
         id="btn-marker"
-        title="Pennarello (D) — solo in pausa"
+        title={t('Pennarello (D) — solo in pausa')}
         className={cls(inkOn && 'on', playing && 'disabled')}
         onClick={toggleInk}
       >
@@ -77,7 +80,7 @@ function Marker() {
             <button
               key={size}
               className={cls('sz', tool.size === size && 'sel')}
-              title={name}
+              title={sizeName(t, name)}
               onClick={() => setTool({ size })}
             >
               <i style={{ width: dot + 'px', height: dot + 'px' }} />
@@ -86,22 +89,22 @@ function Marker() {
         </div>
         <button
           id="mk-eraser"
-          title="Gomma"
+          title={t('Gomma')}
           className={tool.eraser ? 'sel' : ''}
           onClick={() => setTool({ eraser: !tool.eraser })}
         >
-          🧽 Gomma
+          🧽 {t('Gomma')}
         </button>
-        <button id="mk-clear" title="Cancella tutto" onClick={() => set({ inkClear: get().inkClear + 1 })}>
-          🗑 Cancella
+        <button id="mk-clear" title={t('Cancella tutto')} onClick={() => set({ inkClear: get().inkClear + 1 })}>
+          🗑 {t('Cancella')}
         </button>
-        <button id="mk-close" title="Chiudi pennarello" onClick={() => set({ inkOn: false })}>
-          ✕ Chiudi
+        <button id="mk-close" title={t('Chiudi pennarello')} onClick={() => set({ inkOn: false })}>
+          ✕ {t('Chiudi')}
         </button>
-        <div className="hint">Disegna sul tavolo. Al Play gli scarabocchi spariscono.</div>
+        <div className="hint">{t('Disegna sul tavolo. Al Play gli scarabocchi spariscono.')}</div>
       </div>
       <div id="marker-hint" className={hint ? 'show' : ''}>
-        Metti in pausa per disegnare
+        {t('Metti in pausa per disegnare')}
       </div>
     </div>
   );
@@ -109,12 +112,13 @@ function Marker() {
 
 // L'anteprima grande: compare passando il mouse su una carta (o toccandola, nel layout verticale).
 function Preview() {
+  const t = useT();
   const preview = useStore((s) => s.preview);
   const meta = preview.id ? metaOf(preview.id) : null;
   const info = !preview.id
     ? ''
     : (meta ? meta.name : logName(preview.id)) +
-      (meta && meta.cost ? ' · costo ' + meta.cost : '') +
+      (meta && meta.cost ? ' · ' + t('costo {n}', { n: meta.cost }) : '') +
       (meta && meta.power ? ' · ' + meta.power : '') +
       (meta && meta.counter ? ' · counter ' + meta.counter : '') +
       ' · ' +

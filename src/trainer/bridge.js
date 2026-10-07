@@ -3,7 +3,8 @@
 // Il trainer è scritto a mano sul DOM (screens.js) e viene caricato solo quando serve. Questo file:
 //   - gli passa i pezzi della pagina che usa (immagini, raccolta, apertura di un log…);
 //   - dà alla pagina un modo per comandarlo (getTrainer) e per sapere se è acceso (trainerLab);
-//   - lo avvisa a ogni cambio di step, perché aggiorni il pannello "Fondo del mazzo".
+//   - lo avvisa a ogni cambio di step, perché aggiorni il pannello "Fondo del mazzo";
+//   - lo avvisa quando cambia la lingua, perché riscriva i suoi testi (relabel).
 // Nel sito il trainer non c'è: getTrainer() restituisce null e trainerLab() false.
 import { useStore, get, set } from '../store.js';
 import { setImg, metaOf } from '../lib/cards.js';
@@ -57,6 +58,8 @@ export async function initTrainer() {
   const current = get().snaps[get().cur];
   if (current) trainer.onStep(current);
   useStore.subscribe((now, before) => {
+    // cambio di lingua: setSetting ha già chiamato setLanguage, quindi t() risponde già nella lingua nuova
+    if (now.settings.lang !== before.settings.lang) trainer.relabel();
     if (now.snaps === before.snaps && now.cur === before.cur) return;
     const state = now.snaps[now.cur];
     if (state) trainer.onStep(state);

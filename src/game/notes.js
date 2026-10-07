@@ -8,6 +8,7 @@ import { isVertical } from '../lib/platform.js';
 import { shareHeaders } from './share.js';
 import { setShare } from './library.js';
 import { setNotesVisible } from './view.js';
+import { t } from '../i18n/index.js';
 
 const AUTHOR_KEY = 'optcg.noteAuthor';
 
@@ -32,10 +33,10 @@ const withStep = (note) => ({ ...note, step: stepOfLine(note.line) });
 // in ordine di partita; a parità di momento, prima la più vecchia
 const sorted = (notes) => [...notes].sort((a, b) => a.step - b.step || (a.createdAt < b.createdAt ? -1 : 1));
 
-/** "T3" oppure "Inizio": il turno dello step i. */
+/** "T3" oppure "Inizio" ("Start"): il turno dello step i. */
 export function turnLabel(i) {
   const step = get().parsed.steps[i];
-  return step.turn ? 'T' + step.turn : 'Inizio';
+  return step.turn ? 'T' + step.turn : t('Inizio');
 }
 
 /**
@@ -69,7 +70,7 @@ export async function loadNotes(share) {
     const { logRef } = get();
     if (logRef) setShare(logRef, null);
     set({ share: null });
-    toast('Il link di questa partita non esiste più sul server');
+    toast(t('Il link di questa partita non esiste più sul server'));
     return;
   }
   if (!response.ok) return;
@@ -95,14 +96,14 @@ export async function addNote(author, text) {
     });
     const body = await response.json().catch(() => ({}));
     if (!response.ok) {
-      toast(body.error || 'Non riesco a salvare la nota (' + response.status + ')');
+      toast(body.error ? t(body.error) : t('Non riesco a salvare la nota ({status})', { status: response.status }));
       return false;
     }
     saveAuthor(author);
     if (ctx === get().notesCtx) set({ notes: sorted([...get().notes, withStep(body)]) });
     return true;
   } catch (e) {
-    toast('Server non raggiungibile');
+    toast(t('Server non raggiungibile'));
     return false;
   }
 }
@@ -117,13 +118,13 @@ export async function removeNote(note) {
       headers: shareHeaders(ctx.base),
     });
   } catch (e) {
-    toast('Server non raggiungibile');
+    toast(t('Server non raggiungibile'));
     return;
   }
   // 404 = qualcuno l'ha già cancellata: va tolta comunque dall'elenco
   if (!response.ok && response.status !== 404) {
     const body = await response.json().catch(() => ({}));
-    toast(body.error || 'Non riesco a eliminare la nota');
+    toast(body.error ? t(body.error) : t('Non riesco a eliminare la nota'));
     return;
   }
   if (ctx !== get().notesCtx) return;

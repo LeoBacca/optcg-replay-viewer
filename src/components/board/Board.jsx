@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useStore } from '../../store.js';
 import { howText, cls } from '../../lib/format.js';
+import { useT } from '../../i18n/useT.js';
 import { loadFile } from '../../game/loader.js';
 import { takeFolderFiles } from '../../game/folder.js';
 import { EventLog } from '../EventLog.jsx';
@@ -56,6 +57,8 @@ export function Board() {
 
 // La scritta YOU WIN / YOU LOSE a fine partita.
 function Result({ result }) {
+  // la riga sotto la scritta (come è finita) è nella lingua scelta
+  useT();
   // l'animazione d'ingresso parte solo la prima volta che la scritta compare, non a ogni step successivo
   const wasShown = useRef(false);
   const style = result && wasShown.current ? { animation: 'none' } : undefined;
