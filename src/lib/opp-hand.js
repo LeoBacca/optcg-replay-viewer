@@ -1,6 +1,13 @@
 // I tre modi di mostrare la mano dell'avversario, e la scelta salvata nel browser.
+import { t } from '../i18n/index.js';
+
 export const OPP_HAND_MODES = ['all', 'known', 'hidden'];
-export const OPP_HAND_LABELS = { all: 'Mano avv: tutte', known: 'Mano avv: note', hidden: 'Mano avv: coperte' };
+const LABELS = {
+  all: () => t('Mano avv: tutte'),
+  known: () => t('Mano avv: note'),
+  hidden: () => t('Mano avv: coperte'),
+};
+export const oppHandLabel = (mode) => LABELS[mode]();
 
 const KEY = 'optcg.oppHand';
 

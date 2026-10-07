@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useStore, get } from '../store.js';
 import { shareBase, saveShareSettings, closeShareSettings } from '../game/share.js';
+import { useT } from '../i18n/useT.js';
 
 export function ShareDialog() {
+  const t = useT();
   const open = useStore((s) => s.shareDlgOpen);
   const ref = useRef(null);
   const [base, setBase] = useState('');
@@ -22,19 +24,20 @@ export function ShareDialog() {
   }, [open]);
 
   async function save() {
-    setStatus('Verifico…');
+    setStatus(t('Verifico…'));
     const error = await saveShareSettings(base, token);
     if (error) setStatus(error);
   }
 
   return (
     <dialog id="share-dlg" ref={ref} onClose={closeShareSettings}>
-      <h3>Condivisione dei replay</h3>
+      <h3>{t('Condivisione dei replay')}</h3>
       <p className="kbd">
-        Per creare i link serve un token personale: te lo dà chi gestisce il server. Resta salvato solo su questo
-        computer.
+        {t(
+          'Per creare i link serve un token personale: te lo dà chi gestisce il server. Resta salvato solo su questo computer.',
+        )}
       </p>
-      <label htmlFor="share-base">Indirizzo del server</label>
+      <label htmlFor="share-base">{t('Indirizzo del server')}</label>
       <input
         type="text"
         id="share-base"
@@ -55,10 +58,10 @@ export function ShareDialog() {
       <p id="share-status">{status}</p>
       <p style={{ textAlign: 'right', margin: '10px 0 0' }}>
         <button id="share-cancel" onClick={closeShareSettings}>
-          Annulla
+          {t('Annulla')}
         </button>{' '}
         <button id="share-save" className="primary" onClick={save}>
-          Verifica e salva
+          {t('Verifica e salva')}
         </button>
       </p>
     </dialog>

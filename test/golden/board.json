@@ -160,7 +160,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "1 / 536",
-   "mossa": "Tu: Leader is Dracule Mihawk",
+   "mossa": "You: Leader is Dracule Mihawk",
    "turno": ""
   }
  },
@@ -325,7 +325,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "4 / 536",
-   "mossa": "Tu: mescola il deck",
+   "mossa": "You: shuffles the deck",
    "turno": ""
   }
  },
@@ -545,7 +545,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "9 / 536",
-   "mossa": "Tu: pesca Kouzuki Oden",
+   "mossa": "You: draws Kouzuki Oden",
    "turno": ""
   }
  },
@@ -820,7 +820,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "22 / 536",
-   "mossa": "Tu: pesca Kin'emon",
+   "mossa": "You: draws Kin'emon",
    "turno": ""
   }
  },
@@ -876,7 +876,7 @@
     "classi": "card isknown noimg",
     "posto": "310,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -1166,7 +1166,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 39 · DON 1/2● turno 2"
+    "testo": "LeoIlPirataDeck 39 · DON 1/2● turn 2"
    },
    {
     "classi": "a-resolve area",
@@ -1231,7 +1231,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "35 / 536",
-   "mossa": "T2 · Tu: Deploy Coffin Boat",
+   "mossa": "T2 · You: Deploy Coffin Boat",
    "turno": "1"
   }
  },
@@ -1585,7 +1585,7 @@
     "classi": "a-name res",
     "posto": "737,147,237,125",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 36 · DON 0/3● turno 3"
+    "testo": "TheshyopopDeck 36 · DON 0/3● turn 3"
    },
    {
     "classi": "a-resolve area",
@@ -1710,7 +1710,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "56 / 536",
-   "mossa": "T3 · Avv: You Can Be My Samurai!!!: Rest Kin'emon",
+   "mossa": "T3 · Opp: You Can Be My Samurai!!!: Rest Kin'emon",
    "turno": "2"
   }
  },
@@ -2166,7 +2166,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 33 · DON 2/4● turno 4"
+    "testo": "LeoIlPirataDeck 33 · DON 2/4● turn 4"
    },
    {
     "classi": "a-resolve area",
@@ -2235,7 +2235,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "72 / 536",
-   "mossa": "T4 · Tu: pesca Billion-fold World Trichiliocosm",
+   "mossa": "T4 · You: draws Billion-fold World Trichiliocosm",
    "turno": "3"
   }
  },
@@ -2633,7 +2633,7 @@
     "classi": "a-name",
     "posto": "737,147,237,125",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 32 · DON 1/5● turno 5"
+    "testo": "TheshyopopDeck 32 · DON 1/5● turn 5"
    },
    {
     "classi": "a-resolve area",
@@ -2762,7 +2762,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "90 / 536",
-   "mossa": "T5 · Avv: Dracule Mihawk: Activate 1 Don",
+   "mossa": "T5 · Opp: Dracule Mihawk: Activate 1 Don",
    "turno": "4"
   }
  },
@@ -2961,7 +2961,7 @@
     "classi": "card isknown noimg",
     "posto": "309,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -3218,7 +3218,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 32 · DON 0/6● turno 6"
+    "testo": "LeoIlPirataDeck 32 · DON 0/6● turn 6"
    },
    {
     "classi": "a-resolve area",
@@ -3289,7 +3289,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "108 / 536",
-   "mossa": "T6 · Tu: Trafalgar Law: Deploy Yasopp",
+   "mossa": "T6 · You: Trafalgar Law: Deploy Yasopp",
    "turno": "5"
   }
  },
@@ -3400,7 +3400,7 @@
     "classi": "card isknown noimg",
     "posto": "309,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Billion-fold World Trichiliocosm"
@@ -3488,7 +3488,7 @@
     "classi": "card isknown noimg",
     "posto": "245,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -3720,7 +3720,7 @@
     "classi": "a-name",
     "posto": "737,147,237,125",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 29 · DON 3/7● turno 7"
+    "testo": "TheshyopopDeck 29 · DON 3/7● turn 7"
    },
    {
     "classi": "a-resolve area",
@@ -3851,7 +3851,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "143 / 536",
-   "mossa": "T7 · Avv: Dracule Mihawk: Activate 1 Don",
+   "mossa": "T7 · Opp: Dracule Mihawk: Activate 1 Don",
    "turno": "6"
   }
  },
@@ -3962,7 +3962,7 @@
     "classi": "card isknown noimg",
     "posto": "309,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Billion-fold World Trichiliocosm"
@@ -4017,7 +4017,7 @@
     "classi": "card isknown noimg",
     "posto": "164,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -4061,7 +4061,7 @@
     "classi": "card isknown noimg",
     "posto": "309,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -4362,7 +4362,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 26 · DON 2/7● turno 8"
+    "testo": "LeoIlPirataDeck 26 · DON 2/7● turn 8"
    },
    {
     "classi": "a-resolve area",
@@ -4436,7 +4436,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "179 / 536",
-   "mossa": "T8 · Tu: Attach 1 Don to Yasopp (1 Total)",
+   "mossa": "T8 · You: Attach 1 Don to Yasopp (1 Total)",
    "turno": "7"
   }
  },
@@ -4503,7 +4503,7 @@
     "classi": "card isknown noimg",
     "posto": "226,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -4514,7 +4514,7 @@
     "classi": "card isknown noimg",
     "posto": "268,14,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Perona"
@@ -4580,7 +4580,7 @@
     "classi": "card isknown noimg",
     "posto": "164,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -4624,7 +4624,7 @@
     "classi": "card isknown noimg",
     "posto": "309,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -4889,7 +4889,7 @@
     "classi": "a-name",
     "posto": "737,147,237,125",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 26 · DON 2/9● turno 9"
+    "testo": "TheshyopopDeck 26 · DON 2/9● turn 9"
    },
    {
     "classi": "a-resolve area",
@@ -5023,7 +5023,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "215 / 536",
-   "mossa": "T9 · Avv: Kouzuki Oden: Yasopp can't be rested until next turn ends",
+   "mossa": "T9 · Opp: Kouzuki Oden: Yasopp can't be rested until next turn ends",
    "turno": "8"
   }
  },
@@ -5079,7 +5079,7 @@
     "classi": "card isknown noimg",
     "posto": "185,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -5090,7 +5090,7 @@
     "classi": "card isknown noimg",
     "posto": "226,14,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Perona"
@@ -5167,7 +5167,7 @@
     "classi": "card isknown noimg",
     "posto": "185,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -5200,7 +5200,7 @@
     "classi": "card isknown noimg",
     "posto": "309,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -5512,7 +5512,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 26 · DON 8/8● turno 10"
+    "testo": "LeoIlPirataDeck 26 · DON 8/8● turn 10"
    },
    {
     "classi": "a-resolve area",
@@ -5588,7 +5588,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "251 / 536",
-   "mossa": "T10 · Tu: Draw 1 Card",
+   "mossa": "T10 · You: Draw 1 Card",
    "turno": "9"
   }
  },
@@ -5644,7 +5644,7 @@
     "classi": "card isknown noimg",
     "posto": "213,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -5655,7 +5655,7 @@
     "classi": "card isknown noimg",
     "posto": "261,14,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Perona"
@@ -5721,7 +5721,7 @@
     "classi": "card isknown noimg",
     "posto": "185,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -5975,7 +5975,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 23 · DON 10/10● turno 11"
+    "testo": "TheshyopopDeck 23 · DON 10/10● turn 11"
    },
    {
     "classi": "a-resolve area",
@@ -6114,7 +6114,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "286 / 536",
-   "mossa": "T11 · Tu: Trafalgar Law Destroyed",
+   "mossa": "T11 · You: Trafalgar Law Destroyed",
    "turno": "10"
   }
  },
@@ -6159,7 +6159,7 @@
     "classi": "card isknown noimg",
     "posto": "164,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -6170,7 +6170,7 @@
     "classi": "card isknown noimg",
     "posto": "213,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Kouzuki Oden"
@@ -6236,7 +6236,7 @@
     "classi": "card isknown noimg",
     "posto": "193,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -6523,7 +6523,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 19 · DON 0/8● turno 11"
+    "testo": "TheshyopopDeck 19 · DON 0/8● turn 11"
    },
    {
     "classi": "a-resolve area",
@@ -6660,7 +6660,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "322 / 536",
-   "mossa": "T11 · Tu: Billion-fold World Trichiliocosm: Buff Yasopp 2000 for the Combat",
+   "mossa": "T11 · You: Billion-fold World Trichiliocosm: Buff Yasopp 2000 for the Combat",
    "turno": "10"
   }
  },
@@ -6705,7 +6705,7 @@
     "classi": "card isknown noimg",
     "posto": "128,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Shanks"
@@ -6716,7 +6716,7 @@
     "classi": "card isknown noimg",
     "posto": "164,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Kouzuki Oden"
@@ -6782,7 +6782,7 @@
     "classi": "card isknown noimg",
     "posto": "116,699,97,135",
     "potenza": null,
-    "nota": "tornata in mano",
+    "nota": "returned to hand",
     "don": 0,
     "bloccata": null,
     "nome": "Kin'emon"
@@ -7025,7 +7025,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 18 · DON 10/10● turno 13"
+    "testo": "TheshyopopDeck 18 · DON 10/10● turn 13"
    },
    {
     "classi": "a-resolve area",
@@ -7164,7 +7164,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "357 / 536",
-   "mossa": "T13 · Avv: pesca Demonic Aura Nine-Sword Style Asura Dead Man's Game",
+   "mossa": "T13 · Opp: draws Demonic Aura Nine-Sword Style Asura Dead Man's Game",
    "turno": "12"
   }
  },
@@ -7209,7 +7209,7 @@
     "classi": "card isknown noimg",
     "posto": "128,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Kouzuki Oden"
@@ -7576,7 +7576,7 @@
     "classi": "a-name",
     "posto": "526,571,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "LeoIlPirataDeck 21 · DON 8/10● turno 14"
+    "testo": "LeoIlPirataDeck 21 · DON 8/10● turn 14"
    },
    {
     "classi": "a-resolve area",
@@ -7654,7 +7654,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "393 / 536",
-   "mossa": "T14 · Avv: Perona Destroyed",
+   "mossa": "T14 · Opp: Perona Destroyed",
    "turno": "13"
   }
  },
@@ -7721,7 +7721,7 @@
     "classi": "card isknown noimg",
     "posto": "201,14,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Billion-fold World Trichiliocosm"
@@ -7787,7 +7787,7 @@
     "classi": "card isknown noimg",
     "posto": "261,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Billion-fold World Trichiliocosm"
@@ -8030,7 +8030,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 12 · DON 2/8● turno 15"
+    "testo": "TheshyopopDeck 12 · DON 2/8● turn 15"
    },
    {
     "classi": "a-resolve area",
@@ -8164,7 +8164,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "446 / 536",
-   "mossa": "T15 · Tu: I Never Bother to Remember the Faces of Trash: Activate Counter",
+   "mossa": "T15 · You: I Never Bother to Remember the Faces of Trash: Activate Counter",
    "turno": "14"
   }
  },
@@ -8275,7 +8275,7 @@
     "classi": "card isknown noimg",
     "posto": "164,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Billion-fold World Trichiliocosm"
@@ -8286,7 +8286,7 @@
     "classi": "card isknown noimg",
     "posto": "261,699,97,135",
     "potenza": null,
-    "nota": "rivelata",
+    "nota": "revealed",
     "don": 0,
     "bloccata": null,
     "nome": "Kawamatsu"
@@ -8474,7 +8474,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 12 · DON 10/10● turno 17"
+    "testo": "TheshyopopDeck 12 · DON 10/10● turn 17"
    },
    {
     "classi": "a-resolve area",
@@ -8610,7 +8610,7 @@
   "esito": " · ",
   "barra": {
    "posizione": "500 / 536",
-   "mossa": "T17 · Avv: Draw 1 Card",
+   "mossa": "T17 · Opp: Draw 1 Card",
    "turno": "16"
   }
  },
@@ -8898,7 +8898,7 @@
     "classi": "a-name",
     "posto": "737,147,237,129",
     "dentro": "div. | small. | div.turn",
-    "testo": "TheshyopopDeck 11 · DON 0/5● turno 17"
+    "testo": "TheshyopopDeck 11 · DON 0/5● turn 17"
    },
    {
     "classi": "a-resolve area",
@@ -9026,7 +9026,7 @@
   ],
   "carteGuardate": "",
   "freccia": "",
-  "esito": "show win · YOU WINL'avversario concede",
+  "esito": "show win · YOU WINOpponent conceded",
   "barra": {
    "posizione": "536 / 536",
    "mossa": "T17 · GameOver",

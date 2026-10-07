@@ -6,8 +6,11 @@ import { toast } from '../lib/toast.js';
 import { goTo, pause } from '../game/playback.js';
 import { setNotesVisible } from '../game/view.js';
 import { addNote, removeNote, savedAuthor, turnLabel } from '../game/notes.js';
+import { t } from '../i18n/index.js';
+import { useT } from '../i18n/useT.js';
 
 export function NotesPanel() {
+  useT();
   const ctx = useStore((s) => s.notesCtx);
   const notes = useStore((s) => s.notes);
   const visible = useStore((s) => s.notesVisible);
@@ -37,7 +40,7 @@ export function NotesPanel() {
     }
     if (!cleanAuthor) {
       authorRef.current.focus();
-      toast('Scrivi il tuo nome accanto alla nota');
+      toast(t('Scrivi il tuo nome accanto alla nota'));
       return;
     }
     setSending(true);
@@ -50,15 +53,15 @@ export function NotesPanel() {
     <section id="notes" hidden={!visible}>
       <header>
         <h1>
-          Note <span id="notes-n">{ctx && notes.length ? '(' + notes.length + ')' : ''}</span>
+          {t('Note')} <span id="notes-n">{ctx && notes.length ? '(' + notes.length + ')' : ''}</span>
         </h1>
-        <button id="notes-close" title="Chiudi le note (N)" onClick={() => setNotesVisible(false)}>
+        <button id="notes-close" title={t('Chiudi le note (N)')} onClick={() => setNotesVisible(false)}>
           ✕
         </button>
       </header>
       <ul id="notes-list" ref={listRef}>
         {ctx && !notes.length && (
-          <li className="empty">Ancora nessuna nota. Fermati su un momento della partita e scrivi la prima.</li>
+          <li className="empty">{t('Ancora nessuna nota. Fermati su un momento della partita e scrivi la prima.')}</li>
         )}
         {ctx &&
           notes.map((note) => (
@@ -79,7 +82,7 @@ export function NotesPanel() {
                 {ctx.mine && (
                   <button
                     className="del"
-                    title="Elimina la nota"
+                    title={t('Elimina la nota')}
                     onClick={(e) => {
                       e.stopPropagation();
                       removeNote(note);
@@ -98,7 +101,7 @@ export function NotesPanel() {
           id="note-text"
           rows="2"
           maxLength="500"
-          placeholder="Scrivi una nota su questo momento della partita…"
+          placeholder={t('Scrivi una nota su questo momento della partita…')}
           ref={textRef}
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -109,13 +112,13 @@ export function NotesPanel() {
             type="text"
             id="note-author"
             maxLength="30"
-            placeholder="Il tuo nome"
+            placeholder={t('Il tuo nome')}
             ref={authorRef}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
           <button className="primary" id="note-send" disabled={sending}>
-            {ctx ? 'Aggiungi a ' + turnLabel(cur) : 'Aggiungi'}
+            {ctx ? t('Aggiungi a {turn}', { turn: turnLabel(cur) }) : t('Aggiungi')}
           </button>
         </div>
       </form>

@@ -7,6 +7,7 @@ import * as Core from '../core/index.js';
 import { getSetting } from './settings.js';
 import { pause, play } from './playback.js';
 import { listLogs } from './folder.js';
+import { t } from '../i18n/index.js';
 
 // ---------- menu di benvenuto ----------
 export function showHome() {
@@ -54,15 +55,21 @@ export function runDebug() {
   const r = Core.buildSnapshots(parsed, { debug: true });
   const assigned = parsed.steps.reduce((sum, step) => sum + step.moves.length, 0);
   const lines = [
-    `step: ${parsed.steps.length} · mosse: ${parsed.moveCount} (assegnate ${assigned}) · turni: ${parsed.turns.length}`,
+    t('step: {steps} · mosse: {moves} (assegnate {assigned}) · turni: {turns}', {
+      steps: parsed.steps.length,
+      moves: parsed.moveCount,
+      assigned,
+      turns: parsed.turns.length,
+    }),
+    // le singole righe di incoerenze e dubbi vengono dal motore e restano in italiano: servono a chi sviluppa
     r.mismatches.length
-      ? r.mismatches.length + ' incoerenze:\n' + r.mismatches.join('\n')
-      : '✓ nessuna incoerenza con i CHK e gli snapshot del log',
+      ? t('{n} incoerenze:', { n: r.mismatches.length }) + '\n' + r.mismatches.join('\n')
+      : t('✓ nessuna incoerenza con i CHK e gli snapshot del log'),
     r.doubts.length
-      ? r.doubts.length +
-        ' dubbi (carte riposate o attive che non tornano con le regole del gioco):\n' +
+      ? t('{n} dubbi (carte riposate o attive che non tornano con le regole del gioco):', { n: r.doubts.length }) +
+        '\n' +
         r.doubts.join('\n')
-      : '✓ nessun dubbio su carte riposate e attive',
+      : t('✓ nessun dubbio su carte riposate e attive'),
   ];
   set({ debugText: lines.join('\n') });
 }

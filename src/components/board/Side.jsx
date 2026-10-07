@@ -4,6 +4,7 @@ import { set } from '../../store.js';
 import { nick, cls } from '../../lib/format.js';
 import { Card, LifeBack, CardBack } from './Card.jsx';
 import { visibleZones } from './combat.js';
+import { useT } from '../../i18n/useT.js';
 
 /**
  * @param {object} state   lo stato del tavolo a questo step
@@ -12,6 +13,7 @@ import { visibleZones } from './combat.js';
  * @param {number} stepKey cambia a ogni step: i DON della Cost Area vengono ricreati, così non scivolano da un posto all'altro
  */
 export function Side({ state, p, marks, stepKey }) {
+  const t = useT();
   const P = state.players[p];
   const isOpp = p === 2;
   const { resolving, trash } = visibleZones(state, p);
@@ -47,13 +49,13 @@ export function Side({ state, p, marks, stepKey }) {
       <div className={cls('a-name', resolving && 'res')}>
         <div>{nick(P.name || (p === 1 ? 'You' : 'Opponent'))}</div>
         <small>{'Deck ' + P.deck + ' · DON ' + activeDon + '/' + P.donPool.length}</small>
-        {state.active === p && <div className="turn">{'● turno ' + state.turn}</div>}
+        {state.active === p && <div className="turn">{'● ' + t('turno {n}', { n: state.turn })}</div>}
       </div>
 
       {/* evento in risoluzione: resta accanto al leader finché non ha finito */}
       <div className="area a-resolve">
         {resolving && card(resolving)}
-        {resolving && <span className="rtag">in risoluzione</span>}
+        {resolving && <span className="rtag">{t('in risoluzione')}</span>}
       </div>
 
       <div className="area a-leader">{card(P.leader, { myTurn: state.active === p })}</div>

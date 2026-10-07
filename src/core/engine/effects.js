@@ -45,7 +45,13 @@ export function applyText(state, st, dbg, doubts) {
       break;
     // carte guardate in cima al mazzo: restano in vista finché quella presa non va in mano e le altre non tornano in fondo
     case 'look':
-      state.look = { p: st.player, title: st.text, cards: st.look.map((id) => ({ uid: nextUid(), id })) };
+      // src: il nome della carta che fa guardare (la pagina compone il titolo nella lingua scelta)
+      state.look = {
+        p: st.player,
+        title: st.text,
+        src: st.src ? st.src.name : '',
+        cards: st.look.map((id) => ({ uid: nextUid(), id })),
+      };
       break;
     case 'bottom':
       state.look = null;

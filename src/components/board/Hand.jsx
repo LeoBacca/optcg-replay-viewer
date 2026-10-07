@@ -3,9 +3,11 @@ import { useLayoutEffect, useRef } from 'react';
 import { useStore } from '../../store.js';
 import { Card, CardBack } from './Card.jsx';
 import { combatMarks, visibleZones } from './combat.js';
+import { useT } from '../../i18n/useT.js';
 
 /** @param {number} p  1 = la tua mano (in basso), 2 = quella dell'avversario (in alto) */
 export function Hand({ p }) {
+  const t = useT();
   const state = useStore((s) => s.snaps[s.cur]);
   const oppHand = useStore((s) => s.oppHand);
   const ref = useRef(null);
@@ -29,7 +31,9 @@ export function Hand({ p }) {
     return (
       <div className="hand" id={id} ref={ref}>
         {hand.map((c) => (showKnown && c.known ? card(c) : <CardBack key={'back' + c.uid} />))}
-        <div className="hcnt">{hand.length + ' carte in mano' + (showKnown ? ', ' + knownCount + ' note' : '')}</div>
+        <div className="hcnt">
+          {t('{n} carte in mano', { n: hand.length }) + (showKnown ? ', ' + t('{n} note', { n: knownCount }) : '')}
+        </div>
       </div>
     );
   }

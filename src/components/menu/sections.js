@@ -6,6 +6,7 @@
 //   { ..., type: 'seg', opts: [[valore, testo]], get, set }   scelta tra pochi valori
 //   { type: 'match' | 'recent' | 'keys' }               blocchi speciali: scheda della partita, log recenti, tasti
 // In più: enabled: false la mostra spenta; pref: true la fa comparire anche in Impostazioni (menu di benvenuto).
+// I testi sono in italiano dentro t(): la traduzione inglese sta in src/i18n/en.js.
 import { get, set } from '../../store.js';
 import { isVertical, isDesktop } from '../../lib/platform.js';
 import { goTo, pause, togglePlay, setSpeed } from '../../game/playback.js';
@@ -14,19 +15,21 @@ import { showHome, openDrop, setOppHand, toggleLog, toggleDebug, toggleInk, setN
 import { pickFolder } from '../../game/folder.js';
 import { shareCurrent, shareReady, openShareSettings } from '../../game/share.js';
 import { getTrainer, trainerLab, refreshTrainerUi } from '../../trainer/bridge.js';
+import { t, LANGUAGES } from '../../i18n/index.js';
 
 export const GITHUB_URL = 'https://github.com/LeoBacca/optcg-replay-viewer';
 
-export const KEYS = [
-  ['Spazio', 'Play / Pausa'],
-  ['← →', 'Indietro / avanti'],
-  ['Home / End', 'Inizio / fine'],
-  ['H', 'Mano avversario'],
-  ['L', 'Log eventi'],
-  ['D', 'Pennarello'],
-  ['N', 'Note'],
-  ['M', 'Menu'],
-  ['Esc', 'Chiudi'],
+/** I tasti del replay, con quello che fanno (una funzione, così i testi seguono la lingua scelta). */
+export const keyList = () => [
+  [t('Spazio'), t('Play / Pausa')],
+  ['← →', t('Indietro / avanti')],
+  ['Home / End', t('Inizio / fine')],
+  ['H', t('Mano avversario')],
+  ['L', t('Log eventi')],
+  ['D', t('Pennarello')],
+  ['N', t('Note')],
+  ['M', t('Menu')],
+  ['Esc', t('Chiudi')],
 ];
 
 // un interruttore legato a un'impostazione salvata
@@ -42,26 +45,26 @@ export function menuSections() {
 
   return [
     {
-      title: 'Partita',
+      title: t('Partita'),
       items: [
         { type: 'match' },
-        { ic: '🏠', label: 'Menu principale', hint: 'Replay, Stats, Impostazioni, Tutorial', on: showHome },
+        { ic: '🏠', label: t('Menu principale'), hint: t('Replay, Stats, Impostazioni, Tutorial'), on: showHome },
         {
           ic: '📚',
-          label: 'Raccolta e statistiche',
-          hint: 'tutte le partite della cartella, winrate per matchup',
+          label: t('Raccolta e statistiche'),
+          hint: t('tutte le partite della cartella, winrate per matchup'),
           on: openDrop,
         },
         {
           ic: '📂',
-          label: 'Apri un log…',
-          hint: 'scegli un file .log di OPTCGSim',
+          label: t('Apri un log…'),
+          hint: t('scegli un file .log di OPTCGSim'),
           on: () => document.getElementById('file').click(),
         },
         {
           ic: '📁',
-          label: s.hasFolder ? 'Cambia cartella dei log' : 'Scegli la cartella dei log',
-          hint: s.folderName || 'i log nuovi compaiono da soli',
+          label: s.hasFolder ? t('Cambia cartella dei log') : t('Scegli la cartella dei log'),
+          hint: s.folderName || t('i log nuovi compaiono da soli'),
           pref: true,
           on: () => {
             openDrop();
@@ -72,19 +75,21 @@ export function menuSections() {
       ],
     },
     {
-      title: 'Condivisione',
+      title: t('Condivisione'),
       items: [
         {
           ic: '🔗',
-          label: s.share ? 'Copia il link di questa partita' : 'Genera link',
-          hint: s.share ? s.share.url : 'pagina pubblica con questo replay, dove chi la apre può lasciare note',
+          label: s.share ? t('Copia il link di questa partita') : t('Genera link'),
+          hint: s.share ? s.share.url : t('pagina pubblica con questo replay, dove chi la apre può lasciare note'),
           on: shareCurrent,
           enabled: loaded,
         },
         {
           ic: '💬',
-          label: 'Note',
-          hint: notesActive ? 'commenti ancorati a un momento della partita' : 'disponibili dopo aver generato il link',
+          label: t('Note'),
+          hint: notesActive
+            ? t('commenti ancorati a un momento della partita')
+            : t('disponibili dopo aver generato il link'),
           type: 'toggle',
           kbd: 'N',
           get: () => get().notesVisible,
@@ -93,26 +98,26 @@ export function menuSections() {
         },
         {
           ic: '🔑',
-          label: 'Server e token',
-          hint: shareReady() ? 'configurato' : 'servono per generare i link',
+          label: t('Server e token'),
+          hint: shareReady() ? t('configurato') : t('servono per generare i link'),
           pref: true,
           on: openShareSettings,
         },
       ],
     },
     {
-      title: 'Riproduzione',
+      title: t('Riproduzione'),
       items: [
         {
           ic: s.playing ? '❚❚' : '▶',
-          label: s.playing ? 'Pausa' : 'Play',
-          kbd: 'Spazio',
+          label: s.playing ? t('Pausa') : t('Play'),
+          kbd: t('Spazio'),
           on: togglePlay,
           enabled: loaded,
         },
         {
           ic: '⏱',
-          label: 'Velocità',
+          label: t('Velocità'),
           pref: true,
           type: 'seg',
           opts: [
@@ -127,7 +132,7 @@ export function menuSections() {
         },
         {
           ic: '⏮',
-          label: 'Inizio partita',
+          label: t('Inizio partita'),
           kbd: 'Home',
           on: () => {
             pause();
@@ -137,7 +142,7 @@ export function menuSections() {
         },
         {
           ic: '⏭',
-          label: 'Fine partita',
+          label: t('Fine partita'),
           kbd: 'End',
           on: () => {
             pause();
@@ -147,48 +152,58 @@ export function menuSections() {
         },
         {
           ic: '🔁',
-          label: "Play automatico all'apertura",
-          hint: 'altrimenti il replay parte in pausa',
+          label: t("Play automatico all'apertura"),
+          hint: t('altrimenti il replay parte in pausa'),
           pref: true,
           ...settingToggle('autoplay'),
         },
         {
           ic: '✨',
-          label: 'Animazioni delle carte',
-          hint: 'life → mano, mano → campo, campo → trash…',
+          label: t('Animazioni delle carte'),
+          hint: t('life → mano, mano → campo, campo → trash…'),
           pref: true,
           ...settingToggle('anim'),
         },
       ],
     },
     {
-      title: 'Vista',
+      title: t('Vista'),
       items: [
+        // la lingua: l'etichetta resta scritta in tutte e due, così la trova anche chi non legge quella scelta
+        {
+          ic: '🌐',
+          label: 'Language · Lingua',
+          pref: true,
+          type: 'seg',
+          opts: LANGUAGES,
+          get: () => getSetting('lang'),
+          set: (v) => setSetting('lang', v),
+        },
         {
           ic: '👁',
-          label: "Mano dell'avversario",
+          label: t("Mano dell'avversario"),
           pref: true,
           type: 'seg',
           kbd: 'H',
           opts: [
-            ['all', 'tutte'],
-            ['known', 'note'],
-            ['hidden', 'coperte'],
+            ['all', t('tutte')],
+            ['known', t('note')],
+            ['hidden', t('coperte')],
           ],
           get: () => get().oppHand,
           set: setOppHand,
         },
         {
           ic: '🔍',
-          label: vertical ? 'Anteprima carta' : 'Anteprima carta a destra',
-          hint: vertical ? 'tocca una carta per ingrandirla' : 'al passaggio del mouse',
+          label: vertical ? t('Anteprima carta') : t('Anteprima carta a destra'),
+          hint: vertical ? t('tocca una carta per ingrandirla') : t('al passaggio del mouse'),
           pref: true,
           ...settingToggle('preview'),
         },
         {
           ic: '📜',
-          label: 'Log degli eventi',
-          hint: 'pannello con tutte le mosse',
+          label: t('Log degli eventi'),
+          hint: t('pannello con tutte le mosse'),
           type: 'toggle',
           kbd: 'L',
           get: () => get().logOpen,
@@ -199,8 +214,8 @@ export function menuSections() {
           ? [
               {
                 ic: '🧠',
-                label: 'Fondo del mazzo',
-                hint: 'le carte che hai mandato sotto fin qui, coperte: B le scopre',
+                label: t('Fondo del mazzo'),
+                hint: t('le carte che hai mandato sotto fin qui, coperte: B le scopre'),
                 type: 'toggle',
                 get: trainer.panelOn,
                 set: (v) => {
@@ -213,13 +228,15 @@ export function menuSections() {
       ],
     },
     {
-      title: 'Strumenti',
+      title: t('Strumenti'),
       items: [
         // nel layout verticale il pennarello si accende solo da qui (non c'è il suo pulsante sul tavolo): mette in pausa da sé
         {
           ic: '🖍',
-          label: 'Pennarello',
-          hint: vertical ? 'disegna sul tavolo col dito; al Play si cancella' : 'solo in pausa; al Play si cancella',
+          label: t('Pennarello'),
+          hint: vertical
+            ? t('disegna sul tavolo col dito; al Play si cancella')
+            : t('solo in pausa; al Play si cancella'),
           kbd: 'D',
           on: () => {
             if (isVertical()) pause();
@@ -229,8 +246,8 @@ export function menuSections() {
         },
         {
           ic: '🧪',
-          label: 'Verifiche di coerenza',
-          hint: 'confronta lo stato con i CHK del log',
+          label: t('Verifiche di coerenza'),
+          hint: t('confronta lo stato con i CHK del log'),
           on: toggleDebug,
           enabled: !!s.parsed,
         },
@@ -239,8 +256,8 @@ export function menuSections() {
           ? [
               {
                 ic: '🧠',
-                label: 'Funzioni in prova',
-                hint: 'Memory Trainer: allena la memoria sul fondo del mazzo',
+                label: t('Funzioni in prova'),
+                hint: t('Memory Trainer: allena la memoria sul fondo del mazzo'),
                 pref: true,
                 ...settingToggle('lab'),
               },
@@ -249,12 +266,12 @@ export function menuSections() {
       ],
     },
     {
-      title: 'Aiuto',
+      title: t('Aiuto'),
       items: [
         { type: 'keys' },
         {
           ic: '🌐',
-          label: 'Sito e codice sorgente',
+          label: t('Sito e codice sorgente'),
           hint: GITHUB_URL.replace('https://', ''),
           on: () => window.open(GITHUB_URL, '_blank', 'noopener'),
         },

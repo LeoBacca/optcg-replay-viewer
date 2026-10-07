@@ -9,6 +9,7 @@ import { pause, play } from './playback.js';
 import { runDebug } from './view.js';
 import { shareOf } from './library.js';
 import { resetNotes, loadNotes } from './notes.js';
+import { t } from '../i18n/index.js';
 
 // se l'utente apre un altro log mentre questo sta ancora caricando le immagini, vince l'ultimo
 let lastLoad = 0;
@@ -29,7 +30,7 @@ export async function loadText(text, fileName, logRef) {
   const parsed = Core.parseLog(text);
   const snaps = Core.buildSnapshots(parsed).snapshots;
   if (!snaps.length) {
-    set({ progress: 'Nessuna mossa trovata in ' + fileName });
+    set({ progress: t('Nessuna mossa trovata in {name}', { name: fileName }) });
     return;
   }
 
@@ -73,7 +74,7 @@ export async function loadText(text, fileName, logRef) {
 /** Apre un file scelto o trascinato dall'utente. */
 export async function loadFile(file, logRef) {
   if (!file) return;
-  set({ progress: 'Leggo ' + file.name + '…' });
+  set({ progress: t('Leggo {name}…', { name: file.name }) });
   await loadText(await file.text(), file.name, logRef);
 }
 
@@ -95,11 +96,11 @@ function cardIds(parsed, snaps) {
 function preloadImages(ids) {
   const total = ids.size;
   let done = 0;
-  set({ progress: 'Carico le carte… 0 / ' + total });
+  set({ progress: t('Carico le carte… {done} / {total}', { done: 0, total }) });
   const all = [...ids].map((id) =>
     preloadImage(id).then(() => {
       done++;
-      set({ progress: 'Carico le carte… ' + done + ' / ' + total });
+      set({ progress: t('Carico le carte… {done} / {total}', { done, total }) });
     }),
   );
   const timeout = new Promise((resolve) => setTimeout(resolve, PRELOAD_TIMEOUT_MS));

@@ -9,6 +9,7 @@ import { goTo, pause } from './playback.js';
 import { openNotes } from './notes.js';
 import { setNotesVisible } from './view.js';
 import { shareHeaders } from './share.js';
+import { t } from '../i18n/index.js';
 
 export function openFromUrl() {
   const query = new URLSearchParams(location.search);
@@ -25,11 +26,13 @@ export function openFromUrl() {
       base: location.origin,
       url: location.origin + location.pathname + '?r=' + encodeURIComponent(replayId),
     };
-    set({ progress: 'Carico il replay…' });
+    set({ progress: t('Carico il replay…') });
     fetch(share.base + '/api/replays/' + encodeURIComponent(share.id), { headers: shareHeaders(share.base) })
       .then(async (response) => {
         const body = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(body.error || 'errore ' + response.status);
+        // i messaggi del server sono in italiano: t() li traduce (sono in src/i18n/en.js)
+        if (!response.ok)
+          throw new Error(body.error ? t(body.error) : t('errore {status}', { status: response.status }));
         return body;
       })
       .then(async (body) => {
@@ -40,7 +43,7 @@ export function openFromUrl() {
         setNotesVisible(!isVertical());
         jumpToStep();
       })
-      .catch((e) => set({ progress: 'Non riesco ad aprire il replay: ' + e.message }));
+      .catch((e) => set({ progress: t('Non riesco ad aprire il replay: {error}', { error: e.message }) }));
     return;
   }
 
@@ -50,6 +53,6 @@ export function openFromUrl() {
       .then((response) => response.text())
       .then((text) => loadText(text, logUrl))
       .then(jumpToStep)
-      .catch((e) => set({ progress: 'Errore caricamento: ' + e.message }));
+      .catch((e) => set({ progress: t('Errore caricamento: {error}', { error: e.message }) }));
   }
 }

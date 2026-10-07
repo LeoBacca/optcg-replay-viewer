@@ -9,24 +9,30 @@ import { hideHome, openLibrary } from '../game/view.js';
 import { getTrainer, trainerLab } from '../trainer/bridge.js';
 import { MenuRow, KeyList } from './menu/Menu.jsx';
 import { settingsSections } from './menu/sections.js';
+import { t } from '../i18n/index.js';
+import { useT } from '../i18n/useT.js';
 
 // Le voci del menu principale. show: false nasconde la voce.
 function homeItems() {
   const loaded = get().snaps.length > 0;
   const goToPage = (page) => () => set({ homePage: page });
   return [
-    { label: 'Continua', hint: 'torna alla partita aperta', on: hideHome, show: loaded },
-    { label: 'Replay', hint: 'tutte le tue partite, pronte da rivedere', on: () => openLibrary('games') },
-    { label: 'Stats', hint: 'winrate per leader e per matchup', on: () => openLibrary('stats') },
+    { label: t('Continua'), hint: t('torna alla partita aperta'), on: hideHome, show: loaded },
+    { label: t('Replay'), hint: t('tutte le tue partite, pronte da rivedere'), on: () => openLibrary('games') },
+    { label: t('Stats'), hint: t('winrate per leader e per matchup'), on: () => openLibrary('stats') },
     {
       label: 'Memory Trainer',
-      hint: 'ricorda le carte in fondo al mazzo',
+      hint: t('ricorda le carte in fondo al mazzo'),
       on: () => getTrainer().open(),
       show: trainerLab(),
     },
-    { label: 'Impostazioni', hint: 'cartella dei log, riproduzione, condivisione', on: goToPage('settings') },
-    { label: 'Tutorial', hint: 'come funziona, in un minuto', on: goToPage('tutorial') },
-    { label: 'Esci', on: () => window.close(), show: isDesktop },
+    {
+      label: t('Impostazioni'),
+      hint: t('lingua, cartella dei log, riproduzione, condivisione'),
+      on: goToPage('settings'),
+    },
+    { label: t('Tutorial'), hint: t('come funziona, in un minuto'), on: goToPage('tutorial') },
+    { label: t('Esci'), on: () => window.close(), show: isDesktop },
   ].filter((item) => item.show !== false);
 }
 
@@ -57,6 +63,7 @@ export function homeKey(e) {
 }
 
 export function Home() {
+  const t = useT();
   const open = useStore((s) => s.homeOpen);
   const page = useStore((s) => s.homePage);
   const homeSel = useStore((s) => s.homeSel);
@@ -104,10 +111,10 @@ export function Home() {
         <h1>
           OPTCG <span>REPLAY</span>
         </h1>
-        <p>Rivedi le tue partite di OPTCGSim</p>
+        <p>{t('Rivedi le tue partite di OPTCGSim')}</p>
       </header>
 
-      <nav id="home-nav" aria-label="Menu principale" hidden={page !== 'main'} ref={navRef}>
+      <nav id="home-nav" aria-label={t('Menu principale')} hidden={page !== 'main'} ref={navRef}>
         {items.map((item, i) => (
           <button
             key={item.label}
@@ -126,9 +133,9 @@ export function Home() {
       <section className="hsub" id="home-settings" hidden={page !== 'settings'}>
         <header>
           <button className="hback" onClick={back}>
-            ‹ Indietro
+            {t('‹ Indietro')}
           </button>
-          <h2>Impostazioni</h2>
+          <h2>{t('Impostazioni')}</h2>
         </header>
         <div className="body">{page === 'settings' && <SettingsRows />}</div>
       </section>
@@ -136,47 +143,52 @@ export function Home() {
       <section className="hsub" id="home-tutorial" hidden={page !== 'tutorial'}>
         <header>
           <button className="hback" onClick={back}>
-            ‹ Indietro
+            {t('‹ Indietro')}
           </button>
-          <h2>Tutorial</h2>
+          <h2>{t('Tutorial')}</h2>
         </header>
         <div className="body">
           <ol className="steps">
-            <TutorialStep title="Scegli la cartella dei log">
-              Indica una volta la cartella dove OPTCGSim salva i combat log: le partite nuove compaiono da sole. In
-              alternativa trascina un file .log nella finestra.
+            <TutorialStep title={t('Scegli la cartella dei log')}>
+              {t(
+                'Indica una volta la cartella dove OPTCGSim salva i combat log: le partite nuove compaiono da sole. In alternativa trascina un file .log nella finestra.',
+              )}
             </TutorialStep>
-            <TutorialStep title="Apri una partita">
-              In Replay c'è una riga per partita: data, leader, chi ha iniziato, turni ed esito. Un click e il replay
-              parte.
+            <TutorialStep title={t('Apri una partita')}>
+              {t(
+                "In Replay c'è una riga per partita: data, leader, chi ha iniziato, turni ed esito. Un click e il replay parte.",
+              )}
             </TutorialStep>
-            <TutorialStep title="Rivedila mossa per mossa">
-              Spazio per play e pausa, le frecce per andare avanti e indietro di una mossa, la barra in basso per
-              saltare a un turno. In pausa puoi scarabocchiare sul tavolo con il pennarello.
+            <TutorialStep title={t('Rivedila mossa per mossa')}>
+              {t(
+                'Spazio per play e pausa, le frecce per andare avanti e indietro di una mossa, la barra in basso per saltare a un turno. In pausa puoi scarabocchiare sul tavolo con il pennarello.',
+              )}
             </TutorialStep>
-            <TutorialStep title="Guarda i numeri">
-              In Stats trovi il winrate di ogni tuo leader contro ogni leader avversario, diviso anche tra partite
-              iniziate da primo e da secondo.
+            <TutorialStep title={t('Guarda i numeri')}>
+              {t(
+                'In Stats trovi il winrate di ogni tuo leader contro ogni leader avversario, diviso anche tra partite iniziate da primo e da secondo.',
+              )}
             </TutorialStep>
-            <TutorialStep title="Condividi e commenta">
-              Genera link crea una pagina pubblica del replay: chi la apre può lasciare note su un momento preciso della
-              partita. Serve un token personale, che si imposta in Impostazioni.
+            <TutorialStep title={t('Condividi e commenta')}>
+              {t(
+                'Genera link crea una pagina pubblica del replay: chi la apre può lasciare note su un momento preciso della partita. Serve un token personale, che si imposta in Impostazioni.',
+              )}
             </TutorialStep>
           </ol>
-          <h3>Tasti durante il replay</h3>
+          <h3>{t('Tasti durante il replay')}</h3>
           <KeyList />
         </div>
       </section>
 
       <footer>
         <span>
-          <kbd>↑</kbd> <kbd>↓</kbd> scegli
+          <kbd>↑</kbd> <kbd>↓</kbd> {t('scegli')}
         </span>
         <span>
-          <kbd>Invio</kbd> conferma
+          <kbd>{t('Invio')}</kbd> {t('conferma')}
         </span>
         <span>
-          <kbd>Esc</kbd> indietro
+          <kbd>Esc</kbd> {t('indietro')}
         </span>
       </footer>
     </div>

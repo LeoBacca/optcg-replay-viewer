@@ -3,8 +3,11 @@
 import { useStore } from '../../store.js';
 import { cls } from '../../lib/format.js';
 import { Card, CardBack } from './Card.jsx';
+import { useT } from '../../i18n/useT.js';
+import { lookText } from '../../lib/step-label.js';
 
 export function LookBox() {
+  const t = useT();
   const look = useStore((s) => s.snaps[s.cur]?.look);
   const oppHand = useStore((s) => s.oppHand);
 
@@ -21,8 +24,8 @@ export function LookBox() {
   return (
     <div id="look" className={cls('show', 'p' + look.p)}>
       <div className="ltitle">
-        {(look.p === 1 ? 'Tu' : 'Avv') + ' · ' + look.title}
-        {hidden && <small>coperte: Mano avv</small>}
+        {(look.p === 1 ? t('Tu') : t('Avv')) + ' · ' + lookText(look.src, look.cards.length)}
+        {hidden && <small>{t('coperte: Mano avv')}</small>}
       </div>
       <div className="lcards">
         {look.cards.map((c) =>

@@ -11,10 +11,10 @@ import { kvGet, kvSet } from '../lib/storage.js';
 import { metaOf } from '../lib/cards.js';
 import { desktop } from '../lib/platform.js';
 import { fmtDate } from '../lib/format.js';
+import { t } from '../i18n/index.js';
 
 // da alzare quando cambia ciò che esce da Core.summarize: l'indice salvato viene rifatto
 const INDEX_VERSION = 2;
-const RESULT_LETTER = { w: 'V', l: 'S', o: '–' };
 
 let items = null; // null finché l'indice salvato non è stato letto
 let lastSync = 0; // una sync più recente (cartella cambiata, log nuovo) ferma quella in corso
@@ -47,20 +47,21 @@ export const leaderName = (leader) => (leader ? (metaOf(leader.id) || {}).name |
 /** Quando è stata giocata: la data nel nome del file, altrimenti la data di modifica. */
 export const dateOf = (logFile) => fmtDate(new Date(Core.gameDate(logFile.name) || logFile.mtime));
 
-/** "3 V · 1 S · 2 incerte" */
+/** "3 V · 1 S · 2 incerte" (in inglese "3 W · 1 L · 2 unsure") */
 export function recordText(bucket) {
-  const open = bucket.open ? ' · ' + bucket.open + (bucket.open === 1 ? ' incerta' : ' incerte') : '';
-  return bucket.w + ' V · ' + bucket.l + ' S' + open;
+  const open = bucket.open ? ' · ' + t(bucket.open === 1 ? '{n} incerta' : '{n} incerte', { n: bucket.open }) : '';
+  return bucket.w + ' ' + t('V') + ' · ' + bucket.l + ' ' + t('S') + open;
 }
 
-export const resultLetter = (outcome) => RESULT_LETTER[outcome];
+/** La lettera dell'esito: V (vittoria), S (sconfitta) o – (incerta); in inglese W e L. */
+export const resultLetter = (outcome) => (outcome === 'w' ? t('V') : outcome === 'l' ? t('S') : '–');
 
 /** Etichetta breve per menu e tendina: "V · Mihawk vs Shanks", oppure il nome del file se non è ancora analizzato. */
 export function labelOf(logFile) {
   const summary = summaryOf(logFile);
   if (!summary) return logFile.name.replace(/\.log$/i, '');
   const outcome = Core.outcome(summary);
-  const prefix = outcome === 'o' ? '' : RESULT_LETTER[outcome] + ' · ';
+  const prefix = outcome === 'o' ? '' : resultLetter(outcome) + ' · ';
   return prefix + leaderName(summary.me.leader) + ' vs ' + leaderName(summary.opp.leader);
 }
 
@@ -105,7 +106,7 @@ export async function syncLibrary() {
   changed();
 
   for (let n = 0; n < todo.length; n++) {
-    set({ libProgress: 'Analizzo le partite… ' + n + ' / ' + todo.length });
+    set({ libProgress: t('Analizzo le partite… {done} / {total}', { done: n, total: todo.length }) });
     let summary;
     try {
       summary = Core.summarize(await readText(todo[n]));

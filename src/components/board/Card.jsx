@@ -5,9 +5,17 @@ import { cls } from '../../lib/format.js';
 import { isVertical } from '../../lib/platform.js';
 import { showPreview } from '../../game/view.js';
 import { useCardImage } from '../useCardImage.js';
+import { useT } from '../../i18n/useT.js';
 
 // perché conosciamo una carta nella mano dell'avversario
-const KNOWN_LABELS = { field: 'tornata in mano', trash: 'dal trash', revealed: 'rivelata' };
+const knownLabel = (t, known) =>
+  known === 'field'
+    ? t('tornata in mano')
+    : known === 'trash'
+      ? t('dal trash')
+      : known === 'revealed'
+        ? t('rivelata')
+        : '';
 
 /**
  * @param {object} card     la carta nello stato del tavolo: { uid, id, rested, don, known, frozen }
@@ -18,6 +26,7 @@ const KNOWN_LABELS = { field: 'tornata in mano', trash: 'dal trash', revealed: '
  * @param {boolean} [inTrash]  la carta in cima al trash: al tocco si apre l'elenco, non l'anteprima
  */
 export function Card({ card, player, role, power, myTurn, inTrash }) {
+  const t = useT();
   const image = useCardImage(card.id);
   const don = card.don || 0;
 
@@ -54,8 +63,8 @@ export function Card({ card, player, role, power, myTurn, inTrash }) {
         {'DON!! ×' + don}
       </span>
       <span className={cls('pw', power != null && 'show')}>{power}</span>
-      <span className={cls('known', card.known && 'show')}>{KNOWN_LABELS[card.known] || ''}</span>
-      <span className={cls('frz', card.frozen && 'show')}>❄ non stappa</span>
+      <span className={cls('known', card.known && 'show')}>{knownLabel(t, card.known)}</span>
+      <span className={cls('frz', card.frozen && 'show')}>❄ {t('non stappa')}</span>
     </div>
   );
 }

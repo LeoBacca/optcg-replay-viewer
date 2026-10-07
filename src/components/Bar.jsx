@@ -2,17 +2,20 @@
 // scorrimento della partita, e i pulsanti di note, link, mano avversaria, log e raccolta.
 import { useStore, set, get } from '../store.js';
 import { cls, fmtDate } from '../lib/format.js';
-import { OPP_HAND_LABELS } from '../lib/opp-hand.js';
+import { oppHandLabel } from '../lib/opp-hand.js';
 import { isVertical } from '../lib/platform.js';
 import { goTo, next, prev, pause, togglePlay, setSpeed } from '../game/playback.js';
 import { nextOppHand, toggleLog, openDrop, setNotesVisible } from '../game/view.js';
 import { openLog } from '../game/folder.js';
 import { shareCurrent } from '../game/share.js';
 import { currentLogIndex } from '../game/library.js';
+import { stepLabel } from '../lib/step-label.js';
+import { useT } from '../i18n/useT.js';
 
 const SPEEDS = [0.5, 1, 1.5, 2, 3];
 
 export function Bar() {
+  const t = useT();
   const parsed = useStore((s) => s.parsed);
   const total = useStore((s) => s.snaps.length);
   const cur = useStore((s) => s.cur);
@@ -33,43 +36,45 @@ export function Bar() {
   const step = loaded ? parsed.steps[cur] : null;
   // il turno a cui appartiene lo step mostrato (nessuno, durante la preparazione della partita)
   const turns = parsed ? parsed.turns : [];
-  const turnIndex = turns.findIndex((t, k) => cur >= t.first && (k === turns.length - 1 || cur < turns[k + 1].first));
+  const turnIndex = turns.findIndex(
+    (turn, k) => cur >= turn.first && (k === turns.length - 1 || cur < turns[k + 1].first),
+  );
   const logIndex = currentLogIndex();
 
   return (
     <footer id="bar">
       <button
         id="btn-menu"
-        title="Menu (M)"
+        title={t('Menu (M)')}
         className={menuOpen ? 'on' : ''}
         onClick={() => set({ menuOpen: !get().menuOpen })}
       >
-        ☰<span className="t"> Menu</span>
+        ☰<span className="t"> {t('Menu')}</span>
       </button>
       <button
         id="btn-prev"
-        title="Mossa precedente (←)"
+        title={t('Mossa precedente (←)')}
         onClick={() => {
           pause();
           prev();
         }}
       >
-        ◀<span className="t"> Prec</span>
+        ◀<span className="t"> {t('Prec')}</span>
       </button>
-      <button id="btn-play" className="primary" title="Play/Pausa (spazio)" onClick={togglePlay}>
-        {playing ? '❚❚ Pausa' : '▶ Play'}
+      <button id="btn-play" className="primary" title={t('Play/Pausa (spazio)')} onClick={togglePlay}>
+        {playing ? '❚❚ ' + t('Pausa') : '▶ ' + t('Play')}
       </button>
       <button
         id="btn-next"
-        title="Mossa successiva (→)"
+        title={t('Mossa successiva (→)')}
         onClick={() => {
           pause();
           next();
         }}
       >
-        <span className="t">Succ </span>▶
+        <span className="t">{t('Succ')} </span>▶
       </button>
-      <select id="speed" title="Velocità" value={speed} onChange={(e) => setSpeed(+e.target.value)}>
+      <select id="speed" title={t('Velocità')} value={speed} onChange={(e) => setSpeed(+e.target.value)}>
         {SPEEDS.map((v) => (
           <option key={v} value={v}>
             {v + '×'}
@@ -78,7 +83,7 @@ export function Bar() {
       </select>
       <select
         id="turns"
-        title="Vai al turno"
+        title={t('Vai al turno')}
         value={turnIndex >= 0 ? turnIndex : ''}
         onChange={(e) => {
           const turn = turns[+e.target.value];
@@ -87,9 +92,9 @@ export function Bar() {
       >
         {/* voce vuota e invisibile: è quella selezionata prima del primo turno */}
         {loaded && <option value="" hidden />}
-        {turns.map((t, k) => (
+        {turns.map((turn, k) => (
           <option key={k} value={k}>
-            {'Turno ' + t.n + ' · ' + (t.player === 1 ? 'Tu' : 'Avv')}
+            {t('Turno {n} · {who}', { n: turn.n, who: turn.player === 1 ? t('Tu') : t('Avv') })}
           </option>
         ))}
       </select>
@@ -115,40 +120,40 @@ export function Bar() {
           if (isVertical() && loaded) toggleLog();
         }}
       >
-        {step ? (step.turn ? 'T' + step.turn + ' · ' : '') + step.label : ''}
+        {step ? (step.turn ? 'T' + step.turn + ' · ' : '') + stepLabel(step) : ''}
       </span>
       <button
         id="btn-notes"
-        title="Note sul replay condiviso (N)"
+        title={t('Note sul replay condiviso (N)')}
         disabled={!notesCtx}
         className={notesVisible ? 'on' : ''}
         onClick={() => setNotesVisible(!notesVisible)}
       >
-        {'Note' + (notesCtx && notes.length ? ' (' + notes.length + ')' : '')}
+        {t('Note') + (notesCtx && notes.length ? ' (' + notes.length + ')' : '')}
       </button>
       <button
         id="btn-share"
-        title="Crea un link pubblico a questo replay, dove chi lo apre può lasciare note"
+        title={t('Crea un link pubblico a questo replay, dove chi lo apre può lasciare note')}
         disabled={!loaded}
         className={share ? 'on' : ''}
         onClick={shareCurrent}
       >
-        {share ? 'Copia link' : 'Genera link'}
+        {share ? t('Copia link') : t('Genera link')}
       </button>
       <button
         id="btn-hand"
-        title="Mano avversario: tutte, solo quelle note, coperte (H)"
+        title={t('Mano avversario: tutte, solo quelle note, coperte (H)')}
         className={oppHand !== 'hidden' ? 'on' : ''}
         onClick={nextOppHand}
       >
-        {OPP_HAND_LABELS[oppHand]}
+        {oppHandLabel(oppHand)}
       </button>
-      <button id="btn-log" title="Mostra/nascondi il log (L)" onClick={toggleLog}>
-        Log
+      <button id="btn-log" title={t('Mostra/nascondi il log (L)')} onClick={toggleLog}>
+        {t('Log')}
       </button>
       <select
         id="logsel"
-        title="Altri log della cartella"
+        title={t('Altri log della cartella')}
         hidden={!logFiles.length}
         value={logIndex >= 0 ? logIndex : 0}
         onChange={(e) => {
@@ -162,8 +167,8 @@ export function Bar() {
           </option>
         ))}
       </select>
-      <button id="btn-open" title="Raccolta delle partite, statistiche e apertura di un log" onClick={openDrop}>
-        Raccolta
+      <button id="btn-open" title={t('Raccolta delle partite, statistiche e apertura di un log')} onClick={openDrop}>
+        {t('Raccolta')}
       </button>
     </footer>
   );

@@ -8,11 +8,13 @@
 import { create } from 'zustand';
 import { loadSettings } from './lib/settings.js';
 import { loadOppHand } from './lib/opp-hand.js';
+import { setLanguage } from './i18n/index.js';
 
 // i link condivisi (?r=), ?log= e l'avvio dell'exe con --open-latest saltano il menu di benvenuto e mostrano subito il caricamento
 const skipHome = /[?&](r|log|open)=/.test(location.search);
 
 const settings = loadSettings();
+setLanguage(settings.lang);
 
 export const useStore = create(() => ({
   // ---- partita aperta ----
