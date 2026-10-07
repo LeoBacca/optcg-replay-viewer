@@ -5,7 +5,7 @@
 //   - se arriva prima della riga a cui si riferisce, lo step nuovo se la riprende dalla coda del precedente (lookAhead);
 //   - durante un combattimento le mosse restano "parcheggiate" finché non arriva l'esito (colpito, fallito, distrutto),
 //     perché il log le scrive prima del risultato ma sul tavolo devono vedersi dopo.
-import { MOVE, CHK, ACTOR, TAGS, RICH_REF } from '../log-format.js';
+import { MOVE, CHK, PLY, ACTOR, TAGS, RICH_REF } from '../log-format.js';
 import { refs, clean, stripName } from '../text.js';
 import { lastGame } from '../last-game.js';
 import { makeStep } from './step.js';
@@ -94,6 +94,12 @@ export function readSteps(text) {
     const raw = lines[li].replace(RICH_REF, '$1');
     if (!raw.trim()) continue;
     let m;
+    // "RZ1|PLY|1|Nome#1234|OP14-020": chi è il giocatore 1 e chi il 2, prima ancora della prima pescata
+    if ((m = PLY.exec(raw))) {
+      const name = stripName(m[2]);
+      if (!(name in nameMap)) nameMap[name] = +m[1];
+      continue;
+    }
     if ((m = MOVE.exec(raw))) {
       const mv = {
         seq: +m[1],
@@ -150,6 +156,7 @@ export function readSteps(text) {
       else if (actor === 'Opponent') player = 2;
       else {
         player = nameMap[actor] || 0;
+        if (player) players[player].name = actor;
       }
     }
     const text = clean(body);
@@ -157,7 +164,7 @@ export function readSteps(text) {
 
     // drop / assertions
     if (
-      /^(Waiting for a Connection|Attempting to connect|Your Client Has Connected|Version is|Opponent Has Connected|Opponent is Ready for Rematch|Will select turn order|Downloaded the Combat Log|RZ1\|)/.test(
+      /^(Waiting for a Connection|Attempting to connect|.+ Has Connected$|Version is|Opponent is Ready for Rematch|Will select turn order|Downloaded the Combat Log|RZ1\|)/.test(
         clean(body),
       ) ||
       /Downloaded the Combat Log/.test(raw)
@@ -311,6 +318,12 @@ export function readSteps(text) {
     if (st.parked.length) {
       st.moves.push(...st.parked);
       st.parked = [];
+    }
+  // log con i nomi al posto di [You]/[Opponent]: le righe "Leader is" arrivano prima che si sappia chi è chi
+  for (const st of steps)
+    if (st.kind === 'leader' && !st.player && st.actor in nameMap) {
+      st.player = nameMap[st.actor];
+      if (!players[st.player].leader) players[st.player].leader = st.cards[0];
     }
   return { players, nameMap, steps, moveCount, warnings };
 }

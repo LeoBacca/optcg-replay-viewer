@@ -295,6 +295,24 @@ test('un log di AutoSaved, con il markup intero sulle carte, si legge come quell
   assert.deepEqual(Core.summarize(richLog), Core.summarize(sampleLog));
 });
 
+// ---- log passato da un amico: i giocatori hanno il nome al posto di [You]/[Opponent] ----
+const ZW = String.fromCharCode(0x200b); // il sim mette uno spazio invisibile prima del #
+const ALICE = `Alice${ZW}#1111`, BOB = `Bob${ZW}#2222`;
+const namedLog = sampleLog
+  .replace('Your Client Has Connected', ALICE + ' Has Connected')
+  .replace('Opponent Has Connected', BOB + ' Has Connected')
+  .replace(/^\[You\] Chose to go .*$/m, `$&\nRZ1|HDR|1.43a|2|RZ1\nRZ1|PLY|1|${ALICE}|OP14-020\nRZ1|PLY|2|${BOB}|OP14-020`)
+  .replaceAll('[You]', `[${ALICE}]`)
+  .replaceAll('[Opponent]', `[${BOB}]`);
+
+test('un log con i nomi dei giocatori al posto di [You]/[Opponent] si legge uguale, leader compresi', () => {
+  const plain = replay(sampleLog), named = replay(namedLog);
+  assert.deepEqual(named.mismatches, []);
+  assert.deepEqual(shape(named.parsed), shape(plain.parsed));
+  const s = Core.summarize(namedLog), ref = Core.summarize(sampleLog);
+  assert.deepEqual([s.me.leader, s.opp.leader, s.first, s.result], [ref.me.leader, ref.opp.leader, ref.first, ref.result]);
+});
+
 test('di un file con più partite si legge l\'ultima giocata, senza le mosse che sgombrano il tavolo tra una e l\'altra', () => {
   const clear = ['RZ1|HDR|1.43a|2|RZ1', 'RZ1|PLY|1|LeoIlPirata#3980|OP14-020', 'RZ1|1|1|Don|9|9900|5|0|1|1|1|0|0', 'RZ1|CHK|1|1|27|6|4|2|0|8|11|0|1|2', 'Opponent is Ready for Rematch'];
   const first = ['Attempting to connect to ABC123', ...lines.slice(1)];

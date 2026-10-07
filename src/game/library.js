@@ -14,7 +14,7 @@ import { fmtDate } from '../lib/format.js';
 import { t } from '../i18n/index.js';
 
 // da alzare quando cambia ciò che esce da Core.summarize: l'indice salvato viene rifatto
-const INDEX_VERSION = 2;
+const INDEX_VERSION = 3;
 
 let items = null; // null finché l'indice salvato non è stato letto
 let lastSync = 0; // una sync più recente (cartella cambiata, log nuovo) ferma quella in corso
